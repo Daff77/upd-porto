@@ -1,16 +1,16 @@
-# Daffa Danendra Fairuzza — Developer Portfolio
+# Daffa Danendra Fairuzza: Developer Portfolio
 
 Personal developer portfolio for **Daffa Danendra Fairuzza**, Information Systems student at UIN Sunan Ampel Surabaya, focused on Web Development, Software Engineering, and Machine Learning.
 
 > "Building Software. Exploring Intelligence."
 
 ## Primary Focus Areas
-1. **Web Development** — Modern frontend architecture, responsive layouts, accessible UI design.
-2. **Software Development** — Systems analysis, structured software engineering, data modeling.
-3. **Machine Learning** — Foundations of computational intelligence, predictive analytics, decision support systems.
+1. **Web Development**: Modern frontend architecture, responsive layouts, accessible UI design.
+2. **Software Development**: Systems analysis, structured software engineering, data modeling.
+3. **Machine Learning**: Foundations of computational intelligence, predictive analytics, decision support systems.
 
 ## Featured Project
-- **RAPID-MIND** — Web-Based Emergency Psychological Triage System Concept.
+- **RAPID-MIND**: Web-Based Emergency Psychological Triage System Concept.
 
 ## Features
 - **5-Section Content Architecture**: Home, About Me, Featured Projects, Technical Focus, and Contact.

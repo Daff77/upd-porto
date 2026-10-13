@@ -1,43 +1,49 @@
 import React from 'react';
-import { FiUsers } from 'react-icons/fi';
+import { FiUsers, FiMapPin } from 'react-icons/fi';
 
 interface VisitorStatsProps {
   count: number | null;
   loading: boolean;
   error: string | null;
+  isLive?: boolean;
 }
 
-export const VisitorStats: React.FC<VisitorStatsProps> = ({ count, loading, error }) => {
+export const VisitorStats: React.FC<VisitorStatsProps> = ({ count, loading, error, isLive }) => {
   if (error) {
     return null;
   }
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 text-xs text-text-secondary dark:text-dark-text-secondary">
-        <FiUsers className="w-4 h-4 text-accent-green" />
-        <span>Loading users...</span>
+      <div className="flex items-center gap-1.5 text-xs text-text-secondary dark:text-dark-text-secondary">
+        <span className="w-1.5 h-1.5 rounded-full bg-accent-green"></span>
+        <span>Connecting...</span>
       </div>
     );
   }
 
-  if (!count) {
-    return null;
+  if (isLive && count) {
+    const formatCount = (num: number): string => {
+      return num.toLocaleString('en-US');
+    };
+
+    return (
+      <div className="flex items-center gap-1.5 text-xs text-text-secondary dark:text-dark-text-secondary">
+        <FiUsers className="w-3.5 h-3.5 text-accent-green" />
+        <span>
+          <span className="font-semibold text-text-primary dark:text-dark-text-primary">
+            {formatCount(count)}
+          </span>{' '}
+          verified visitors
+        </span>
+      </div>
+    );
   }
 
-  const formatCount = (num: number): string => {
-    return num.toLocaleString('en-IN');
-  };
-
   return (
-    <div className="flex items-center gap-2 text-xs text-text-secondary dark:text-dark-text-secondary">
-      <FiUsers className="w-4 h-4 text-accent-green" />
-      <span>
-        <span className="font-semibold text-text-primary dark:text-dark-text-primary">
-          {formatCount(count)}
-        </span>
-        {' '}visitors
-      </span>
+    <div className="flex items-center gap-1.5 text-xs text-text-secondary dark:text-dark-text-secondary">
+      <FiMapPin className="w-3.5 h-3.5 text-accent-green shrink-0" />
+      <span>Surabaya, Indonesia (UTC+7)</span>
     </div>
   );
 };

@@ -18,15 +18,16 @@ const NavItem = React.forwardRef<HTMLButtonElement, NavItemProps>(({ item, isAct
     onClick={onClick}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
-    className={`p-2 rounded-full transition-colors text-sm font-medium relative flex items-center justify-center
+    className={`px-3 py-2 min-h-[44px] min-w-[44px] rounded-full transition-colors text-xs font-semibold relative flex items-center justify-center
       ${isActive 
-        ? 'text-text-primary dark:text-dark-text-primary' // Active icon color
-        : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary' // Inactive and hover icon color
+        ? 'text-text-primary dark:text-dark-text-primary' // Active icon and label color
+        : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary' // Inactive and hover color
       }`}
     aria-label={item.name}
     aria-current={isActive ? 'page' : undefined}
   >
-    <item.icon className="w-5 h-5" />
+    <item.icon className="w-4 h-4 shrink-0" />
+    <span className="hidden sm:inline ml-1.5 tracking-tight">{item.name}</span>
   </button>
 ));
 
@@ -134,16 +135,16 @@ export const Header: React.FC<{
               type="button"
               onClick={(e) => toggleTheme(e)}
               aria-label={theme === 'light' ? "Switch to dark mode" : "Switch to light mode"}
-              className="group text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary p-2 rounded-full transition-colors hover:bg-card-hover dark:hover:bg-dark-card-hover"
+              className="group text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-colors hover:bg-card-hover dark:hover:bg-dark-card-hover active:scale-[0.96]"
             >
               {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5 transition-transform duration-300 ease-in-out group-hover:rotate-180" />}
             </button>
             <button
               onClick={() => setCurrentPage('contact')}
-              className="flex items-center bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover text-sm font-medium py-2 px-3.5 rounded-lg transition-colors"
+              className="flex items-center bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover text-xs font-semibold py-2.5 px-4 min-h-[44px] rounded-full transition-all duration-200 active:scale-[0.98]"
             >
-              <EnvelopeIcon className="w-4 h-4 mr-1.5" />
-              Contact
+              <EnvelopeIcon className="w-3.5 h-3.5 mr-1.5" />
+              <span>Contact</span>
             </button>
           </div>
         </div>

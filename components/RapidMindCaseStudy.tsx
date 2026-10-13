@@ -262,25 +262,25 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 font-medium">
-                <strong>T0 — Emergency</strong>
+                <strong>T0: Emergency</strong>
                 <p className="text-[11px] text-text-secondary dark:text-dark-text-secondary mt-1">
                   Immediate suicidal threat or acute psychosis. Triggers instant WebSocket alert.
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500 font-medium">
-                <strong>T1 — High Priority</strong>
+                <strong>T1: High Priority</strong>
                 <p className="text-[11px] text-text-secondary dark:text-dark-text-secondary mt-1">
                   SRQ ≥ 8 with severe functional breakdown. Fast-tracked clinical referral.
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-500 font-medium">
-                <strong>T2 — Standard Support</strong>
+                <strong>T2: Standard Support</strong>
                 <p className="text-[11px] text-text-secondary dark:text-dark-text-secondary mt-1">
                   Moderate distress with preserved basic function. Community PFA sessions.
                 </p>
               </div>
               <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-medium">
-                <strong>T3 — Mild / Monitoring</strong>
+                <strong>T3: Mild / Monitoring</strong>
                 <p className="text-[11px] text-text-secondary dark:text-dark-text-secondary mt-1">
                   Resilient coping. Guided self-care exercises (5-4-3-2-1 grounding).
                 </p>
@@ -982,7 +982,7 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
               </a>
             ) : (
               <div className="p-3 rounded-lg bg-button-secondary-bg/50 dark:bg-dark-button-secondary-bg/50 text-xs font-mono text-text-secondary dark:text-dark-text-secondary border border-dashed border-border dark:border-dark-border text-center">
-                [GitHub Repository URL placeholder — configure in constants.ts]
+                [GitHub Repository URL placeholder, configure in constants.ts]
               </div>
             )}
           </div>
@@ -1010,7 +1010,7 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
               </a>
             ) : (
               <div className="p-3 rounded-lg bg-button-secondary-bg/50 dark:bg-dark-button-secondary-bg/50 text-xs font-mono text-text-secondary dark:text-dark-text-secondary border border-dashed border-border dark:border-dark-border text-center">
-                [Live Demo / Presentation Video placeholder — configure in constants.ts]
+                [Live Demo / Presentation Video placeholder, configure in constants.ts]
               </div>
             )}
           </div>

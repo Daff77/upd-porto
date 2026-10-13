@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Daffa Danendra Fairuzza | Building Software. Exploring Intelligence.</title>
-    <meta name="description" content="Personal portfolio of Daffa Danendra Fairuzza — Information Systems student at UIN Sunan Ampel Surabaya passionate about web development, software engineering, and machine learning." />
+    <meta name="description" content="Personal portfolio of Daffa Danendra Fairuzza: Information Systems student at UIN Sunan Ampel Surabaya passionate about web development, software engineering, and machine learning." />
     <meta name="author" content="Daffa Danendra Fairuzza" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -35,6 +38,10 @@
         darkMode: "class", // Enable class-based dark mode
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            },
             colors: {
               // Light theme (default) based on user's new palette
               background: "#FFFFFF", // --color-bg
@@ -692,7 +699,7 @@
     <!-- <link rel="stylesheet" href="/index.css" /> -->
   </head>
   <body
-    class="bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary"
+    class="bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary font-sans antialiased selection:bg-accent-green/20 selection:text-text-primary dark:selection:text-dark-text-primary"
   >
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>

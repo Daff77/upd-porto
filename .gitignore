@@ -37,3 +37,7 @@ pnpm-debug.log*
 
 # IDE
 .cursor
+
+# Agents & Local Skills
+.agents/
+.agents

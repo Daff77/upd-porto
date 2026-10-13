@@ -50,7 +50,7 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 ```
 
-`.env` is gitignored — do not commit it.
+`.env` is gitignored, do not commit it.
 
 ### 4. Create Firestore
 
