@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background circle with smooth dark/emerald gradient -->
+  <rect width="400" height="400" rx="200" fill="url(#avatarGrad)" />
+  
+  <!-- Subtle tech pattern grid / circuits in background -->
+  <g opacity="0.15" stroke="#ffffff" stroke-width="1.5">
+    <circle cx="200" cy="200" r="140" fill="none" stroke-dasharray="4 6" />
+    <circle cx="200" cy="200" r="90" fill="none" />
+    <line x1="200" y1="40" x2="200" y2="360" stroke-dasharray="3 5" />
+    <line x1="40" y1="200" x2="360" y2="200" stroke-dasharray="3 5" />
+  </g>
+
+  <!-- Accent halo ring -->
+  <circle cx="200" cy="200" r="165" fill="none" stroke="url(#ringGrad)" stroke-width="3" opacity="0.75" />
+
+  <!-- Stylized Tech Monogram 'D' for Daffa Danendra -->
+  <g fill="none" stroke="url(#ringGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer geometric D -->
+    <path d="M 160 120 L 210 120 C 265 120, 265 280, 210 280 L 160 280 Z" />
+    <!-- Inner node / pulse -->
+    <line x1="160" y1="120" x2="160" y2="280" stroke="#ffffff" stroke-width="12" opacity="0.9" />
+  </g>
+
+  <!-- Central Intelligence Node -->
+  <circle cx="205" cy="200" r="14" fill="#10b981" filter="url(#glow)" />
+  <circle cx="205" cy="200" r="6" fill="#ffffff" />
+
+  <!-- Code brackets subtle accent -->
+  <path d="M 125 180 L 105 200 L 125 220" fill="none" stroke="#6ee7b7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  <path d="M 275 180 L 295 200 L 275 220" fill="none" stroke="#6ee7b7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+</svg>
