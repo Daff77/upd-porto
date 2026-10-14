@@ -21,14 +21,19 @@ export const OnlineStatus: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  if (isOnline) {
+    return (
+      <span className="relative flex h-2 w-2 mr-2 shrink-0" title="Active (Working Hours: 07:00 - 23:00 WIB)">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-60"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-green"></span>
+      </span>
+    );
+  }
+
   return (
     <span 
-      className={`inline-block w-2 h-2 rounded-full mr-2 shrink-0 ${
-        isOnline 
-          ? 'bg-accent-green' 
-          : 'bg-text-secondary/40'
-      }`}
-      title={isOnline ? 'Active (Working Hours: 07:00 - 23:00 WIB)' : 'Offline (Rest Hours)'}
+      className="inline-block w-2 h-2 rounded-full mr-2 shrink-0 bg-text-secondary/40"
+      title="Offline (Rest Hours)"
     ></span>
   );
 };

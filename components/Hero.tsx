@@ -44,14 +44,14 @@ export const Hero: React.FC<HeroProps> = ({
 
           {/* Core Headline */}
           <div className="animated-item anim-fadeInUp anim-delay-100 space-y-2">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight leading-[1.12]">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight leading-[1.1] text-balance">
               {headline}
             </h1>
           </div>
 
-          {/* Identity & Concise Subtext (Strictly <= 20 words) */}
+          {/* Identity & Concise Subtext */}
           <div className="animated-item anim-fadeInUp anim-delay-200 space-y-2.5">
-            <h2 className="text-lg sm:text-xl font-semibold text-text-primary dark:text-dark-text-primary flex items-center flex-wrap gap-1.5">
+            <h2 className="font-display text-lg sm:text-xl font-semibold text-text-primary dark:text-dark-text-primary flex items-center flex-wrap gap-1.5">
               <span>Hi, I'm</span>
               <AnimatedKrishnaText
                 text={name}
@@ -67,15 +67,15 @@ export const Hero: React.FC<HeroProps> = ({
 
           {/* Primary Focus Badges */}
           <div className="animated-item anim-fadeInUp anim-delay-300 flex flex-wrap gap-2 pt-1">
-            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/40 transition-colors">
+            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/50 hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors">
               <CodeBracketSquareIcon className="w-3.5 h-3.5 mr-1.5 text-accent-green" />
               Web Development
             </span>
-            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/40 transition-colors">
+            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/50 hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors">
               <FiLayers className="w-3.5 h-3.5 mr-1.5 text-accent-green" />
               Software Development
             </span>
-            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/40 transition-colors">
+            <span className="inline-flex items-center text-xs font-medium px-3 py-1.5 rounded-lg bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary hover:border-accent-green/50 hover:bg-card-hover dark:hover:bg-dark-card-hover transition-colors">
               <CpuChipIcon className="w-3.5 h-3.5 mr-1.5 text-accent-green" />
               Machine Learning
             </span>
@@ -95,13 +95,13 @@ export const Hero: React.FC<HeroProps> = ({
               className="inline-flex items-center justify-between pl-5 pr-2 py-2 text-sm font-semibold text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover rounded-full transition-all duration-200 active:scale-[0.98] shadow-sm group min-h-[44px]"
             >
               <span className="mr-3">Featured Project</span>
-              <span className="w-7 h-7 rounded-full bg-white/20 dark:bg-white/10 flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
+              <span className="w-7 h-7 rounded-full bg-white/20 dark:bg-black/15 text-white dark:text-zinc-950 flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
                 <ArrowRightIcon className="w-3.5 h-3.5" />
               </span>
             </button>
             <button
               onClick={() => setCurrentPage('contact')}
-              className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-button-secondary-text dark:text-dark-button-secondary-text bg-button-secondary-bg dark:bg-dark-button-secondary-bg hover:bg-button-secondary-hover dark:hover:bg-dark-button-secondary-hover rounded-full transition-all duration-200 active:scale-[0.98] border border-border/80 dark:border-dark-border/80 min-h-[44px]"
+              className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-button-secondary-text dark:text-dark-button-secondary-text bg-button-secondary-bg dark:bg-dark-button-secondary-bg hover:bg-button-secondary-hover dark:hover:bg-dark-button-secondary-hover rounded-full transition-all duration-200 active:scale-[0.98] border border-border dark:border-dark-border min-h-[44px]"
               aria-label="Contact Daffa"
             >
               <EnvelopeIcon className="w-4 h-4 mr-2" />
@@ -119,9 +119,9 @@ export const Hero: React.FC<HeroProps> = ({
               className="absolute inset-0 w-full h-full animate-spin-slow"
             />
             {/* Outer Concentric Rim */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-44 h-44 md:w-52 md:h-52 rounded-full p-1 bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-md flex items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-44 h-44 md:w-52 md:h-52 rounded-full p-1.5 bg-card dark:bg-dark-card border border-border/90 dark:border-dark-border shadow-sm flex items-center justify-center">
               {/* Inner Avatar Core */}
-              <div className="w-full h-full rounded-full overflow-hidden bg-card dark:bg-dark-card border border-border/60 dark:border-dark-border/60">
+              <div className="w-full h-full rounded-full overflow-hidden bg-card dark:bg-dark-card border border-border/50 dark:border-dark-border/50">
                 <img 
                   src={imageUrl} 
                   alt={name} 

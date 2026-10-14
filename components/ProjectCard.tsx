@@ -35,7 +35,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       aria-label={`View details for ${project.name}`}
       style={style}
     >
-      <div className="p-6 bg-card dark:bg-dark-card hover:bg-card-hover dark:hover:bg-dark-card-hover rounded-xl shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 border border-border dark:border-dark-border h-full flex flex-col justify-between">
+      <div className="p-6 bg-card dark:bg-dark-card hover:bg-card-hover dark:hover:bg-dark-card-hover rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 border border-border dark:border-dark-border hover:border-accent-green/40 dark:hover:border-accent-green/40 h-full flex flex-col justify-between">
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start space-x-4">
@@ -52,11 +52,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               )}
               <div className="space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-xl font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
+                  <h3 className="font-display text-xl font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
                     {project.name}
                   </h3>
                   {project.projectType && (
-                    <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-accent-green/15 text-accent-green border border-accent-green/30">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-accent-green/10 text-accent-green border border-accent-green/20">
                       {project.projectType}
                     </span>
                   )}
@@ -71,7 +71,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </p>
               </div>
             </div>
-            <div className="w-9 h-9 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green group-hover:text-white transition-all duration-200">
+            <div className="w-9 h-9 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green group-hover:text-white transition-all duration-200 border border-border/60 dark:border-dark-border/60">
               <ArrowRightIcon className="w-4 h-4 text-text-secondary dark:text-dark-text-secondary group-hover:text-white transition-colors" />
             </div>
           </div>
@@ -81,7 +81,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               {project.technologies.map(tech => (
                 <span 
                   key={tech} 
-                  className="px-2.5 py-1 text-xs bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary rounded-md"
+                  className="px-2.5 py-1 text-xs font-mono bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border/70 dark:border-dark-border/70 text-text-secondary dark:text-dark-text-secondary rounded-md"
                 >
                   {tech}
                 </span>

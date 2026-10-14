@@ -44,10 +44,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ personalInfo, sideProjects
         <SectionTitle title="About Me" />
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
           <div className="lg:w-2/3 space-y-4 animated-item anim-fadeInUp anim-delay-100">
-            <div className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-accent-green/15 text-accent-green border border-accent-green/30">
+            <div className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-accent-green/10 text-accent-green border border-accent-green/20">
               {personalInfo.major} • {personalInfo.university}
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary dark:text-dark-text-primary tracking-tight">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary dark:text-dark-text-primary tracking-tight">
               It's Me,{" "}
               <AnimatedName
                 english={animatedEnglish}
@@ -66,8 +66,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ personalInfo, sideProjects
               onMouseMove={updateGlitchSpot}
               onMouseLeave={resetGlitchSpot}
               className={[
-                "about-profile-glitch-wrap w-full max-w-sm mx-auto lg:mx-0 rounded-2xl shadow-xl border-4 border-card dark:border-dark-card overflow-hidden",
-                "focus:outline-none focus:ring-4 focus:ring-accent-green/30",
+                "about-profile-glitch-wrap w-full max-w-sm mx-auto lg:mx-0 rounded-2xl shadow-sm border border-border dark:border-dark-border overflow-hidden",
+                "focus:outline-none focus:ring-2 focus:ring-accent-green",
                 isGlitchBurstActive ? "is-glitching" : "",
               ].join(" ")}
               aria-label="Interactive profile monogram"
@@ -102,10 +102,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ personalInfo, sideProjects
 
       {/* Narrative Section */}
       <section id="more-about-me" className="animated-item anim-fadeInUp anim-delay-300 space-y-4">
-        <h2 className="text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary">
           Academic Journey & Perspective
         </h2>
-        <div className="space-y-4 text-text-secondary dark:text-dark-text-secondary text-base md:text-lg leading-relaxed">
+        <div className="space-y-4 text-text-secondary dark:text-dark-text-secondary text-base md:text-lg leading-relaxed max-w-3xl">
           {personalInfo.aboutMeDetailed.map((paragraph, index) => (
             <p
               key={index}
@@ -125,7 +125,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ personalInfo, sideProjects
 
       {/* Skills / Tech Stack */}
       <section id="tech-stack" className="animated-item anim-fadeInUp anim-delay-500 space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
           <LaptopIcon className="w-7 h-7 mr-3 text-accent-green" />
           Technical Skills & Knowledge Areas
         </h2>

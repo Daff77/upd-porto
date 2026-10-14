@@ -116,22 +116,22 @@ export const HireMePage: React.FC<HireMePageProps> = ({ personalInfo, setCurrent
         Back to Home
       </button>
 
-      <div className="animated-item anim-fadeInUp bg-card dark:bg-dark-card p-6 sm:p-8 md:p-10 rounded-xl shadow-xl border border-border dark:border-dark-border space-y-10">
+      <div className="animated-item anim-fadeInUp bg-card dark:bg-dark-card p-6 sm:p-8 md:p-10 rounded-2xl shadow-sm border border-border dark:border-dark-border space-y-10">
         <section id="hire-me-form-section">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-sm font-medium text-text-secondary dark:text-dark-text-secondary tracking-wide flex items-center">
+            <h2 className="text-xs font-semibold text-text-secondary dark:text-dark-text-secondary tracking-wide flex items-center">
               <span className="inline-block w-1.5 h-1.5 bg-accent-green rounded-full mr-2 align-middle"></span>
               Contact & Inquiries
             </h2>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-green/20 text-accent-green">
-              <CheckBadgeIcon className="w-3 h-3 mr-1 text-accent-green" />
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-green/10 text-accent-green border border-accent-green/20">
+              <CheckBadgeIcon className="w-3.5 h-3.5 mr-1 text-accent-green" />
               Open for Opportunities
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary dark:text-dark-text-primary mb-2">
+          <h1 className="font-display text-3xl sm:text-4xl font-bold text-text-primary dark:text-dark-text-primary mb-2">
             {personalInfo.hireMePageTitle}
           </h1>
-          <p className="text-md text-text-secondary dark:text-dark-text-secondary mb-8">
+          <p className="text-base text-text-secondary dark:text-dark-text-secondary mb-8 leading-relaxed">
             {personalInfo.hireMePageSubtitle}
           </p>
 
@@ -186,7 +186,7 @@ export const HireMePage: React.FC<HireMePageProps> = ({ personalInfo, setCurrent
             <div>
               <button 
                 type="submit" 
-                className="w-full px-6 py-3 rounded-lg font-medium text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors duration-200 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 rounded-full font-semibold text-sm text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-all duration-200 ease-in-out active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed shadow-sm min-h-[44px]"
                 disabled={status === 'loading'}
               >
                 {status === 'loading' ? 'Submitting...' : 'Submit'}

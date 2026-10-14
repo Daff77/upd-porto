@@ -22,12 +22,12 @@ export const TechnicalFocusPage: React.FC<TechnicalFocusPageProps> = ({
           subtitle="An exploration of the core domains shaping my studies in Information Systems and practical development projects."
         />
 
-        <div className="p-6 sm:p-8 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-4">
-          <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-accent-green">
+        <div className="p-6 sm:p-8 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-sm space-y-4">
+          <div className="flex items-center space-x-2 text-xs font-mono font-semibold uppercase tracking-wide text-accent-green">
             <FiBookOpen className="w-4 h-4" />
             <span>Academic & Technical Approach</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-text-primary dark:text-dark-text-primary">
+          <h2 className="font-display text-xl sm:text-2xl font-bold text-text-primary dark:text-dark-text-primary">
             Bridging Systems Analysis with Technical Execution
           </h2>
           <p className="text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary leading-relaxed">
@@ -40,18 +40,18 @@ export const TechnicalFocusPage: React.FC<TechnicalFocusPageProps> = ({
 
       {/* Detailed Pillars Breakdown */}
       <section id="deep-dive" className="space-y-8">
-        <h2 className="text-2xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
+        <h2 className="font-display text-2xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
           <span className="w-2 h-2 rounded-full bg-accent-green mr-3"></span>
           Areas of Focus & Learning Trajectory
         </h2>
 
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
+        <div className="grid grid-cols-1 gap-5">
+          <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-sm space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-lg bg-emerald-500/10 text-accent-green">
+              <div className="p-2 rounded-xl bg-accent-green/10 text-accent-green border border-accent-green/20">
                 <CodeBracketSquareIcon className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-text-primary dark:text-dark-text-primary">
+              <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
                 1. Web Development
               </h3>
             </div>
@@ -60,12 +60,12 @@ export const TechnicalFocusPage: React.FC<TechnicalFocusPageProps> = ({
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
+          <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-sm space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+              <div className="p-2 rounded-xl bg-accent-green/10 text-accent-green border border-accent-green/20">
                 <FiLayers className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-text-primary dark:text-dark-text-primary">
+              <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
                 2. Software Development
               </h3>
             </div>
@@ -74,12 +74,12 @@ export const TechnicalFocusPage: React.FC<TechnicalFocusPageProps> = ({
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
+          <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-sm space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-500">
+              <div className="p-2 rounded-xl bg-accent-green/10 text-accent-green border border-accent-green/20">
                 <CpuChipIcon className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-text-primary dark:text-dark-text-primary">
+              <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
                 3. Machine Learning
               </h3>
             </div>

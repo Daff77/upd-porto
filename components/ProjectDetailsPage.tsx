@@ -77,11 +77,11 @@ export const ProjectDetailsPage: React.FC<{
 
         <div className="space-y-2">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-xs uppercase tracking-widest font-semibold px-3 py-1 rounded-full bg-accent-green/15 text-accent-green border border-accent-green/30">
+            <span className="text-xs uppercase tracking-wide font-mono font-semibold px-3 py-1 rounded-full bg-accent-green/10 text-accent-green border border-accent-green/20">
               {project.projectType || "Featured Concept"}
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
             {project.name}
           </h1>
           {project.tagline && (

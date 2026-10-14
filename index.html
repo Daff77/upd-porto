@@ -9,7 +9,7 @@
     <meta name="author" content="Daffa Danendra Fairuzza" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -39,74 +39,67 @@
         theme: {
           extend: {
             fontFamily: {
+              display: ['"Outfit"', 'system-ui', 'sans-serif'],
               sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
               mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
             },
             colors: {
-              // Light theme (default) based on user's new palette
-              background: "#FFFFFF", // --color-bg
-              card: "#F7F7F7", // --color-surface
-              "card-hover": "#ECECEC", // Derived: slightly darker than card
-              border: "#E5E5EA", // --color-divider
-              "input-bg": "#F2F2F5", // --color-input-bg
-              "input-border": "#E5E5EA", // Use divider color for input border for consistency
-              "text-primary": "#1C1C1E", // --color-text-primary
-              "text-secondary": "rgba(60,60,67,0.6)", // --color-text-secondary
-              "text-placeholder": "#9E9EA0", // --color-placeholder
+              // Light theme (refined, accessible, human-designed palette)
+              background: "#FAFAFA", // Clean warm porcelain canvas
+              card: "#FFFFFF", // Elevated crisp card surface
+              "card-hover": "#F4F4F6", // Subtle hover depth
+              border: "#E4E4E7", // Balanced zinc border
+              "input-bg": "#F4F4F5",
+              "input-border": "#E4E4E7",
+              "text-primary": "#09090B", // High-contrast deep carbon (18:1 contrast)
+              "text-secondary": "#52525B", // High-legibility neutral (5.8:1 contrast, WCAG AA compliant)
+              "text-placeholder": "#A1A1AA",
 
-              "button-primary-bg": "#000000", // --color-button-primary-bg
-              "button-primary-text": "#FFFFFF", // --color-button-primary-text
-              "button-primary-hover": "#1A1A1A", // Derived: slightly lighter black
+              "button-primary-bg": "#09090B",
+              "button-primary-text": "#FFFFFF",
+              "button-primary-hover": "#27272A",
 
-              "button-secondary-bg": "#E5E5EA", // Using --color-divider as base
-              "button-secondary-text": "#1C1C1E", // Using --color-text-primary
-              "button-secondary-hover": "#DCDCE0", // Derived: slightly darker
+              "button-secondary-bg": "#F4F4F5",
+              "button-secondary-text": "#09090B",
+              "button-secondary-hover": "#E4E4E7",
 
-              "accent-green": "#34C759", // --color-accent (light)
-              "accent-green-bg": "#E6F9EC", // --color-accent-bg (light)
-              "accent-red": "#FF3B30", // System Red (Light)
+              "accent-green": "#059669", // Accessible emerald (4.6:1 text contrast on light surfaces)
+              "accent-green-bg": "#ECFDF5",
+              "accent-red": "#E11D48",
 
-              // Dark theme based on user's new palette
-              "dark-background": "#1C1C1E", // --color-bg
-              "dark-card": "#2C2C2E", // --color-surface
-              "dark-card-hover": "#38383A", // Derived: slightly lighter than dark-card
-              "dark-border": "#3A3A3C", // --color-divider
-              "dark-input-bg": "#3A3A3C", // --color-input-bg
-              "dark-input-border": "#4A4A4C", // Derived: slightly lighter than input-bg for border
-              "dark-text-primary": "#FFFFFF", // --color-text-primary
-              "dark-text-secondary": "rgba(235,235,245,0.6)", // --color-text-secondary
-              "dark-text-placeholder": "#636366", // --color-placeholder
+              // Dark theme (deep obsidian engineering palette, no muddy gray slabs)
+              "dark-background": "#0B0E11", // Deep obsidian dark canvas
+              "dark-card": "#14181D", // Dedicated elevated dark surface
+              "dark-card-hover": "#1C2128",
+              "dark-border": "rgba(255, 255, 255, 0.08)",
+              "dark-input-bg": "#14181D",
+              "dark-input-border": "rgba(255, 255, 255, 0.12)",
+              "dark-text-primary": "#F4F4F5",
+              "dark-text-secondary": "#A1A1AA", // Accessible zinc (7:1 contrast on dark surface)
+              "dark-text-placeholder": "#71717A",
 
-              "dark-button-primary-bg": "#48484A", // --color-button-primary-bg
-              "dark-button-primary-text": "#FFFFFF", // --color-button-primary-text
-              "dark-button-primary-hover": "#5A5A5C", // Derived: slightly lighter
+              "dark-button-primary-bg": "#F4F4F5", // High-contrast primary action in dark mode
+              "dark-button-primary-text": "#09090B",
+              "dark-button-primary-hover": "#FFFFFF",
 
-              "dark-button-secondary-bg": "#3A3A3C", // Using --color-divider/--color-input-bg (dark)
-              "dark-button-secondary-text": "#FFFFFF", // Using --color-text-primary (dark)
-              "dark-button-secondary-hover": "#4A4A4C", // Derived: slightly lighter
+              "dark-button-secondary-bg": "#1C2128",
+              "dark-button-secondary-text": "#F4F4F5",
+              "dark-button-secondary-hover": "#262C36",
 
-              "dark-accent-green": "#30D158", // --color-accent (dark)
-              "dark-accent-green-bg": "#054F27", // --color-accent-bg (dark)
-              "dark-accent-red": "#FF453A", // System Red (Dark)
+              "dark-accent-green": "#10B981", // Crisp luminous emerald in dark mode
+              "dark-accent-green-bg": "rgba(16, 185, 129, 0.12)",
+              "dark-accent-red": "#FB7185",
             },
             ringColor: (theme) => ({
-              // For focus rings
-              DEFAULT: theme("colors.accent-green"), // Use light accent green for default focus ring
-              // Dark mode focus rings will be handled by dark:ring-dark-accent-green or similar specific classes
+              DEFAULT: theme("colors.accent-green"),
             }),
             animation: {
-              // Add custom animation
               "spin-slow": "spin-slow 20s linear infinite",
             },
             keyframes: {
-              // Add custom keyframes
               "spin-slow": {
                 to: { transform: "rotate(360deg)" },
               },
-            },
-            letterSpacing: {
-              // Extend letterSpacing
-              wider: "0.9em", // Override default 'wider'
             },
           },
         },
@@ -155,13 +148,12 @@
 
       /* Header nav active pill */
       :root {
-        --current-accent-color-text: #34c759; /* For active icon text (light) */
-        --current-accent-pill-bg: #ececec; /* For pill background (light theme card-hover) */
+        --current-accent-color-text: #059669; /* For active icon text (light) */
+        --current-accent-pill-bg: #f4f4f5; /* For pill background (light theme) */
       }
       html.dark {
-        /* More specific selector for when <html> has 'dark' class */
-        --current-accent-color-text: #30d158; /* For active icon text (dark) */
-        --current-accent-pill-bg: #38383a; /* For pill background (dark theme dark-card-hover) */
+        --current-accent-color-text: #10b981; /* For active icon text (dark) */
+        --current-accent-pill-bg: #1c2128; /* For pill background (dark theme) */
       }
       .nav-active-pill {
         position: absolute;

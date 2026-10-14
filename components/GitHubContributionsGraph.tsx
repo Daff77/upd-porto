@@ -33,7 +33,7 @@ export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> =
     // Initiate loading process for a new/valid username
     setIsImageLoading(true);
     setImageError(null);
-    setImageUrl(`https://ghchart.rshah.org/${username}`); // This will make the hidden <img> render with this src
+    setImageUrl(`https://ghchart.rshah.org/059669/${username}`); // Render with our signature emerald accent color
 
     // Set a timeout for the image load
     timeoutIdRef.current = window.setTimeout(() => { // Use window.setTimeout for clarity in browser context
@@ -75,8 +75,8 @@ export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> =
   return (
     <section id="github-contributions" className="animated-item anim-fadeInUp">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
-          <span className="inline-block w-1.5 h-1.5 bg-text-secondary dark:bg-dark-text-secondary rounded-full mr-2.5 align-middle"></span>
+        <h2 className="font-display text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
+          <span className="inline-block w-1.5 h-1.5 bg-accent-green rounded-full mr-2.5 align-middle"></span>
           GitHub Contributions
         </h2>
         {username && ( // Only show profile link if username is valid
@@ -84,7 +84,7 @@ export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> =
             href={githubProfileUrl} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-sm font-medium text-accent-green hover:text-accent-green/80 transition-colors inline-flex items-center group"
+            className="text-sm font-medium text-accent-green hover:opacity-85 transition-opacity inline-flex items-center group"
             aria-label={`View ${username}'s GitHub profile`}
           >
             <GithubIcon className="w-4 h-4 mr-1.5" />
@@ -121,11 +121,10 @@ export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> =
 
       {/* Display the actual graph image on success */}
       {!isImageLoading && !imageError && imageUrl && username && (
-        <div className="p-4 bg-card dark:bg-dark-card rounded-lg shadow-md border border-border dark:border-dark-border overflow-hidden">
+        <div className="p-4 sm:p-5 bg-card dark:bg-dark-card rounded-2xl shadow-sm border border-border dark:border-dark-border overflow-hidden">
           <a href={githubProfileUrl} target="_blank" rel="noopener noreferrer" aria-label={`${username}'s contribution graph, links to GitHub profile`}>
             <img
-              // No key needed here if the parent div re-renders fully, or key can be imageUrl too
-              src={imageUrl} // Use the same URL that was successfully loaded by the hidden image
+              src={imageUrl}
               alt={`${username}'s GitHub contribution graph`}
               className="w-full h-auto"
             />

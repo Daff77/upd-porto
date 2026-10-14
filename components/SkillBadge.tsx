@@ -13,11 +13,11 @@ export const SkillBadge: React.FC<SkillBadgeProps> = ({ skill, className, style 
 
   return (
     <div
-      className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium shadow-sm transition-transform hover:scale-105 ${skill.backgroundColor} ${skill.textColor} ${className || ''}`}
+      className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${skill.backgroundColor} ${skill.textColor} ${className || ''}`}
       style={style}
       role="listitem" // Indicate it's an item in a list of skills
     >
-      {IconComponent && <IconComponent className="w-4 h-4 flex-shrink-0" aria-hidden="true" />}
+      {IconComponent && <IconComponent className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />}
       <span>{skill.name}</span>
     </div>
   );

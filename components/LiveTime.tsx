@@ -26,8 +26,8 @@ export const LiveTime: React.FC = () => {
 
   return (
     <div className="flex items-center gap-2 text-xs text-text-secondary dark:text-dark-text-secondary">
-      <FiClock className="w-4 h-4 text-accent-green" />
-      <span>{time} (Surabaya)</span>
+      <FiClock className="w-3.5 h-3.5 text-accent-green" />
+      <span className="font-mono tabular-nums">{time} (Surabaya)</span>
     </div>
   );
 };

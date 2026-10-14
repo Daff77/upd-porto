@@ -23,7 +23,7 @@ export const SideProjectCard: React.FC<SideProjectCardProps> = ({ sideProject, c
     <button
       type="button"
       onClick={handleCardClick}
-      className={`block text-left w-full p-5 bg-card dark:bg-dark-card hover:bg-card-hover dark:hover:bg-dark-card-hover rounded-xl shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 border border-border dark:border-dark-border ${className || ''}`}
+      className={`block text-left w-full p-5 bg-card dark:bg-dark-card hover:bg-card-hover dark:hover:bg-dark-card-hover rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 border border-border dark:border-dark-border hover:border-accent-green/40 dark:hover:border-accent-green/40 ${className || ''}`}
       style={style}
       aria-label={`View details for ${sideProject.name}`}
     >
@@ -33,14 +33,14 @@ export const SideProjectCard: React.FC<SideProjectCardProps> = ({ sideProject, c
             <img 
               src={sideProject.cardImageUrl} 
               alt={`${sideProject.name} preview`}
-              className="w-10 h-10 rounded-full object-cover border-2 border-card dark:border-dark-card" // Added a subtle border
+              className="w-10 h-10 rounded-full object-cover border border-border dark:border-dark-border"
             />
           ) : (
-            <div className={`w-10 h-10 flex items-center justify-center rounded-full ${sideProject.iconBgColor || 'bg-button-secondary-bg dark:bg-dark-button-secondary-bg'}`}>
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full ${sideProject.iconBgColor || 'bg-button-secondary-bg dark:bg-dark-button-secondary-bg'} border border-border/60 dark:border-dark-border/60`}>
               <PuzzlePieceIcon className="w-5 h-5 text-text-primary dark:text-dark-text-primary" />
             </div>
           )}
-          <h3 className="text-md font-semibold text-text-primary dark:text-dark-text-primary">{sideProject.name}</h3>
+          <h3 className="font-display text-base font-semibold text-text-primary dark:text-dark-text-primary">{sideProject.name}</h3>
         </div>
         {sideProject.link ? (
           <a 

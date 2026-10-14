@@ -61,7 +61,7 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationCompl
         <div className="intro-diagonal-text absolute inset-0" />
       </div>
 
-      <div className="relative flex items-center justify-center text-6xl md:text-8xl font-bold text-text-primary dark:text-dark-text-primary">
+      <div className="relative flex items-center justify-center text-6xl md:text-8xl font-display font-extrabold text-text-primary dark:text-dark-text-primary">
         <span
           className="intro-letter block"
           style={{ animationDelay: '0.1s' }}
@@ -77,7 +77,7 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onAnimationCompl
         <div className="intro-line absolute w-full h-0.5 bg-accent-green dark:bg-dark-accent-green bottom-0"></div>
       </div>
 
-      <div className="intro-tagline absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs md:text-sm tracking-[0.18em] sm:tracking-[0.25em] uppercase text-text-secondary dark:text-dark-text-secondary px-4 text-center whitespace-nowrap">
+      <div className="intro-tagline absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 text-xs sm:text-sm font-mono tracking-wider uppercase text-text-secondary dark:text-dark-text-secondary px-4 text-center whitespace-nowrap">
         {introTagline}
       </div>
     </div>

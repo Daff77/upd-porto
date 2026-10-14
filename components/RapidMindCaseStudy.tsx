@@ -51,22 +51,22 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
         </button>
 
         {/* Hero Banner */}
-        <header className="space-y-5 p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-card via-card to-card-hover dark:from-dark-card dark:via-dark-card dark:to-dark-card-hover border border-border dark:border-dark-border shadow-lg">
+        <header className="space-y-5 p-6 sm:p-10 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border shadow-sm">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-accent-green/15 text-accent-green border border-accent-green/30">
+            <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-accent-green/10 text-accent-green border border-accent-green/20">
               <FiActivity className="w-3.5 h-3.5 mr-1.5" />
               Primary Technical Project
             </span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary border border-border/50 dark:border-dark-border/50">
               Disaster Response Competition Prototype
             </span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary border border-border/50 dark:border-dark-border/50">
               Full-Stack & On-Device ML
             </span>
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight leading-tight">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight leading-tight">
               RAPID-MIND
             </h1>
             <p className="text-lg sm:text-2xl font-semibold text-accent-green">
@@ -103,7 +103,7 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
       {/* 1. Project Overview */}
       <section id="project-overview" className="space-y-6">
         <div className="border-b border-border dark:border-dark-border pb-3">
-          <h2 className="text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
             <span className="text-accent-green mr-3 text-xl font-mono">01.</span>
             Project Overview
           </h2>
@@ -121,28 +121,28 @@ export const RapidMindCaseStudy: React.FC<RapidMindCaseStudyProps> = ({
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-accent-green">
+              <span className="inline-block text-xs font-mono font-semibold px-2 py-0.5 rounded bg-accent-green/10 text-accent-green border border-accent-green/20">
                 RELAWAN (Field Volunteer)
               </span>
-              <h3 className="font-semibold text-text-primary dark:text-dark-text-primary">Mobile-First Offline PWA</h3>
+              <h3 className="font-display font-semibold text-text-primary dark:text-dark-text-primary">Mobile-First Offline PWA</h3>
               <p className="text-xs text-text-secondary dark:text-dark-text-secondary">
                 Designed for field intake at temporary shelters. Guides volunteers through Psychological First Aid (PFA) and standardized SRQ-20 screening even during total network outages.
               </p>
             </div>
             <div className="p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/20 text-blue-500">
+              <span className="inline-block text-xs font-mono font-semibold px-2 py-0.5 rounded bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-primary dark:text-dark-text-primary border border-border dark:border-dark-border">
                 HEALTHCARE (Clinician)
               </span>
-              <h3 className="font-semibold text-text-primary dark:text-dark-text-primary">Emergency Triage Queue</h3>
+              <h3 className="font-display font-semibold text-text-primary dark:text-dark-text-primary">Emergency Triage Queue</h3>
               <p className="text-xs text-text-secondary dark:text-dark-text-secondary">
                 Desktop clinical command console receiving real-time emergency T0 alerts via WebSockets with secondary tele-verification and audit-logged facility routing.
               </p>
             </div>
             <div className="p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/20 text-purple-500">
+              <span className="inline-block text-xs font-mono font-semibold px-2 py-0.5 rounded bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-primary dark:text-dark-text-primary border border-border dark:border-dark-border">
                 ADMIN (Regional Command)
               </span>
-              <h3 className="font-semibold text-text-primary dark:text-dark-text-primary">Geospatial Command Center</h3>
+              <h3 className="font-display font-semibold text-text-primary dark:text-dark-text-primary">Geospatial Command Center</h3>
               <p className="text-xs text-text-secondary dark:text-dark-text-secondary">
                 Regional disaster dashboard with MapLibre GL spatial shelter/facility mapping, longitudinal ECharts mental health analytics, and personnel provisioning.
               </p>

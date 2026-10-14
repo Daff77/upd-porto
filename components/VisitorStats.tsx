@@ -31,7 +31,7 @@ export const VisitorStats: React.FC<VisitorStatsProps> = ({ count, loading, erro
       <div className="flex items-center gap-1.5 text-xs text-text-secondary dark:text-dark-text-secondary">
         <FiUsers className="w-3.5 h-3.5 text-accent-green" />
         <span>
-          <span className="font-semibold text-text-primary dark:text-dark-text-primary">
+          <span className="font-semibold font-mono tabular-nums text-text-primary dark:text-dark-text-primary">
             {formatCount(count)}
           </span>{' '}
           verified visitors
