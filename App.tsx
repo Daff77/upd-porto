@@ -4,6 +4,9 @@ import { useSwipeable } from 'react-swipeable';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ProjectsSection } from './components/ProjectsSection';
+import { SpeakingEventsSection } from './components/SpeakingEventsSection';
+import { LatestVideosSection } from './components/LatestVideosSection';
+import { GitHubContributionsGraph } from './components/GitHubContributionsGraph';
 import { TechnicalFocusSection } from './components/TechnicalFocusSection';
 import { TechnicalFocusPage } from './components/TechnicalFocusPage';
 import { CallToAction } from './components/CallToAction';
@@ -12,7 +15,6 @@ import { AboutPage } from './components/AboutPage';
 import { ProjectsPage } from './components/ProjectsPage';
 import { HireMePage } from './components/HireMePage';
 import { ProjectDetailsPage } from './components/ProjectDetailsPage';
-import { ExperiencePreviewSection } from './components/ExperiencePreviewSection';
 import { PERSONAL_INFO, PROJECTS, SIDE_PROJECTS, SOCIAL_LINKS, SKILLS, DEVELOPER_CREDIT } from './constants';
 import { IntroAnimation } from './components/IntroAnimation';
 import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScrollProvider';
@@ -148,12 +150,12 @@ const AppContent: React.FC = () => {
     if (path === '/') return 'home';
     if (path.startsWith('/project/')) return 'project-detail';
     if (path === '/hire') return 'contact';
-    return path.slice(1); // Remove leading slash
+    return path.slice(1);
   };
 
   const currentPage = getCurrentPage();
 
-  // Swipe gesture handlers (only on mobile, not on project-detail)
+  // Swipe gesture handlers
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   const currentTabIdx = menuTabs.indexOf(currentPage);
   const swipeStartAllowedRef = useRef(true);
@@ -204,121 +206,127 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" {...swipeHandlers}>
+    <div
+      className="min-h-screen bg-canvas dark:bg-dark-canvas text-text-primary dark:text-dark-text-primary py-3 sm:py-8 px-2 sm:px-4 md:px-6 flex justify-center items-start transition-colors duration-200"
+      {...swipeHandlers}
+    >
       <SmoothScrollToTop pathname={location.pathname} />
-      <Header
-        currentPage={currentPage}
-        setCurrentPage={handleSetPage}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
-      <main 
-        key={location.pathname}
-        className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
-      >
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero
-                name={PERSONAL_INFO.name}
-                title={PERSONAL_INFO.title}
-                headline={PERSONAL_INFO.headline}
-                university={PERSONAL_INFO.university}
-                major={PERSONAL_INFO.major}
-                primaryFocus={PERSONAL_INFO.primaryFocus}
-                bio={PERSONAL_INFO.bio}
-                imageUrl={PERSONAL_INFO.imageUrl}
-                email={PERSONAL_INFO.email}
-                circularText={PERSONAL_INFO.circularText}
-                circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
-                animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
-                animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
-                instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
-                setCurrentPage={handleSetPage}
+
+      {/* The Signature Elevated Rounded Card Container from porto-export reference */}
+      <div className="w-full max-w-[1150px] bg-background dark:bg-dark-background border border-border dark:border-dark-border rounded-[28px] sm:rounded-[48px] p-6 sm:p-10 md:p-16 shadow-[0px_1px_3px_#0000001a,0px_1px_1px_#0000001a] flex flex-col gap-12 sm:gap-20 overflow-hidden relative">
+        <Header
+          currentPage={currentPage}
+          setCurrentPage={handleSetPage}
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
+
+        <main 
+          key={location.pathname}
+          className={`w-full flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
+        >
+          <Routes>
+            <Route path="/" element={
+              <div className="flex flex-col gap-16 md:gap-24">
+                <Hero
+                  name={PERSONAL_INFO.name}
+                  title={PERSONAL_INFO.title}
+                  headline={PERSONAL_INFO.headline}
+                  university={PERSONAL_INFO.university}
+                  major={PERSONAL_INFO.major}
+                  primaryFocus={PERSONAL_INFO.primaryFocus}
+                  bio={PERSONAL_INFO.bio}
+                  imageUrl={PERSONAL_INFO.imageUrl}
+                  email={PERSONAL_INFO.email}
+                  circularText={PERSONAL_INFO.circularText}
+                  circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
+                  animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
+                  animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
+                  instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
+                  setCurrentPage={handleSetPage}
+                />
+                <ProjectsSection 
+                  projects={PROJECTS} 
+                  onViewAllClick={() => handleSetPage('projects')} 
+                  setCurrentPage={handleSetPage}
+                  title="Featured Projects"
+                />
+                <SpeakingEventsSection />
+                <LatestVideosSection />
+                <GitHubContributionsGraph username={PERSONAL_INFO.githubUsername} theme={theme} />
+              </div>
+            } />
+            
+            <Route path="/about" element={
+              <AboutPage 
+                personalInfo={PERSONAL_INFO} 
+                sideProjects={SIDE_PROJECTS} 
+                email={PERSONAL_INFO.email} 
+                setCurrentPage={handleSetPage} 
+                theme={theme} 
+                skills={SKILLS} 
               />
-              <ProjectsSection 
+            } />
+            
+            <Route path="/projects" element={
+              <ProjectsPage 
                 projects={PROJECTS} 
-                onViewAllClick={() => handleSetPage('projects')} 
-                setCurrentPage={handleSetPage}
-                title="Selected Works & Systems"
-                maxItems={4}
+                sideProjects={SIDE_PROJECTS} 
+                email={PERSONAL_INFO.email} 
+                setCurrentPage={handleSetPage} 
               />
-              <ExperiencePreviewSection 
+            } />
+
+            <Route path="/focus" element={
+              <TechnicalFocusPage 
                 setCurrentPage={handleSetPage}
-                theme={theme}
+                email={PERSONAL_INFO.email}
               />
-              <CallToAction email={PERSONAL_INFO.email} setCurrentPage={handleSetPage} />
-            </>
-          } />
-          
-          <Route path="/about" element={
-            <AboutPage 
-              personalInfo={PERSONAL_INFO} 
-              sideProjects={SIDE_PROJECTS} 
-              email={PERSONAL_INFO.email} 
-              setCurrentPage={handleSetPage} 
-              theme={theme} 
-              skills={SKILLS} 
-            />
-          } />
-          
-          <Route path="/projects" element={
-            <ProjectsPage 
-              projects={PROJECTS} 
-              sideProjects={SIDE_PROJECTS} 
-              email={PERSONAL_INFO.email} 
-              setCurrentPage={handleSetPage} 
-            />
-          } />
+            } />
+            
+            <Route path="/contact" element={
+              <HireMePage 
+                personalInfo={PERSONAL_INFO} 
+                socialLinks={SOCIAL_LINKS} 
+                setCurrentPage={handleSetPage} 
+              />
+            } />
 
-          <Route path="/focus" element={
-            <TechnicalFocusPage 
-              setCurrentPage={handleSetPage}
-              email={PERSONAL_INFO.email}
-            />
-          } />
-          
-          <Route path="/contact" element={
-            <HireMePage 
-              personalInfo={PERSONAL_INFO} 
-              socialLinks={SOCIAL_LINKS} 
-              setCurrentPage={handleSetPage} 
-            />
-          } />
+            {/* Backwards compatibility redirects */}
+            <Route path="/hire" element={<Navigate to="/contact" replace />} />
+            <Route path="/products" element={<Navigate to="/projects" replace />} />
+            <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
+            
+            <Route path="/project/:projectId" element={
+              <ProjectDetailsPage 
+                setCurrentPage={handleSetPage}
+                email={PERSONAL_INFO.email}
+              />
+            } />
+            
+            <Route path="*" element={
+              <div className="text-center py-16 space-y-4">
+                <h1 className="text-3xl font-bold">Page Not Found</h1>
+                <p className="text-text-secondary dark:text-dark-text-secondary">The page you are looking for does not exist.</p>
+                <button
+                  onClick={() => handleSetPage('home')}
+                  className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+                >
+                  Go Home
+                </button>
+              </div>
+            } />
+          </Routes>
+        </main>
 
-          {/* Backwards compatibility redirects */}
-          <Route path="/hire" element={<Navigate to="/contact" replace />} />
-          <Route path="/products" element={<Navigate to="/projects" replace />} />
-          <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
-          
-          <Route path="/project/:projectId" element={
-            <ProjectDetailsPage 
-              setCurrentPage={handleSetPage}
-              email={PERSONAL_INFO.email}
-            />
-          } />
-          
-          <Route path="*" element={
-            <div className="text-center py-16 space-y-4">
-              <h1 className="text-3xl font-bold">Page Not Found</h1>
-              <p className="text-text-secondary dark:text-dark-text-secondary">The page you are looking for does not exist.</p>
-              <button
-                onClick={() => handleSetPage('home')}
-                className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
-              >
-                Go Home
-              </button>
-            </div>
-          } />
-        </Routes>
-      </main>
-      <Footer
-        socialLinks={SOCIAL_LINKS}
-        developerName={DEVELOPER_CREDIT.name}
-        developerUrl={DEVELOPER_CREDIT.url}
-        animatedNameEnglish={DEVELOPER_CREDIT.animatedNameEnglish}
-        animatedNameJapanese={DEVELOPER_CREDIT.animatedNameJapanese}
-      />
+        <Footer
+          socialLinks={SOCIAL_LINKS}
+          developerName={DEVELOPER_CREDIT.name}
+          developerUrl={DEVELOPER_CREDIT.url}
+          animatedNameEnglish={DEVELOPER_CREDIT.animatedNameEnglish}
+          animatedNameJapanese={DEVELOPER_CREDIT.animatedNameJapanese}
+        />
+      </div>
     </div>
   );
 };

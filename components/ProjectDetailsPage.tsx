@@ -319,7 +319,15 @@ export const ProjectDetailsPage: React.FC<{
                 className="p-4 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3"
               >
                 <div className="overflow-hidden rounded-xl border border-border/70 dark:border-dark-border/70">
-                  <ProjectCoverVisual projectId={project.id} aspect="video" />
+                  {project.cardImageUrl ? (
+                    <img
+                      src={project.cardImageUrl}
+                      alt={item.title}
+                      className="w-full aspect-video object-cover"
+                    />
+                  ) : (
+                    <ProjectCoverVisual projectId={project.id} aspect="video" />
+                  )}
                 </div>
                 <div className="space-y-1 pt-1">
                   <div className="font-display text-sm font-bold text-text-primary dark:text-dark-text-primary">

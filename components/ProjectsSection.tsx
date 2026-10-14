@@ -1,148 +1,149 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ProjectsSectionProps } from '../types';
-import { ArrowRightIcon, CheckBadgeIcon } from './icons';
-import { ProjectCard } from './ProjectCard';
-import { ProjectCoverVisual } from './ProjectCoverVisual';
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   projects,
   setCurrentPage,
-  title = "Selected Works & Systems",
+  title = "Featured Projects",
 }) => {
-  const featuredProject = projects[0];
-  const secondaryProjects = projects.slice(1, 4);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   return (
-    <section id="home-projects-section" className="space-y-10 md:space-y-12">
-      {/* Section Header */}
-      <div className="animated-item anim-fadeInUp flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border dark:border-dark-border pb-6">
-        <div className="space-y-1.5">
-          <div className="flex items-center space-x-2">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              01 • Portfolio Archive
-            </span>
-          </div>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
-            {title}
-          </h2>
-          <p className="text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl leading-relaxed">
-            Case studies in token architectures, real-time streaming engines, and client-side graphics.
-          </p>
-        </div>
+    <section id="featured-projects" className="w-full flex flex-col gap-8">
+      {/* Header Row: Title on Left, Controls & View All on Right */}
+      <div className="w-full flex flex-row justify-between items-end gap-4 border-b border-border/40 dark:border-dark-border/40 pb-4">
+        <h2 className="text-[26px] sm:text-[30px]/[36px] font-semibold tracking-[-0.75px] text-text-primary dark:text-dark-text-primary">
+          {title}
+        </h2>
 
-        <button
-          onClick={() => setCurrentPage('projects')}
-          className="inline-flex items-center text-sm font-semibold text-accent-green dark:text-dark-accent-green hover:underline group self-start sm:self-end"
-        >
-          <span>Browse All ({projects.length})</span>
-          <ArrowRightIcon className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
-        </button>
+        <div className="flex items-center gap-4">
+          {/* View Mode Toggle Pill */}
+          <div className="hidden sm:flex items-center gap-1 p-1 border border-border dark:border-dark-border rounded-full">
+            {/* Grid button */}
+            <button
+              onClick={() => setViewMode('grid')}
+              aria-label="Grid view"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                viewMode === 'grid'
+                  ? 'bg-[#e6e5e0] dark:bg-white/20 text-[#262510] dark:text-white'
+                  : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="2" y="2" width="5" height="5" rx="1" />
+                <rect x="9" y="2" width="5" height="5" rx="1" />
+                <rect x="2" y="9" width="5" height="5" rx="1" />
+                <rect x="9" y="9" width="5" height="5" rx="1" />
+              </svg>
+            </button>
+
+            {/* List button */}
+            <button
+              onClick={() => setViewMode('list')}
+              aria-label="List view"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                viewMode === 'list'
+                  ? 'bg-[#e6e5e0] dark:bg-white/20 text-[#262510] dark:text-white'
+                  : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="2" y="3" width="12" height="2" rx="0.5" />
+                <rect x="2" y="7" width="12" height="2" rx="0.5" />
+                <rect x="2" y="11" width="12" height="2" rx="0.5" />
+              </svg>
+            </button>
+          </div>
+
+          {/* View All Link */}
+          <button
+            onClick={() => setCurrentPage('projects')}
+            className="flex items-center gap-1.5 text-[15px]/[23px] text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary font-medium transition-colors group"
+          >
+            <span>View all</span>
+            <svg
+              className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12l4-4-4-4" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      {/* Flagship Featured Showcase */}
-      {featuredProject && (
-        <div className="animated-item anim-fadeInUp anim-delay-100">
-          <div className="p-2 sm:p-2.5 rounded-[2rem] bg-black/5 dark:bg-white/5 border border-border dark:border-white/10 shadow-lg">
-            <div className="rounded-[calc(2rem-0.625rem)] bg-card dark:bg-dark-card border border-border/80 dark:border-dark-border p-6 sm:p-8 md:p-10">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                {/* Left: Project Details & Metrics */}
-                <div className="lg:col-span-6 space-y-6">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-                      Flagship Architecture
-                    </span>
-                    <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary px-2.5 py-1 rounded-md bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border/60 dark:border-dark-border/60">
-                      {featuredProject.year || '2026'}
-                    </span>
-                  </div>
-
-                  <div className="space-y-2">
-                    <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
-                      {featuredProject.name}
-                    </h3>
-                    {featuredProject.tagline && (
-                      <p className="text-base font-semibold text-accent-green dark:text-dark-accent-green">
-                        {featuredProject.tagline}
-                      </p>
-                    )}
-                    <p className="text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary leading-relaxed pt-1">
-                      {featuredProject.description}
-                    </p>
-                  </div>
-
-                  {/* High-Impact Metrics Grid */}
-                  {featuredProject.metrics && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-2 border-y border-border/60 dark:border-dark-border/60 font-mono">
-                      {featuredProject.metrics.map((metric, i) => (
-                        <div key={i} className="space-y-0.5">
-                          <div className="text-lg font-bold text-text-primary dark:text-dark-text-primary">
-                            {metric.value}
-                          </div>
-                          <div className="text-[11px] text-text-secondary dark:text-dark-text-secondary">
-                            {metric.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {featuredProject.technologies.slice(0, 5).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-1 text-xs font-mono bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border/70 dark:border-dark-border/70 text-text-secondary dark:text-dark-text-secondary rounded-md"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action CTA */}
-                  <div className="pt-2">
-                    <button
-                      onClick={() => setCurrentPage('project-detail', featuredProject.id)}
-                      className="inline-flex items-center justify-between pl-5 pr-2 py-2 text-sm font-semibold text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover rounded-full transition-all duration-200 active:scale-[0.98] shadow-sm group min-h-[44px]"
-                    >
-                      <span className="mr-3">Read Full Case Study</span>
-                      <span className="w-7 h-7 rounded-full bg-white/20 dark:bg-black/15 text-white dark:text-zinc-950 flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
-                        <ArrowRightIcon className="w-3.5 h-3.5" />
-                      </span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Right: Rich Visual Showcase */}
-                <div className="lg:col-span-6">
-                  <div className="p-1 rounded-2xl bg-black/5 dark:bg-white/5 border border-border dark:border-white/10 shadow-inner">
-                    <ProjectCoverVisual projectId={featuredProject.id} aspect="wide" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Projects Overview Grid */}
-      <div className="space-y-4 pt-4">
-        <h3 className="font-display text-xl font-bold text-text-primary dark:text-dark-text-primary flex items-center gap-2">
-          <span>Additional Architectures</span>
-          <span className="text-xs font-mono font-normal text-text-secondary dark:text-dark-text-secondary">
-            ({secondaryProjects.length} Selected)
-          </span>
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {secondaryProjects.map((project) => (
-            <ProjectCard
+      {/* Projects Display */}
+      {viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projects.map((project) => (
+            <button
               key={project.id}
-              project={project}
-              onProjectSelect={(id) => setCurrentPage('project-detail', id)}
-            />
+              onClick={() => setCurrentPage('project-detail', project.id)}
+              className="group text-left flex flex-col gap-3 focus:outline-none"
+            >
+              {/* Card Image Container (4:3 aspect ratio, 16px radius) */}
+              <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-[#f7f7f4] dark:bg-white/5 border border-border/40 dark:border-dark-border/40 relative">
+                {project.cardImageUrl ? (
+                  <img
+                    src={project.cardImageUrl}
+                    alt={project.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center font-mono text-xs text-text-secondary">
+                    {project.name}
+                  </div>
+                )}
+              </div>
+
+              {/* Text Info */}
+              <div className="flex flex-col gap-0.5 px-1">
+                <h3 className="text-[16px]/[24px] font-semibold text-text-primary dark:text-dark-text-primary group-hover:underline">
+                  {project.name}
+                </h3>
+                <p className="text-[14px]/[21px] font-medium text-text-secondary dark:text-dark-text-secondary">
+                  {project.category || project.technologies.join(', ')}
+                </p>
+              </div>
+            </button>
           ))}
         </div>
-      </div>
+      ) : (
+        /* List View */
+        <div className="flex flex-col divide-y divide-border/60 dark:divide-dark-border/60">
+          {projects.map((project) => (
+            <button
+              key={project.id}
+              onClick={() => setCurrentPage('project-detail', project.id)}
+              className="group py-5 flex items-center justify-between text-left focus:outline-none hover:bg-black/[0.02] dark:hover:bg-white/[0.02] px-3 rounded-xl transition-colors"
+            >
+              <div className="flex items-center gap-4">
+                {project.cardImageUrl && (
+                  <img
+                    src={project.cardImageUrl}
+                    alt=""
+                    className="w-14 h-14 rounded-lg object-cover"
+                  />
+                )}
+                <div>
+                  <h3 className="text-[16px] font-semibold text-text-primary dark:text-dark-text-primary group-hover:underline">
+                    {project.name}
+                  </h3>
+                  <p className="text-[14px] text-text-secondary dark:text-dark-text-secondary">
+                    {project.category}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono text-text-secondary">{project.year || '2025'}</span>
+                <span className="text-text-secondary group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Architecture | Systems & Interface Template</title>
-    <meta name="description" content="Distinctive personal portfolio and case-study website template designed for independent software engineers, designers, and architects." />
-    <meta name="author" content="Portfolio Template" />
+    <title>Daffa Pratama — Design Engineer &amp; Creative Developer</title>
+    <meta name="description" content="Personal portfolio of Daffa Pratama — Design Engineer crafting resilient web applications, fluid interactions, and living design systems." />
+    <meta name="author" content="Daffa Pratama" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script>
       // IIFE to avoid polluting global scope
@@ -38,55 +39,59 @@
         theme: {
           extend: {
             fontFamily: {
-              display: ['"Outfit"', 'system-ui', 'sans-serif'],
-              sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+              display: ['"Satoshi"', '"Outfit"', 'system-ui', 'sans-serif'],
+              sans: ['"Satoshi"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
               mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
             },
             colors: {
-              // Light theme (refined, accessible, human-designed palette)
-              background: "#FAFAFA", // Clean warm porcelain canvas
-              card: "#FFFFFF", // Elevated crisp card surface
-              "card-hover": "#F4F4F6", // Subtle hover depth
-              border: "#E4E4E7", // Balanced zinc border
-              "input-bg": "#F4F4F5",
-              "input-border": "#E4E4E7",
-              "text-primary": "#09090B", // High-contrast deep carbon (18:1 contrast)
-              "text-secondary": "#52525B", // High-legibility neutral (5.8:1 contrast, WCAG AA compliant)
-              "text-placeholder": "#A1A1AA",
+              // Outer page canvas
+              canvas: "#ececea",
+              "dark-canvas": "#0B0C0E",
 
-              "button-primary-bg": "#09090B",
-              "button-primary-text": "#FFFFFF",
-              "button-primary-hover": "#27272A",
+              // Light theme from reference porto-export
+              background: "#ffffff", // Primary container surface
+              card: "#ffffff",
+              "card-hover": "#f7f7f4",
+              border: "#cdcdc9", // Reference border
+              "input-bg": "#f7f7f4",
+              "input-border": "#cdcdc9",
+              "text-primary": "#262510", // Warm obsidian olive from reference
+              "text-secondary": "#7a7974", // Warm stone gray from reference
+              "text-placeholder": "#a2a19c",
 
-              "button-secondary-bg": "#F4F4F5",
-              "button-secondary-text": "#09090B",
-              "button-secondary-hover": "#E4E4E7",
+              "button-primary-bg": "#262510",
+              "button-primary-text": "#ffffff",
+              "button-primary-hover": "#111111",
 
-              "accent-green": "#059669", // Accessible emerald (4.6:1 text contrast on light surfaces)
-              "accent-green-bg": "#ECFDF5",
+              "button-secondary-bg": "#f7f7f4",
+              "button-secondary-text": "#262510",
+              "button-secondary-hover": "#e6e5e0",
+
+              "accent-green": "#30a14e", // Signature GitHub emerald
+              "accent-green-bg": "#ebedf0",
               "accent-red": "#E11D48",
 
-              // Dark theme (deep obsidian engineering palette, no muddy gray slabs)
-              "dark-background": "#0B0E11", // Deep obsidian dark canvas
-              "dark-card": "#14181D", // Dedicated elevated dark surface
-              "dark-card-hover": "#1C2128",
-              "dark-border": "rgba(255, 255, 255, 0.08)",
-              "dark-input-bg": "#14181D",
-              "dark-input-border": "rgba(255, 255, 255, 0.12)",
-              "dark-text-primary": "#F4F4F5",
-              "dark-text-secondary": "#A1A1AA", // Accessible zinc (7:1 contrast on dark surface)
-              "dark-text-placeholder": "#71717A",
+              // Dark theme matching editorial aesthetic
+              "dark-background": "#141517", // Elevated dark container
+              "dark-card": "#18191C",
+              "dark-card-hover": "#202126",
+              "dark-border": "rgba(255, 255, 255, 0.12)",
+              "dark-input-bg": "#18191C",
+              "dark-input-border": "rgba(255, 255, 255, 0.15)",
+              "dark-text-primary": "#F4F4F0",
+              "dark-text-secondary": "#9E9D98",
+              "dark-text-placeholder": "#6E6D68",
 
-              "dark-button-primary-bg": "#F4F4F5", // High-contrast primary action in dark mode
-              "dark-button-primary-text": "#09090B",
-              "dark-button-primary-hover": "#FFFFFF",
+              "dark-button-primary-bg": "#F4F4F0",
+              "dark-button-primary-text": "#111111",
+              "dark-button-primary-hover": "#ffffff",
 
-              "dark-button-secondary-bg": "#1C2128",
-              "dark-button-secondary-text": "#F4F4F5",
-              "dark-button-secondary-hover": "#262C36",
+              "dark-button-secondary-bg": "#202126",
+              "dark-button-secondary-text": "#F4F4F0",
+              "dark-button-secondary-hover": "#2A2C33",
 
-              "dark-accent-green": "#10B981", // Crisp luminous emerald in dark mode
-              "dark-accent-green-bg": "rgba(16, 185, 129, 0.12)",
+              "dark-accent-green": "#40c463",
+              "dark-accent-green-bg": "rgba(64, 196, 99, 0.15)",
               "dark-accent-red": "#FB7185",
             },
             ringColor: (theme) => ({

@@ -116,6 +116,26 @@ export interface EducationItem {
   details?: string;
 }
 
+export interface SpeakingEvent {
+  id: string;
+  title: string;
+  organizer: string;
+  location: string;
+  date: string;
+  format: 'Offline' | 'Online';
+  imageUrl: string;
+  featured?: boolean;
+}
+
+export interface VideoItem {
+  id: string;
+  title: string;
+  category: string;
+  duration: string;
+  url: string;
+  thumbnailUrl?: string;
+}
+
 export interface SideProject {
   id: string;
   iconChar?: string;

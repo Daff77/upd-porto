@@ -55,24 +55,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             </div>
           </div>
 
-          {/* Profile Monogram / Portrait Frame */}
+          {/* Profile Portrait Frame matching reference */}
           <div className="md:w-1/3 w-full flex justify-center md:justify-end">
-            <div className="p-2 rounded-[2rem] bg-black/5 dark:bg-white/5 border border-border dark:border-white/10 shadow-lg w-48 sm:w-56 aspect-square flex items-center justify-center">
-              <div className="w-full h-full rounded-[calc(2rem-0.5rem)] bg-card dark:bg-dark-card border border-border/80 dark:border-dark-border flex flex-col items-center justify-center p-4 text-center space-y-2">
-                <div className="w-16 h-16 rounded-2xl bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20 flex items-center justify-center font-display text-2xl font-extrabold">
-                  {personalInfo.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')
-                    .slice(0, 2)}
-                </div>
-                <div className="font-mono text-xs font-semibold text-text-primary dark:text-dark-text-primary">
-                  {personalInfo.name}
-                </div>
-                <div className="font-mono text-[10px] text-text-secondary/70">
-                  Profile Placeholder
-                </div>
-              </div>
+            <div className="w-[160px] sm:w-[190px] aspect-[3/4] shrink-0 p-1.5 bg-[#fff7ed80] border-[4px] border-white dark:border-[#262624] rounded-[24px] overflow-hidden shadow-sm">
+              <img
+                src={personalInfo.imageUrl}
+                alt={personalInfo.name}
+                className="w-full h-full object-cover rounded-[16px]"
+              />
             </div>
           </div>
         </div>
