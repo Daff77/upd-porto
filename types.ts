@@ -77,15 +77,43 @@ export interface Project {
   cardImageUrl?: string; // New field for card image
   logoImageUrl?: string; // New field for logo image
 
-  // New fields for Project Details Page
+  // Fields for Project Details & Case Studies
+  category?: string;
   client?: string;
   company?: string;
   projectType?: string;
   year?: string;
   tagline?: string; // Engaging sentence under the main title on detail page
   overview?: string; // Main introductory paragraph on detail page
+  role?: string;
+  timeline?: string;
+  metrics?: { label: string; value: string }[];
+  goals?: string[];
+  process?: { step: string; title: string; description: string }[];
+  decisions?: { title: string; explanation: string; impact: string }[];
+  gallery?: { title: string; caption: string; imageType?: string; aspect?: string }[];
+  results?: string[];
   problemStatement?: ProjectStatement;
   solutionStatement?: ProjectStatement;
+}
+
+export interface ExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  location?: string;
+  period: string;
+  description: string;
+  achievements?: string[];
+  technologies?: string[];
+}
+
+export interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  period: string;
+  details?: string;
 }
 
 export interface SideProject {

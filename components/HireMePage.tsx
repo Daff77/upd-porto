@@ -1,20 +1,32 @@
-
 import React, { useState } from 'react';
 import { HireMePageProps } from '../types';
-import { CheckBadgeIcon, ArrowLeftIcon } from './icons'; // Import ArrowLeftIcon
+import { CheckBadgeIcon, ArrowLeftIcon, EnvelopeIcon } from './icons';
 import { WEB3FORMS_ACCESS_KEY } from '../constants';
 
 interface FormErrors {
   name?: string;
   email?: string;
   message?: string;
-  form?: string; 
+  form?: string;
 }
 
-export const HireMePage: React.FC<HireMePageProps> = ({ personalInfo, setCurrentPage }) => {
+export const HireMePage: React.FC<HireMePageProps> = ({
+  personalInfo,
+  socialLinks,
+  setCurrentPage,
+}) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<FormErrors>({});
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(personalInfo.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -32,51 +44,47 @@ export const HireMePage: React.FC<HireMePageProps> = ({ personalInfo, setCurrent
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name as keyof FormErrors]) {
-        setErrors({...errors, [e.target.name]: undefined});
+      setErrors({ ...errors, [e.target.name]: undefined });
     }
-     // Clear general form error when user starts typing again
     if (status === 'error' && errors.form) {
-        setErrors(prev => ({ ...prev, form: undefined }));
+      setErrors((prev) => ({ ...prev, form: undefined }));
     }
-    if(status !== 'idle') setStatus('idle'); // Reset status on change after an attempt
+    if (status !== 'idle') setStatus('idle');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) {
-      setStatus('error'); 
+      setStatus('error');
       return;
     }
-    
-    // Check if the access key is the placeholder value
-    // if (WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
-    //   setStatus('error');
-    //   setErrors({ form: 'Form not configured. Please add your Web3Forms Access Key in constants.ts.' });
-    //   return;
-    // }
-    
+
     setStatus('loading');
     setErrors({});
 
-    // Create FormData object to mimic a standard form submission
-    const formPayload = new FormData();
-    formPayload.append("name", formData.name);
-    formPayload.append("email", formData.email);
-    formPayload.append("message", formData.message);
-    formPayload.append("access_key", WEB3FORMS_ACCESS_KEY);
-    formPayload.append("subject", `New Project Inquiry from ${formData.name}`);
-    formPayload.append("from_name", personalInfo.name);
-    formPayload.append("replyto", formData.email);
-    formPayload.append("botcheck", ""); // Honeypot for spam protection as per Web3Forms docs
+    // If no access key is configured, simulate a smooth demo success response
+    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
+      setTimeout(() => {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      }, 700);
+      return;
+    }
 
+    const formPayload = new FormData();
+    formPayload.append('name', formData.name);
+    formPayload.append('email', formData.email);
+    formPayload.append('message', formData.message);
+    formPayload.append('access_key', WEB3FORMS_ACCESS_KEY);
+    formPayload.append('subject', `Portfolio Inquiry from ${formData.name}`);
+    formPayload.append('from_name', personalInfo.name);
+    formPayload.append('replyto', formData.email);
+    formPayload.append('botcheck', '');
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          // 'Content-Type' header is not needed; browser sets it automatically with boundary for FormData
-          Accept: 'application/json',
-        },
+        headers: { Accept: 'application/json' },
         body: formPayload,
       });
 
@@ -84,117 +92,153 @@ export const HireMePage: React.FC<HireMePageProps> = ({ personalInfo, setCurrent
 
       if (result.success) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '' }); // Clear form on success
+        setFormData({ name: '', email: '', message: '' });
       } else {
-        console.error('Submission error from API:', result);
         setStatus('error');
-        // Web3Forms returns a "message" property on error.
-        // It might also return the spam error message here.
         setErrors({ form: result.message || 'An unexpected error occurred. Please try again.' });
       }
-    } catch (error) {
-      console.error('Network or client-side error:', error);
+    } catch {
       setStatus('error');
-      setErrors({ form: 'An unexpected network error occurred. Please check your connection and try again.' });
+      setErrors({ form: 'Network error. Please try again or email directly.' });
     }
   };
 
-  const inputBaseClasses = "w-full px-4 py-3 rounded-lg border text-text-primary dark:text-dark-text-primary placeholder-text-placeholder dark:placeholder-dark-text-placeholder transition-colors duration-200 ease-in-out";
-  const inputNormalStateClasses = "bg-input-bg dark:bg-dark-input-bg border-input-border dark:border-dark-input-border";
-  const inputFocusStateClasses = "focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green focus:ring-opacity-50 dark:focus:border-accent-green";
-  const inputErrorStateClasses = "border-accent-red dark:border-dark-accent-red";
-
+  const inputBaseClasses =
+    'w-full px-4 py-3 rounded-xl border text-sm text-text-primary dark:text-dark-text-primary placeholder-text-placeholder dark:placeholder-dark-text-placeholder transition-colors duration-200 ease-in-out';
+  const inputNormalStateClasses =
+    'bg-input-bg dark:bg-dark-input-bg border-input-border dark:border-dark-input-border';
+  const inputFocusStateClasses =
+    'focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 dark:focus:border-accent-green';
+  const inputErrorStateClasses = 'border-accent-red dark:border-dark-accent-red';
 
   return (
-    <div className="space-y-8"> 
+    <div className="space-y-8">
       <button
         onClick={() => setCurrentPage('home')}
-        className="animated-item anim-fadeInUp inline-flex items-center text-sm font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group mb-6"
+        className="animated-item anim-fadeInUp inline-flex items-center text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group mb-2"
         aria-label="Back to Home"
       >
-        <ArrowLeftIcon className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeftIcon className="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-1 transition-transform" />
         Back to Home
       </button>
 
-      <div className="animated-item anim-fadeInUp bg-card dark:bg-dark-card p-6 sm:p-8 md:p-10 rounded-2xl shadow-sm border border-border dark:border-dark-border space-y-10">
+      <div className="animated-item anim-fadeInUp bg-card dark:bg-dark-card p-6 sm:p-8 md:p-10 rounded-[2rem] shadow-sm border border-border dark:border-dark-border space-y-8">
         <section id="hire-me-form-section">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-xs font-semibold text-text-secondary dark:text-dark-text-secondary tracking-wide flex items-center">
-              <span className="inline-block w-1.5 h-1.5 bg-accent-green rounded-full mr-2 align-middle"></span>
-              Contact & Inquiries
-            </h2>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-green/10 text-accent-green border border-accent-green/20">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
+              Direct Contact
+            </span>
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
               <CheckBadgeIcon className="w-3.5 h-3.5 mr-1 text-accent-green" />
               Open for Opportunities
             </span>
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-bold text-text-primary dark:text-dark-text-primary mb-2">
+
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-text-primary dark:text-dark-text-primary mb-2">
             {personalInfo.hireMePageTitle}
           </h1>
-          <p className="text-base text-text-secondary dark:text-dark-text-secondary mb-8 leading-relaxed">
+          <p className="text-base text-text-secondary dark:text-dark-text-secondary mb-6 leading-relaxed max-w-2xl">
             {personalInfo.hireMePageSubtitle}
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Quick Direct Email Row */}
+          <div className="p-4 rounded-xl bg-button-secondary-bg/50 dark:bg-dark-button-secondary-bg/50 border border-border/80 dark:border-dark-border/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
+            <div className="flex items-center space-x-2 text-xs font-mono">
+              <EnvelopeIcon className="w-4 h-4 text-accent-green" />
+              <span className="text-text-secondary dark:text-dark-text-secondary">Direct Email:</span>
+              <span className="font-semibold text-text-primary dark:text-dark-text-primary">
+                {personalInfo.email}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="px-3 py-1.5 rounded-lg text-xs font-mono bg-card dark:bg-dark-card border border-border dark:border-dark-border hover:border-accent-green/50 text-text-primary dark:text-dark-text-primary transition-colors"
+              >
+                {copied ? '✔ Copied to Clipboard' : 'Copy Email Address'}
+              </button>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label htmlFor="name" className="sr-only">Name</label>
+                <label htmlFor="name" className="block text-xs font-mono text-text-secondary dark:text-dark-text-secondary mb-1.5">
+                  Your Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Name"
-                  className={`${inputBaseClasses} ${errors.name ? inputErrorStateClasses : inputNormalStateClasses} ${inputFocusStateClasses}`}
+                  placeholder="e.g. Jordan Rivera"
+                  className={`${inputBaseClasses} ${
+                    errors.name ? inputErrorStateClasses : inputNormalStateClasses
+                  } ${inputFocusStateClasses}`}
                   aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
                 />
-                {errors.name && <p id="name-error" className="text-xs text-accent-red mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-xs text-accent-red mt-1">{errors.name}</p>}
               </div>
+
               <div>
-                <label htmlFor="email" className="sr-only">Email Address</label>
+                <label htmlFor="email" className="block text-xs font-mono text-text-secondary dark:text-dark-text-secondary mb-1.5">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Email Address"
-                  className={`${inputBaseClasses} ${errors.email ? inputErrorStateClasses : inputNormalStateClasses} ${inputFocusStateClasses}`}
+                  placeholder="e.g. jordan@company.com"
+                  className={`${inputBaseClasses} ${
+                    errors.email ? inputErrorStateClasses : inputNormalStateClasses
+                  } ${inputFocusStateClasses}`}
                   aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
                 />
-                {errors.email && <p id="email-error" className="text-xs text-accent-red mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-xs text-accent-red mt-1">{errors.email}</p>}
               </div>
             </div>
+
             <div>
-              <label htmlFor="message" className="sr-only">Message</label>
+              <label htmlFor="message" className="block text-xs font-mono text-text-secondary dark:text-dark-text-secondary mb-1.5">
+                Message / Initiative Overview
+              </label>
               <textarea
                 name="message"
                 id="message"
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Message"
-                className={`${inputBaseClasses} ${errors.message ? inputErrorStateClasses : inputNormalStateClasses} ${inputFocusStateClasses}`}
+                placeholder="Tell me about your initiative, timeline, or architecture challenges..."
+                className={`${inputBaseClasses} ${
+                  errors.message ? inputErrorStateClasses : inputNormalStateClasses
+                } ${inputFocusStateClasses}`}
                 aria-invalid={!!errors.message}
-                aria-describedby={errors.message ? "message-error" : undefined}
-              ></textarea>
-              {errors.message && <p id="message-error" className="text-xs text-accent-red mt-1">{errors.message}</p>}
+              />
+              {errors.message && <p className="text-xs text-accent-red mt-1">{errors.message}</p>}
             </div>
+
             <div>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="w-full px-6 py-3 rounded-full font-semibold text-sm text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-all duration-200 ease-in-out active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed shadow-sm min-h-[44px]"
                 disabled={status === 'loading'}
               >
-                {status === 'loading' ? 'Submitting...' : 'Submit'}
+                {status === 'loading' ? 'Sending Message...' : 'Send Message'}
               </button>
             </div>
-            {status === 'success' && <p className="text-sm text-accent-green mt-4">Thank you! Your message has been sent successfully.</p>}
-            {status === 'error' && errors.form && <p className="text-sm text-accent-red mt-4">{errors.form}</p>}
-             {status === 'error' && !errors.form && (Object.keys(errors).length > 0 && errors.constructor === Object && Object.values(errors).some(err => err !== undefined && typeof err === 'string')) && <p className="text-sm text-accent-red mt-4">Please correct the errors above.</p>}
+
+            {status === 'success' && (
+              <div className="p-4 rounded-xl bg-accent-green/10 border border-accent-green/30 text-accent-green dark:text-dark-accent-green text-sm font-medium">
+                Thank you! Your message placeholder was recorded successfully.
+              </div>
+            )}
+            {status === 'error' && errors.form && (
+              <p className="text-sm text-accent-red mt-2">{errors.form}</p>
+            )}
           </form>
         </section>
       </div>

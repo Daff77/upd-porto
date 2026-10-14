@@ -12,6 +12,7 @@ import { AboutPage } from './components/AboutPage';
 import { ProjectsPage } from './components/ProjectsPage';
 import { HireMePage } from './components/HireMePage';
 import { ProjectDetailsPage } from './components/ProjectDetailsPage';
+import { ExperiencePreviewSection } from './components/ExperiencePreviewSection';
 import { PERSONAL_INFO, PROJECTS, SIDE_PROJECTS, SOCIAL_LINKS, SKILLS, DEVELOPER_CREDIT } from './constants';
 import { IntroAnimation } from './components/IntroAnimation';
 import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScrollProvider';
@@ -23,7 +24,7 @@ const AppContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lenis = useLenis();
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
   
   // Theme state initialization
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -138,8 +139,8 @@ const AppContent: React.FC = () => {
     }, 150);
   }, [navigate, lenis]);
 
-  // Menu tab order for swipe navigation: Home, About, Projects, Focus, Contact
-  const menuTabs = ['home', 'about', 'projects', 'focus', 'contact'];
+  // Menu tab order for swipe navigation: Home, About, Projects, Contact
+  const menuTabs = ['home', 'about', 'projects', 'contact'];
 
   // Get current page from location
   const getCurrentPage = () => {
@@ -239,11 +240,12 @@ const AppContent: React.FC = () => {
                 projects={PROJECTS} 
                 onViewAllClick={() => handleSetPage('projects')} 
                 setCurrentPage={handleSetPage}
-                title="Featured Project"
-                maxItems={3}
+                title="Selected Works & Systems"
+                maxItems={4}
               />
-              <TechnicalFocusSection 
-                onLearnMoreClick={() => handleSetPage('focus')}
+              <ExperiencePreviewSection 
+                setCurrentPage={handleSetPage}
+                theme={theme}
               />
               <CallToAction email={PERSONAL_INFO.email} setCurrentPage={handleSetPage} />
             </>

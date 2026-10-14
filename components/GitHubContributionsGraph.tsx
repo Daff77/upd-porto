@@ -1,141 +1,107 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { GithubIcon } from './icons'; 
+import { GithubIcon } from './icons';
 
 interface GitHubContributionsGraphProps {
-  username: string;
-  theme: 'light' | 'dark'; // theme prop is currently not directly used by the ghchart.rshah.org image
+  username?: string;
+  theme: 'light' | 'dark';
 }
 
-export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> = ({ username, theme }) => {
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [imageError, setImageError] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+export const GitHubContributionsGraph: React.FC<GitHubContributionsGraphProps> = ({
+  username = 'alexmorgan-dev',
+  theme,
+}) => {
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [useFallback, setUseFallback] = useState(true);
 
-  const timeoutIdRef = useRef<number | null>(null); // Changed NodeJS.Timeout to number
-  const imageSettledRef = useRef(false); // True if image load/error/timeout has occurred
-
+  // If a real custom username is provided (not template default), try loading live chart
   useEffect(() => {
-    // Clear previous timeout if it exists
-    if (timeoutIdRef.current !== null) { // Check if not null before clearing
-      clearTimeout(timeoutIdRef.current);
-    }
-    imageSettledRef.current = false; // Reset settlement status for the new attempt
-
-    if (!username) {
-      setImageError("GitHub username is not provided.");
-      setIsImageLoading(false);
-      setImageUrl(null);
-      imageSettledRef.current = true; // No load attempt, so it's "settled"
+    if (!username || username === 'alexmorgan-dev' || username === 'yourusername') {
+      setUseFallback(true);
       return;
     }
 
-    // Initiate loading process for a new/valid username
     setIsImageLoading(true);
-    setImageError(null);
-    setImageUrl(`https://ghchart.rshah.org/059669/${username}`); // Render with our signature emerald accent color
-
-    // Set a timeout for the image load
-    timeoutIdRef.current = window.setTimeout(() => { // Use window.setTimeout for clarity in browser context
-      if (!imageSettledRef.current) { // Check if image hasn't loaded or errored yet
-        setImageError("Failed to load contribution graph. The request timed out or the service is unresponsive.");
-        setIsImageLoading(false);
-        imageSettledRef.current = true; // Mark as settled due to timeout
-      }
-    }, 7000); // 7 seconds
-
-    return () => { // Cleanup on component unmount or before an update to `username`
-      if (timeoutIdRef.current !== null) {
-        clearTimeout(timeoutIdRef.current);
-      }
+    const img = new Image();
+    img.src = `https://ghchart.rshah.org/059669/${username}`;
+    img.onload = () => {
+      setIsImageLoading(false);
+      setUseFallback(false);
+    };
+    img.onerror = () => {
+      setIsImageLoading(false);
+      setUseFallback(true);
     };
   }, [username]);
 
-  const handleImageLoadSuccess = () => {
-    if (!imageSettledRef.current) {
-      setIsImageLoading(false);
-      setImageError(null);
-      imageSettledRef.current = true;
-      if (timeoutIdRef.current !== null) clearTimeout(timeoutIdRef.current);
-    }
-  };
-
-  const handleImageLoadError = () => {
-    if (!imageSettledRef.current) {
-      // Differentiate error slightly if it's not a timeout
-      setImageError("Failed to load contribution graph. The user might not exist, the service is unavailable, or there was a network issue.");
-      setIsImageLoading(false);
-      imageSettledRef.current = true;
-      if (timeoutIdRef.current !== null) clearTimeout(timeoutIdRef.current);
-    }
-  };
-
-  const githubProfileUrl = `https://github.com/${username}`;
-
   return (
-    <section id="github-contributions" className="animated-item anim-fadeInUp">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="font-display text-2xl sm:text-3xl font-bold text-text-primary dark:text-dark-text-primary flex items-center">
-          <span className="inline-block w-1.5 h-1.5 bg-accent-green rounded-full mr-2.5 align-middle"></span>
-          GitHub Contributions
-        </h2>
-        {username && ( // Only show profile link if username is valid
-           <a 
-            href={githubProfileUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-sm font-medium text-accent-green hover:opacity-85 transition-opacity inline-flex items-center group"
-            aria-label={`View ${username}'s GitHub profile`}
-          >
-            <GithubIcon className="w-4 h-4 mr-1.5" />
-            View Profile
-          </a>
-        )}
+    <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 dark:border-dark-border/60 pb-3">
+        <div className="flex items-center space-x-2">
+          <GithubIcon className="w-4 h-4 text-accent-green dark:text-dark-accent-green" />
+          <h3 className="font-display text-sm font-bold text-text-primary dark:text-dark-text-primary">
+            Open Source & Git Activity
+          </h3>
+        </div>
+        <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary">
+          {useFallback ? 'Activity Grid Template' : `@${username}`}
+        </span>
       </div>
 
-      {/* Hidden image tag to trigger load and capture events. Rendered if imageUrl is set. */}
-      {imageUrl && (
-        <img
-          key={imageUrl} // Ensures img is replaced if src changes, helping with event re-attachment
-          src={imageUrl}
-          alt="" // Decorative, as it's not meant to be seen directly
-          style={{ display: 'none' }}
-          onLoad={handleImageLoadSuccess}
-          onError={handleImageLoadError}
-        />
-      )}
+      {!useFallback ? (
+        <div className="overflow-x-auto py-2">
+          <img
+            src={`https://ghchart.rshah.org/059669/${username}`}
+            alt={`GitHub contribution graph for ${username}`}
+            className="w-full h-auto min-w-[650px]"
+          />
+        </div>
+      ) : (
+        /* Clean architectural preview matrix (no fake stats, clearly marked as template preview) */
+        <div className="space-y-3">
+          <div className="overflow-x-auto py-2">
+            <div className="min-w-[620px] grid grid-flow-col grid-rows-7 gap-1 w-full opacity-80">
+              {Array.from({ length: 52 * 7 }).map((_, i) => {
+                // Subtle varied opacity levels to simulate activity pattern
+                const intensity = (i * 17 + (i % 7) * 23) % 5;
+                const bgClass =
+                  intensity === 0
+                    ? 'bg-border/40 dark:bg-dark-border/40'
+                    : intensity === 1
+                    ? 'bg-accent-green/20'
+                    : intensity === 2
+                    ? 'bg-accent-green/45'
+                    : intensity === 3
+                    ? 'bg-accent-green/70'
+                    : 'bg-accent-green';
 
-      {/* Display loading message */}
-      {isImageLoading && username && (
-        <div className="text-center py-10 text-text-secondary dark:text-dark-text-secondary">
-          Loading GitHub contributions graph...
+                return (
+                  <div
+                    key={i}
+                    className={`w-2.5 h-2.5 rounded-xs ${bgClass} transition-colors hover:scale-125`}
+                    title="Template activity preview cell"
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[11px] font-mono text-text-secondary dark:text-dark-text-secondary pt-1">
+            <span>Jan — Dec</span>
+            <div className="flex items-center space-x-1.5">
+              <span>Less</span>
+              <span className="w-2 h-2 rounded-xs bg-border/40 dark:bg-dark-border/40" />
+              <span className="w-2 h-2 rounded-xs bg-accent-green/30" />
+              <span className="w-2 h-2 rounded-xs bg-accent-green/60" />
+              <span className="w-2 h-2 rounded-xs bg-accent-green" />
+              <span>More</span>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Display error message (this covers "no username", actual load errors, and timeout) */}
-      {imageError && !isImageLoading && (
-        <div className="text-center py-10 text-accent-red dark:text-dark-accent-red">
-          Error: {imageError}
-        </div>
-      )}
-
-      {/* Display the actual graph image on success */}
-      {!isImageLoading && !imageError && imageUrl && username && (
-        <div className="p-4 sm:p-5 bg-card dark:bg-dark-card rounded-2xl shadow-sm border border-border dark:border-dark-border overflow-hidden">
-          <a href={githubProfileUrl} target="_blank" rel="noopener noreferrer" aria-label={`${username}'s contribution graph, links to GitHub profile`}>
-            <img
-              src={imageUrl}
-              alt={`${username}'s GitHub contribution graph`}
-              className="w-full h-auto"
-            />
-          </a>
-          {/* 
-          <p className="text-xs text-text-secondary dark:text-dark-text-secondary mt-2 text-center">
-            Contribution graph powered by <a href="https://ghchart.rshah.org/" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent-green">ghchart.rshah.org</a>. Shows contributions from the last year.
-          </p> 
-          */}
-        </div>
-      )}
-    </section>
+      <p className="text-[11px] font-mono text-text-secondary/70 dark:text-dark-text-secondary/70 border-t border-border/50 dark:border-dark-border/50 pt-2">
+        To stream your live GitHub contribution graph, set your <code className="text-accent-green">githubUsername</code> in <code className="text-accent-green">constants.ts</code>.
+      </p>
+    </div>
   );
 };
