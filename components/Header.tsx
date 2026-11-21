@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
       <AppLink
         to="/"
         className="group min-w-0 flex items-center gap-2.5 sm:gap-3 text-left"
-        aria-label={`${PROFILE.name} — Home`}
+        aria-label={`${PROFILE.name} · Home`}
       >
         <div className="w-9 h-9 shrink-0 rounded-xl bg-text-primary dark:bg-dark-text-primary text-background dark:text-dark-background flex items-center justify-center font-bold text-[13px] tracking-tight transition-transform duration-200 group-hover:scale-105">
           {PROFILE.initials}
@@ -35,8 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
             <span className="hidden sm:inline">{PROFILE.name}</span>
             <span className="sm:hidden">{PROFILE.shortName}</span>
           </span>
-          <span className="hidden md:flex items-center gap-1.5 text-[12px] leading-snug text-text-secondary dark:text-dark-text-secondary font-normal">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0" />
+          <span className="hidden md:block text-[12px] leading-snug text-text-secondary dark:text-dark-text-secondary font-normal">
             {PROFILE.roles[1]}
           </span>
         </div>
@@ -60,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
               {item.name}
               <span
                 aria-hidden="true"
-                className={`absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent-green dark:bg-dark-accent-green transition-transform duration-200 origin-left ${
+                className={`absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent dark:bg-dark-accent transition-transform duration-200 origin-left ${
                   active ? 'scale-x-100' : 'scale-x-0'
                 }`}
               />
@@ -73,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
           type="button"
           onClick={(e) => toggleTheme(e)}
           aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-          className="w-9 h-9 shrink-0 rounded-full bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary active:scale-95 hover:border-text-primary/25 dark:hover:border-white/25"
+          className="w-9 h-9 shrink-0 rounded-xl bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border dark:border-dark-border flex items-center justify-center text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary active:scale-95 hover:border-text-primary/25 dark:hover:border-white/25"
           title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
         >
           {theme === 'light' ? (

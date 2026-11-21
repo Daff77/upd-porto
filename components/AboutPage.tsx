@@ -19,7 +19,7 @@ import { ContactBand } from './ContactBand';
 
 export const AboutPage: React.FC = () => {
   usePageMeta(
-    'About — Daffa Danendra Fairuzza',
+    'About · Daffa Danendra Fairuzza',
     'Background, full-stack focus, organizational activities, education, and technical toolkit of Daffa Danendra Fairuzza.'
   );
 
@@ -28,14 +28,11 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="space-y-16 md:space-y-20">
       {/* Header */}
-      <header className="rise-in space-y-4 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
-          About
-        </p>
+      <header className="rise-in space-y-3 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
         <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
           Learning software engineering by building it.
         </h1>
-        <p className="font-mono text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
+        <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
           {PROFILE.roles.join(' · ')}
         </p>
       </header>
@@ -127,12 +124,10 @@ export const AboutPage: React.FC = () => {
         </aside>
       </section>
 
-      {/* 01 — Direction */}
+      {/* Direction */}
       <Reveal as="section" aria-labelledby="direction-heading" className="space-y-8">
         <SectionHeading
           id="direction-heading"
-          index="01"
-          eyebrow="Direction"
           title="Where I'm heading"
         />
 
@@ -142,7 +137,7 @@ export const AboutPage: React.FC = () => {
               key={item.label}
               className="border-t border-border-subtle dark:border-dark-border-subtle pt-4 space-y-2"
             >
-              <p className="font-mono text-xs uppercase tracking-wider text-accent-green dark:text-dark-accent-green">
+              <p className="font-mono text-xs text-accent dark:text-dark-accent">
                 {item.label}
               </p>
               <h3 className="text-base font-medium text-text-primary dark:text-dark-text-primary">
@@ -156,12 +151,10 @@ export const AboutPage: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* 02 — How I work */}
+      {/* How I work */}
       <Reveal as="section" aria-labelledby="approach-heading" className="space-y-8">
         <SectionHeading
           id="approach-heading"
-          index="02"
-          eyebrow="Process"
           title="How I approach projects"
         />
 
@@ -172,7 +165,7 @@ export const AboutPage: React.FC = () => {
                 key={step.title}
                 className="border-t border-border-subtle dark:border-dark-border-subtle py-5 flex items-baseline gap-4"
               >
-                <span className="font-mono text-base sm:text-lg font-medium text-accent-green dark:text-dark-accent-green shrink-0">
+                <span className="font-mono text-sm font-medium text-text-placeholder dark:text-dark-text-placeholder tabular-nums shrink-0">
                   {String(idx + 1).padStart(2, '0')}
                 </span>
                 <div className="space-y-1">
@@ -193,36 +186,30 @@ export const AboutPage: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* 03 — Skills */}
+      {/* Skills */}
       <Reveal as="section" aria-labelledby="skills-heading" className="space-y-8">
         <SectionHeading
           id="skills-heading"
-          index="03"
-          eyebrow="Skills"
           title="Technologies & tools"
         />
 
         <SkillsMatrix />
       </Reveal>
 
-      {/* 04 — Experience & activities */}
+      {/* Experience & activities */}
       <Reveal as="section" aria-labelledby="experience-heading" className="space-y-8">
         <SectionHeading
           id="experience-heading"
-          index="04"
-          eyebrow="Involvement"
           title="Experience & activities"
         />
 
         <Timeline items={EXPERIENCES} />
       </Reveal>
 
-      {/* 05 — Education */}
+      {/* Education */}
       <Reveal as="section" aria-labelledby="education-heading" className="space-y-8">
         <SectionHeading
           id="education-heading"
-          index="05"
-          eyebrow="Academic"
           title="Education"
         />
 
@@ -272,12 +259,10 @@ export const AboutPage: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* 06 — Languages */}
+      {/* Languages */}
       <Reveal as="section" aria-labelledby="languages-heading" className="space-y-8">
         <SectionHeading
           id="languages-heading"
-          index="06"
-          eyebrow="Communication"
           title="Languages"
         />
 
@@ -302,7 +287,6 @@ export const AboutPage: React.FC = () => {
       <Reveal as="section" aria-labelledby="about-github-heading" className="space-y-6">
         <SectionHeading
           id="about-github-heading"
-          eyebrow="Activity"
           title="GitHub contributions"
         />
 

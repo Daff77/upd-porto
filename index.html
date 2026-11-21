@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daffa Danendra Fairuzza — Aspiring Software Engineer</title>
+    <title>Daffa Danendra Fairuzza · Aspiring Software Engineer</title>
     <meta name="description" content="Portfolio of Daffa Danendra Fairuzza, an Information Systems student at UIN Sunan Ampel Surabaya focused on full-stack development, with an interest in software engineering and AI/ML." />
     <meta name="author" content="Daffa Danendra Fairuzza" />
-    <meta property="og:title" content="Daffa Danendra Fairuzza — Aspiring Software Engineer" />
+    <meta property="og:title" content="Daffa Danendra Fairuzza · Aspiring Software Engineer" />
     <meta property="og:description" content="Portfolio of Daffa Danendra Fairuzza, an Information Systems student at UIN Sunan Ampel Surabaya focused on full-stack development, with an interest in software engineering and AI/ML." />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#ececea" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E0E0F" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/assets/typography.css" />
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -49,62 +49,69 @@
               display: ["Satoshi", "system-ui", "sans-serif"],
               sans: ["Satoshi", "system-ui", "sans-serif"],
               mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
+              hand: ['"Caveat"', "cursive"],
             },
             colors: {
               // Outer page canvas
-              canvas: "#ececea",
-              "dark-canvas": "#0B0C0E",
+              canvas: "#FFFFFF",
+              "dark-canvas": "#0E0E0F",
 
-              // Light theme from reference porto-export
-              background: "#ffffff", // Primary container surface
-              card: "#ffffff",
-              "card-hover": "#f7f7f4",
-              border: "#cdcdc9", // Reference border
-              "border-subtle": "#E4E3DF",
-              "input-bg": "#f7f7f4",
-              "input-border": "#cdcdc9",
-              "text-primary": "#242424", // Primary neutral text
-              "text-secondary": "#666666", // Secondary neutral text
-              "text-placeholder": "#a2a19c",
+              // Light theme (paper white + warm stone + crisp ink + warm orange accent)
+              background: "#FFFFFF",
+              card: "#FFFFFF",
+              "card-hover": "#F2F1EF",
+              border: "rgba(10, 10, 10, 0.12)",
+              "border-subtle": "rgba(10, 10, 10, 0.07)",
+              "input-bg": "#F2F1EF",
+              "input-border": "rgba(10, 10, 10, 0.14)",
+              "text-primary": "#0A0A0A",
+              "text-secondary": "rgba(10, 10, 10, 0.62)",
+              "text-placeholder": "rgba(10, 10, 10, 0.40)",
 
-              "button-primary-bg": "#242424",
-              "button-primary-text": "#ffffff",
-              "button-primary-hover": "#111111",
+              "button-primary-bg": "#0A0A0A",
+              "button-primary-text": "#FFFFFF",
+              "button-primary-hover": "#262626",
 
-              "button-secondary-bg": "#f7f7f4",
-              "button-secondary-text": "#242424",
-              "button-secondary-hover": "#e6e5e0",
+              "button-secondary-bg": "#F2F1EF",
+              "button-secondary-text": "#0A0A0A",
+              "button-secondary-hover": "#E7E5E0",
 
-              "accent-green": "#2F6B4F",
-              "accent-green-bg": "#E8F1EC",
+              accent: "#FF6308",
+              "accent-subtle": "rgba(255, 99, 8, 0.10)",
+              "accent-green": "#FF6308",
+              "accent-green-bg": "rgba(255, 99, 8, 0.10)",
+              "status-live": "#0C8463",
               "accent-red": "#E11D48",
 
-              // Dark theme matching editorial aesthetic
-              "dark-background": "#141517", // Elevated dark container
-              "dark-card": "#18191C",
-              "dark-card-hover": "#202126",
+              // Dark theme
+              "dark-background": "#0E0E0F",
+              "dark-card": "#171719",
+              "dark-card-hover": "#202023",
               "dark-border": "rgba(255, 255, 255, 0.12)",
               "dark-border-subtle": "rgba(255, 255, 255, 0.07)",
-              "dark-input-bg": "#18191C",
-              "dark-input-border": "rgba(255, 255, 255, 0.15)",
-              "dark-text-primary": "#f3f3f3",
-              "dark-text-secondary": "#b5b5b5",
-              "dark-text-placeholder": "#6E6D68",
+              "dark-input-bg": "#171719",
+              "dark-input-border": "rgba(255, 255, 255, 0.14)",
+              "dark-text-primary": "#F5F5F4",
+              "dark-text-secondary": "rgba(245, 245, 244, 0.64)",
+              "dark-text-placeholder": "rgba(245, 245, 244, 0.40)",
 
-              "dark-button-primary-bg": "#F4F4F0",
-              "dark-button-primary-text": "#111111",
-              "dark-button-primary-hover": "#ffffff",
+              "dark-button-primary-bg": "#F5F5F4",
+              "dark-button-primary-text": "#0E0E0F",
+              "dark-button-primary-hover": "#FFFFFF",
 
-              "dark-button-secondary-bg": "#202126",
-              "dark-button-secondary-text": "#F4F4F0",
-              "dark-button-secondary-hover": "#2A2C33",
+              "dark-button-secondary-bg": "#171719",
+              "dark-button-secondary-text": "#F5F5F4",
+              "dark-button-secondary-hover": "#232327",
 
-              "dark-accent-green": "#8CCBA8",
-              "dark-accent-green-bg": "rgba(140, 203, 168, 0.12)",
+              "dark-accent": "#FF7A2E",
+              "dark-accent-subtle": "rgba(255, 122, 46, 0.14)",
+              "dark-accent-green": "#FF7A2E",
+              "dark-accent-green-bg": "rgba(255, 122, 46, 0.14)",
+              "dark-status-live": "#34D399",
               "dark-accent-red": "#FB7185",
             },
             ringColor: (theme) => ({
-              DEFAULT: theme("colors.accent-green"),
+              DEFAULT: theme("colors.accent"),
             }),
             animation: {
               "spin-slow": "spin-slow 20s linear infinite",
@@ -282,7 +289,7 @@
         transform: none;
       }
       :focus-visible {
-        outline: 2px solid currentColor;
+        outline: 2px solid #FF6308;
         outline-offset: 3px;
         border-radius: 6px;
       }
@@ -310,7 +317,7 @@
     </script>
   </head>
   <body
-    class="bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary font-sans antialiased selection:bg-accent-green/20 selection:text-text-primary dark:selection:text-dark-text-primary"
+    class="bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary font-sans antialiased selection:bg-accent/15 selection:text-text-primary dark:selection:text-dark-text-primary"
   >
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>

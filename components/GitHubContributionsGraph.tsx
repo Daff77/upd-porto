@@ -2,11 +2,11 @@ import React from 'react';
 import snapshot from '../assets/github-contributions.json';
 
 const colorByLevel = [
-  'bg-[#eeeeee] dark:bg-white/10',
-  'bg-[#d6d6d6] dark:bg-[#505050]',
-  'bg-[#ababab] dark:bg-[#737373]',
-  'bg-[#7a7a7a] dark:bg-[#a0a0a0]',
-  'bg-[#505050] dark:bg-[#d0d0d0]',
+  'bg-[#F2F1EF] dark:bg-white/10',
+  'bg-[#E4D5CB] dark:bg-[#4A3728]',
+  'bg-[#ECA178] dark:bg-[#8B4D2B]',
+  'bg-[#F57E3F] dark:bg-[#D15916]',
+  'bg-[#FF6308] dark:bg-[#FF7A2E]',
 ];
 
 const dateFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' });

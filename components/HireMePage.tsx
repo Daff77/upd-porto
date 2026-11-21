@@ -12,7 +12,7 @@ interface FormErrors {
 
 export const HireMePage: React.FC = () => {
   usePageMeta(
-    'Contact — Daffa Danendra Fairuzza',
+    'Contact · Daffa Danendra Fairuzza',
     "Open to software engineering internships, collaborating on projects, and conversations about full-stack development or applied AI/ML."
   );
 
@@ -110,10 +110,7 @@ export const HireMePage: React.FC = () => {
   return (
     <div className="space-y-12 md:space-y-16">
       {/* Header */}
-      <header className="animated-item anim-fadeInUp space-y-4 max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
-          Contact
-        </p>
+      <header className="rise-in space-y-4 max-w-2xl" style={{ '--n': 0 } as React.CSSProperties}>
         <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
           Let&apos;s connect.
         </h1>
@@ -123,7 +120,7 @@ export const HireMePage: React.FC = () => {
       </header>
 
       {/* Main grid */}
-      <div className="animated-item anim-fadeInUp anim-delay-100 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-start">
+      <div className="rise-in grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-start" style={{ '--n': 1 } as React.CSSProperties}>
         <div className="space-y-8">
           {/* Channels list */}
           <div className="divide-y divide-border-subtle dark:divide-dark-border-subtle border-y border-border-subtle dark:border-dark-border-subtle">
@@ -216,7 +213,7 @@ export const HireMePage: React.FC = () => {
 
           {hasBothMissing && (
             <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
-              Email and LinkedIn will be listed here soon &mdash; GitHub is the best place to reach me for now.
+              Email and LinkedIn will be listed here soon. GitHub is the best place to reach me for now.
             </p>
           )}
 
@@ -293,15 +290,15 @@ export const HireMePage: React.FC = () => {
 
               <button
                 type="submit"
-                className="h-11 px-6 rounded-full font-medium text-sm text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="h-11 px-6 rounded-xl font-medium text-sm text-button-primary-text dark:text-dark-button-primary-text bg-button-primary-bg dark:bg-dark-button-primary-bg hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                 disabled={status === 'loading'}
               >
                 {status === 'loading' ? 'Sending...' : 'Send message'}
               </button>
 
               {status === 'success' && (
-                <div className="p-4 rounded-xl bg-accent-green-bg dark:bg-dark-accent-green-bg border border-accent-green/20 text-accent-green dark:text-dark-accent-green text-sm font-medium">
-                  Thanks &mdash; your message has been sent.
+                <div className="p-4 rounded-xl bg-accent-green-bg dark:bg-dark-accent-green-bg border border-accent/20 text-accent dark:text-dark-accent text-sm font-medium">
+                  Thanks, your message has been sent.
                 </div>
               )}
               {status === 'error' && errors.form && (
@@ -314,22 +311,13 @@ export const HireMePage: React.FC = () => {
         {/* Side block */}
         <aside className="border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-6 lg:pt-0 lg:pl-8 space-y-6">
           <div className="space-y-3">
-            <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-text-secondary dark:text-dark-text-secondary">
+            <h2 className="text-xs font-medium text-text-secondary dark:text-dark-text-secondary">
               Good reasons to reach out
             </h2>
-            <ul className="space-y-2.5 text-sm text-text-primary dark:text-dark-text-primary">
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2" />
-                <span>Software engineering internships</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2" />
-                <span>Collaborating on web or mobile projects</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2" />
-                <span>Talking through full-stack development or applied AI/ML</span>
-              </li>
+            <ul className="divide-y divide-border-subtle dark:divide-dark-border-subtle text-sm text-text-primary dark:text-dark-text-primary">
+              <li className="py-2.5">Software engineering internships</li>
+              <li className="py-2.5">Collaborating on web or mobile projects</li>
+              <li className="py-2.5">Talking through full-stack development or applied AI/ML</li>
             </ul>
           </div>
 

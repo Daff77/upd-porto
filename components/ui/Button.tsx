@@ -23,7 +23,7 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({
   onClick,
 }) => {
   const base =
-    'group inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full text-sm font-medium transition-colors active:scale-[0.98] whitespace-nowrap';
+    'group inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-sm font-medium transition-colors active:scale-[0.98] whitespace-nowrap';
 
   const variants = {
     primary:
@@ -43,7 +43,7 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({
       {arrow && (
         <span
           aria-hidden="true"
-          className="inline-block transition-transform duration-200 group-hover:translate-x-0.5 text-accent-green dark:text-dark-accent-green"
+          className="inline-block opacity-65 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
         >
           &rarr;
         </span>

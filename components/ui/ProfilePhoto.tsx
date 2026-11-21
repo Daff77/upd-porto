@@ -16,7 +16,7 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   const sizeClass =
     variant === 'portrait'
       ? 'w-full aspect-[4/5] max-w-[240px]'
-      : 'w-20 h-20 sm:w-24 sm:h-24 shrink-0';
+      : 'w-14 h-14 sm:w-16 sm:h-16 shrink-0';
 
   if (showImage) {
     return (
@@ -43,20 +43,16 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
         className={
           variant === 'portrait'
             ? 'font-display text-3xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.04]'
-            : 'font-display text-xl sm:text-2xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.04]'
+            : 'font-display text-base sm:text-lg font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.04]'
         }
       >
         {PROFILE.initials}
       </span>
-      <span
-        className={
-          variant === 'portrait'
-            ? 'mt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-text-placeholder dark:text-dark-text-placeholder'
-            : 'mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-text-placeholder dark:text-dark-text-placeholder'
-        }
-      >
-        {variant === 'portrait' ? 'Add photo' : 'Photo'}
-      </span>
+      {variant === 'portrait' && (
+        <span className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-text-placeholder dark:text-dark-text-placeholder">
+          Add photo
+        </span>
+      )}
     </div>
   );
 };

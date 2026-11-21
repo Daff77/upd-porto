@@ -14,9 +14,8 @@ export const Tag: React.FC<TagProps> = ({
   if (variant === 'stage') {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider px-2 py-0.5 rounded-md border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary ${className}`}
+        className={`inline-flex items-center font-mono text-[11px] font-medium px-2 py-0.5 rounded-md bg-card-hover dark:bg-dark-card border border-border-subtle dark:border-dark-border-subtle text-text-primary dark:text-dark-text-primary ${className}`}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0" />
         {children}
       </span>
     );
@@ -24,7 +23,7 @@ export const Tag: React.FC<TagProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center text-xs px-2 py-1 rounded-md border border-border-subtle dark:border-dark-border-subtle text-text-secondary dark:text-dark-text-secondary ${className}`}
+      className={`inline-flex items-center text-xs px-2 py-0.5 rounded-md border border-border-subtle dark:border-dark-border-subtle text-text-secondary dark:text-dark-text-secondary ${className}`}
     >
       {children}
     </span>

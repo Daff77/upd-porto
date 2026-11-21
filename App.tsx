@@ -15,7 +15,7 @@ import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScro
 import { usePageMeta } from './hooks/usePageMeta';
 
 const NotFoundPage: React.FC = () => {
-  usePageMeta('Page not found — Daffa Danendra Fairuzza');
+  usePageMeta('Page not found · Daffa Danendra Fairuzza');
 
   return (
     <div className="text-center py-16 space-y-4">
@@ -204,23 +204,21 @@ const AppContent: React.FC = () => {
   return (
     <NavigationContext.Provider value={go}>
       <div
-        className="min-h-screen flex flex-col bg-canvas dark:bg-dark-canvas sm:px-5 sm:py-6 lg:py-10 text-text-primary dark:text-dark-text-primary transition-colors duration-200"
+        className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-200"
         {...swipeHandlers}
       >
         <SmoothScrollToTop pathname={location.pathname} />
 
-        <div className="w-full max-w-6xl flex flex-1 flex-col mx-auto bg-background dark:bg-dark-background sm:rounded-[28px] sm:border sm:border-border dark:sm:border-dark-border">
-          <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-4 sm:pt-6">
-            <Header
-              currentPath={location.pathname}
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
-          </div>
+        <div className="w-full max-w-4xl flex flex-1 flex-col mx-auto px-5 sm:px-8 pt-4 sm:pt-6">
+          <Header
+            currentPath={location.pathname}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
 
           <main
             key={location.pathname}
-            className={`w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-7 sm:py-10 lg:py-12 space-y-16 md:space-y-24 flex-grow page-transition ${
+            className={`w-full py-10 sm:py-14 space-y-16 md:space-y-24 flex-grow page-transition ${
               isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'
             }`}
           >
@@ -241,7 +239,7 @@ const AppContent: React.FC = () => {
             </Routes>
           </main>
 
-          <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pb-12">
+          <div className="w-full pb-12">
             <Footer />
           </div>
         </div>

@@ -14,110 +14,116 @@ import { GithubIcon } from './icons';
 
 export const HomePage: React.FC = () => {
   usePageMeta(
-    'Daffa Danendra Fairuzza — Aspiring Software Engineer',
+    'Daffa Danendra Fairuzza · Aspiring Software Engineer',
     'Portfolio of Daffa Danendra Fairuzza, an Information Systems student at UIN Sunan Ampel Surabaya focused on full-stack development, with an interest in software engineering and AI/ML.'
   );
 
   return (
     <div className="flex flex-col gap-16 md:gap-24">
       {/* Hero */}
-      <section aria-labelledby="hero-name" className="pt-2 space-y-8">
-        {/* Top meta bar */}
+      <section aria-labelledby="hero-name" className="pt-2 space-y-10">
+        {/* Greeting + status */}
         <div
-          className="rise-in flex flex-wrap items-center justify-between gap-3 text-xs text-text-secondary dark:text-dark-text-secondary"
+          className="rise-in flex items-center gap-4"
           style={{ '--n': 0 } as React.CSSProperties}
         >
-          <div className="inline-flex items-center gap-2 font-medium text-text-primary dark:text-dark-text-primary">
-            <span
-              className="inline-flex rounded-full h-2 w-2 bg-accent-green dark:bg-dark-accent-green"
-              aria-hidden="true"
-            />
-            <span>{PROFILE.availability}</span>
+          <ProfilePhoto variant="avatar" />
+          <div className="min-w-0 space-y-0.5">
+            <p className="font-hand text-2xl sm:text-[1.75rem] leading-none text-accent dark:text-dark-accent -rotate-2 origin-left">
+              Hi, I&apos;m Daffa.
+            </p>
+            <p className="inline-flex items-center gap-2 text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
+              <span
+                aria-hidden="true"
+                className="inline-block h-1.5 w-1.5 rounded-full bg-status-live dark:bg-dark-status-live shrink-0"
+              />
+              {PROFILE.availability}
+            </p>
           </div>
-          <span className="font-mono">
-            {PROFILE.location} &middot; {PROFILE.timezone}
-          </span>
         </div>
 
-        {/* Name & Roles */}
+        {/* Name + roles */}
         <div
-          className="rise-in flex items-center gap-5 sm:gap-6"
+          className="rise-in space-y-3"
           style={{ '--n': 1 } as React.CSSProperties}
         >
-          <ProfilePhoto variant="avatar" />
-          <div className="space-y-3 min-w-0">
-            <h1
-              id="hero-name"
-              className="font-display text-[clamp(2.4rem,6vw,4.5rem)] font-medium tracking-[-0.03em] leading-[1.02] text-text-primary dark:text-dark-text-primary"
-            >
-              {PROFILE.name}
-            </h1>
-            <p className="font-mono text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
-              {PROFILE.roles.join(' / ')}
-            </p>
-          </div>
+          <h1
+            id="hero-name"
+            className="font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-medium tracking-[-0.03em] leading-[1.04] text-balance text-text-primary dark:text-dark-text-primary"
+          >
+            {PROFILE.name}
+          </h1>
+          <p className="text-base text-text-secondary dark:text-dark-text-secondary">
+            {PROFILE.roles.join(' · ')}
+          </p>
         </div>
 
-        {/* Two-column intro + current focus */}
+        {/* Lead + intro */}
         <div
-          className="rise-in grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start"
+          className="rise-in space-y-4 max-w-[62ch]"
           style={{ '--n': 2 } as React.CSSProperties}
         >
-          <div className="space-y-6">
-            <p className="text-xl sm:text-2xl font-medium leading-snug tracking-tight text-balance text-text-primary dark:text-dark-text-primary">
-              {PROFILE.headline}
-            </p>
-            <p className="max-w-[58ch] text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
-              {PROFILE.intro}
-            </p>
+          <p className="text-xl sm:text-2xl font-medium leading-snug tracking-[-0.01em] text-balance text-text-primary dark:text-dark-text-primary max-w-[34ch]">
+            {PROFILE.headline}
+          </p>
+          <p className="text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+            {PROFILE.intro}
+          </p>
+        </div>
 
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <ButtonLink to="/projects" variant="primary" arrow>
-                View projects
-              </ButtonLink>
-              <ButtonLink to="/about" variant="secondary">
-                About me
-              </ButtonLink>
-              <ButtonLink
-                href={PROFILE.githubUrl}
-                variant="ghost"
-                icon={<GithubIcon aria-hidden="true" className="w-4 h-4" />}
-              >
-                GitHub
-              </ButtonLink>
-            </div>
-          </div>
-
-          <aside
-            aria-label="Currently strengthening"
-            className="border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-6 lg:pt-1 lg:pl-8 space-y-4"
+        {/* CTAs */}
+        <div
+          className="rise-in flex flex-wrap items-center gap-3"
+          style={{ '--n': 3 } as React.CSSProperties}
+        >
+          <ButtonLink to="/projects" variant="primary" arrow>
+            View projects
+          </ButtonLink>
+          <ButtonLink to="/about" variant="secondary">
+            About me
+          </ButtonLink>
+          <ButtonLink
+            href={PROFILE.githubUrl}
+            variant="ghost"
+            icon={<GithubIcon aria-hidden="true" className="w-4 h-4" />}
           >
-            <h2 className="font-mono text-xs uppercase tracking-[0.14em] text-text-secondary dark:text-dark-text-secondary">
+            GitHub
+          </ButtonLink>
+        </div>
+
+        {/* Currently strengthening */}
+        <div
+          className="rise-in grid gap-4 sm:grid-cols-[180px_1fr] sm:gap-8 border-t border-border-subtle dark:border-dark-border-subtle pt-6"
+          style={{ '--n': 4 } as React.CSSProperties}
+        >
+          <div className="space-y-1">
+            <h2 className="text-sm font-medium text-text-primary dark:text-dark-text-primary">
               Currently strengthening
             </h2>
-            <ol className="space-y-3">
-              {CURRENT_FOCUS.map((item, idx) => (
-                <li
-                  key={item}
-                  className="flex items-baseline gap-3 text-sm text-text-primary dark:text-dark-text-primary"
-                >
-                  <span className="font-mono text-xs text-accent-green dark:text-dark-accent-green shrink-0">
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <span className="leading-snug">{item}</span>
-                </li>
-              ))}
-            </ol>
-          </aside>
+            <p className="font-mono text-xs text-text-secondary dark:text-dark-text-secondary">
+              {PROFILE.location} &middot; {PROFILE.timezone}
+            </p>
+          </div>
+          <ol className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            {CURRENT_FOCUS.map((item, idx) => (
+              <li
+                key={item}
+                className="flex items-baseline gap-3 text-sm text-text-primary dark:text-dark-text-primary"
+              >
+                <span className="font-mono text-xs text-text-placeholder dark:text-dark-text-placeholder tabular-nums shrink-0">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <span className="leading-snug">{item}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* 01 — Selected work */}
+      {/* Selected work */}
       <section aria-labelledby="selected-work-heading" className="space-y-8">
         <SectionHeading
           id="selected-work-heading"
-          index="01"
-          eyebrow="Selected work"
           title="Projects I've built and explored"
           description="From a full-stack mobile app to backend tooling and video processing. Each project is labelled with its real stage."
           action={
@@ -128,7 +134,7 @@ export const HomePage: React.FC = () => {
               <span>All projects</span>
               <span
                 aria-hidden="true"
-                className="inline-block text-accent-green dark:text-dark-accent-green transition-transform duration-200 group-hover:translate-x-0.5"
+                className="inline-block opacity-65 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
               >
                 &rarr;
               </span>
@@ -152,12 +158,10 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 02 — Toolkit */}
+      {/* Toolkit */}
       <section aria-labelledby="toolkit-heading" className="space-y-8">
         <SectionHeading
           id="toolkit-heading"
-          index="02"
-          eyebrow="Toolkit"
           title="What I work with"
           action={
             <AppLink
@@ -167,7 +171,7 @@ export const HomePage: React.FC = () => {
               <span>Full background</span>
               <span
                 aria-hidden="true"
-                className="inline-block text-accent-green dark:text-dark-accent-green transition-transform duration-200 group-hover:translate-x-0.5"
+                className="inline-block opacity-65 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
               >
                 &rarr;
               </span>
@@ -180,12 +184,10 @@ export const HomePage: React.FC = () => {
         </Reveal>
       </section>
 
-      {/* 03 — Activity */}
+      {/* Activity */}
       <section aria-labelledby="activity-heading" className="space-y-6">
         <SectionHeading
           id="activity-heading"
-          index="03"
-          eyebrow="Activity"
           title="GitHub contributions"
         />
 

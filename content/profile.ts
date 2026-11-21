@@ -3,8 +3,8 @@ export const PROFILE = {
   shortName: 'Daffa',
   initials: 'DF',
   roles: ['Information Systems Student', 'Aspiring Software Engineer', 'Full-Stack Development'],
-  headline: 'Building web and mobile applications across the stack — interface, API, and database.',
-  intro: "I'm an Information Systems student at UIN Sunan Ampel Surabaya, focused on full-stack development. I learn by building: a mobile app backed by its own API and database, a desktop system on PostgreSQL, and explorations in backend process management and video processing — with a growing interest in bringing AI/ML into real software.",
+  headline: 'Building web and mobile applications across the stack: interface, API, and database.',
+  intro: "I'm an Information Systems student at UIN Sunan Ampel Surabaya, focused on full-stack development. I learn by building: a mobile app backed by its own API and database, a desktop system on PostgreSQL, and explorations in backend process management and video processing, with a growing interest in bringing AI/ML into real software.",
   availability: 'Open to software engineering internships & collaboration',
   location: 'Surabaya, Indonesia',
   timezone: 'UTC+7',
@@ -27,17 +27,17 @@ export const CURRENT_FOCUS = [
 ];
 
 export const ABOUT_STORY = [
-  "I'm Daffa, an Information Systems student at the Faculty of Science and Technology, UIN Sunan Ampel Surabaya. Information Systems sits between two worlds — understanding what organizations and users need, and using technology to build systems that serve those needs. Over time, my interest has settled firmly on the technical side: building software.",
-  "My main focus right now is full-stack development. I want a balanced understanding of both frontend and backend, so I can see how an application works as one system — from understanding requirements and mapping the flow, to designing the interface, writing backend logic, managing data, and testing and fixing what breaks.",
+  "I'm Daffa, an Information Systems student at the Faculty of Science and Technology, UIN Sunan Ampel Surabaya. Information Systems sits between two worlds: understanding what organizations and users need, and using technology to build systems that serve those needs. Over time, my interest has settled firmly on the technical side: building software.",
+  "My main focus right now is full-stack development. I want a balanced understanding of both frontend and backend, so I can see how an application works as one system: from understanding requirements and mapping the flow, to designing the interface, writing backend logic, managing data, and testing and fixing what breaks.",
   "Most of what I know comes from building things. Better Life showed me how a mobile app talks to an API and a database. POS Cafe grounded me in Java, object-oriented design, and relational data. Explorations like CamHUB and Quantis pushed me beyond CRUD apps into process management, service integration, and video processing.",
-  "Alongside software engineering, I'm interested in artificial intelligence and machine learning — less in training models for their own sake, and more in how intelligent features can be integrated into software people actually use. It's the layer I plan to go deeper on once my engineering foundation is stronger.",
+  "Alongside software engineering, I'm interested in artificial intelligence and machine learning, less in training models for their own sake, and more in how intelligent features can be integrated into software people actually use. It's the layer I plan to go deeper on once my engineering foundation is stronger.",
 ];
 
 export const DIRECTION = [
   {
     label: 'Now',
     title: 'Strengthening the fundamentals',
-    body: 'Programming fundamentals, data structures, and problem solving. Going deeper into JavaScript and TypeScript, API design, authentication, validation, and database management — while improving code quality, testing, documentation, and Git habits.',
+    body: 'Programming fundamentals, data structures, and problem solving. Going deeper into JavaScript and TypeScript, API design, authentication, validation, and database management, while improving code quality, testing, documentation, and Git habits.',
   },
   {
     label: 'Next',
@@ -47,7 +47,7 @@ export const DIRECTION = [
   {
     label: 'Long term',
     title: 'Software engineering meets AI/ML',
-    body: "Integrating AI capabilities into products that are genuinely usable. I'm also preparing for international opportunities — Japan in particular — and I'm open to roles in Malaysia, Australia, or remote.",
+    body: "Integrating AI capabilities into products that are genuinely usable. I'm also preparing for international opportunities (Japan in particular) and I'm open to roles in Malaysia, Australia, or remote.",
   },
 ];
 
@@ -62,6 +62,6 @@ export const APPROACH = [
 
 export const LANGUAGES = [
   { name: 'Indonesian', note: 'Native language' },
-  { name: 'English', note: 'Actively improving — for technical reading and communication' },
+  { name: 'English', note: 'Actively improving for technical reading and communication' },
   { name: 'Japanese', note: 'Learning, in preparation for opportunities in Japan' },
 ];

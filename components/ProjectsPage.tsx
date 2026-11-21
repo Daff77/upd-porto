@@ -9,8 +9,8 @@ import { ExperimentRow } from './ExperimentRow';
 
 export const ProjectsPage: React.FC = () => {
   usePageMeta(
-    'Projects — Daffa Danendra Fairuzza',
-    "Projects I've built, prototyped, or explored — from full-stack mobile apps to backend tooling and video processing."
+    'Projects · Daffa Danendra Fairuzza',
+    "Projects I've built, prototyped, or explored: from full-stack mobile apps to backend tooling and video processing."
   );
 
   const [selectedFilter, setSelectedFilter] = useState<'all' | ProjectFilter>('all');
@@ -33,15 +33,12 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="space-y-12 md:space-y-16">
       {/* Header */}
-      <header className="animated-item anim-fadeInUp space-y-4 max-w-3xl">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
-          Projects
-        </p>
+      <header className="rise-in space-y-4 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
         <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
           Work, prototypes &amp; experiments
         </h1>
         <p className="text-base sm:text-lg leading-relaxed text-text-secondary dark:text-dark-text-secondary max-w-[64ch]">
-          Projects I&apos;ve built, prototyped, or explored &mdash; from full-stack mobile apps to backend tooling and video processing. Each one is labelled honestly: some are working builds, others are concepts, explorations, or learning experiments.
+          Projects I&apos;ve built, prototyped, or explored, from full-stack mobile apps to backend tooling and video processing. Each one is labelled honestly: some are working builds, others are concepts, explorations, or learning experiments.
         </p>
       </header>
 
@@ -49,7 +46,8 @@ export const ProjectsPage: React.FC = () => {
       <div
         role="group"
         aria-label="Filter projects by category"
-        className="animated-item anim-fadeInUp anim-delay-100 flex flex-wrap items-center gap-2 pb-4 border-b border-border-subtle dark:border-dark-border-subtle"
+        className="rise-in flex flex-wrap items-center gap-2 pb-4 border-b border-border-subtle dark:border-dark-border-subtle"
+        style={{ '--n': 1 } as React.CSSProperties}
       >
         {PROJECT_FILTERS.map((filter) => {
           const active = selectedFilter === filter.id;
@@ -60,7 +58,7 @@ export const ProjectsPage: React.FC = () => {
               type="button"
               onClick={() => setSelectedFilter(filter.id)}
               aria-pressed={active}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors active:scale-[0.98] ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono transition-colors active:scale-[0.98] ${
                 active
                   ? 'bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text font-medium'
                   : 'bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary border border-border-subtle dark:border-dark-border-subtle'
@@ -74,7 +72,11 @@ export const ProjectsPage: React.FC = () => {
 
       {/* Featured Projects */}
       {filteredFeatured.length > 0 && (
-        <section aria-label="Featured projects" className="animated-item anim-fadeInUp anim-delay-200 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+        <section
+          aria-label="Featured projects"
+          className="rise-in grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12"
+          style={{ '--n': 2 } as React.CSSProperties}
+        >
           {filteredFeatured.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -86,7 +88,6 @@ export const ProjectsPage: React.FC = () => {
         <Reveal as="section" aria-labelledby="experiments-heading" className="space-y-6 pt-4">
           <SectionHeading
             id="experiments-heading"
-            eyebrow="Additional work"
             title="Experiments & coursework"
           />
 

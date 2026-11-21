@@ -16,8 +16,8 @@ export const ProjectDetailsPage: React.FC = () => {
 
   usePageMeta(
     project
-      ? `${project.name} — Daffa Danendra Fairuzza`
-      : 'Project not found — Daffa Danendra Fairuzza',
+      ? `${project.name} · Daffa Danendra Fairuzza`
+      : 'Project not found · Daffa Danendra Fairuzza',
     project?.summary
   );
 
@@ -45,7 +45,7 @@ export const ProjectDetailsPage: React.FC = () => {
   return (
     <article className="space-y-12 md:space-y-16">
       {/* Top Breadcrumb */}
-      <div className="animated-item anim-fadeInUp flex items-center justify-between gap-4">
+      <div className="rise-in flex items-center justify-between gap-4" style={{ '--n': 0 } as React.CSSProperties}>
         <AppLink
           to="/projects"
           className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
@@ -63,9 +63,9 @@ export const ProjectDetailsPage: React.FC = () => {
       </div>
 
       {/* Header */}
-      <header className="animated-item anim-fadeInUp anim-delay-100 space-y-6">
+      <header className="rise-in space-y-6" style={{ '--n': 1 } as React.CSSProperties}>
         <div className="space-y-3 max-w-3xl">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
+          <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
             {[project.category, project.context].filter(Boolean).join(' · ')}
           </p>
           <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-medium tracking-tight leading-[1.06] text-text-primary dark:text-dark-text-primary">
@@ -81,7 +81,7 @@ export const ProjectDetailsPage: React.FC = () => {
           <div>
             <dt className="text-text-secondary dark:text-dark-text-secondary">Stage</dt>
             <dd className="mt-1 font-medium text-text-primary dark:text-dark-text-primary">
-              {project.stage ?? '—'}
+              {project.stage ?? 'In progress'}
             </dd>
           </div>
           <div>
@@ -122,12 +122,12 @@ export const ProjectDetailsPage: React.FC = () => {
       </header>
 
       {/* Hero Cover */}
-      <div className="animated-item anim-fadeInUp anim-delay-200 w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
+      <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2 } as React.CSSProperties}>
         <ProjectCover project={project} variant="hero" />
       </div>
 
       {/* Main Content + Sticky Aside */}
-      <div className="animated-item anim-fadeInUp anim-delay-300 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
+      <div className="rise-in grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start" style={{ '--n': 3 } as React.CSSProperties}>
         {/* Main column */}
         <div className="space-y-10 min-w-0">
           {/* Overview */}
@@ -189,14 +189,10 @@ export const ProjectDetailsPage: React.FC = () => {
                   </p>
                 )}
               </div>
-              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+              <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary marker:text-text-placeholder dark:marker:text-dark-text-placeholder">
                 {group.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
-                    />
-                    <span className="leading-relaxed">{item}</span>
+                  <li key={item} className="leading-relaxed">
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -209,14 +205,10 @@ export const ProjectDetailsPage: React.FC = () => {
               <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
                 My contribution
               </h2>
-              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+              <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary marker:text-text-placeholder dark:marker:text-dark-text-placeholder">
                 {project.contribution.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
-                    />
-                    <span className="leading-relaxed">{item}</span>
+                  <li key={item} className="leading-relaxed">
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -234,14 +226,10 @@ export const ProjectDetailsPage: React.FC = () => {
                   {project.workAreas.intro}
                 </p>
               )}
-              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+              <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary marker:text-text-placeholder dark:marker:text-dark-text-placeholder">
                 {project.workAreas.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
-                    />
-                    <span className="leading-relaxed">{item}</span>
+                  <li key={item} className="leading-relaxed">
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -254,14 +242,10 @@ export const ProjectDetailsPage: React.FC = () => {
               <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
                 What it demonstrates
               </h2>
-              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+              <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary marker:text-text-placeholder dark:marker:text-dark-text-placeholder">
                 {project.takeaways.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
-                    />
-                    <span className="leading-relaxed">{item}</span>
+                  <li key={item} className="leading-relaxed">
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -270,8 +254,8 @@ export const ProjectDetailsPage: React.FC = () => {
 
           {/* Scope Note */}
           {project.scopeNote && (
-            <aside className="border-l-2 border-accent-green dark:border-dark-accent-green pl-4 py-1 space-y-1">
-              <p className="font-mono text-xs uppercase tracking-wider text-accent-green dark:text-dark-accent-green">
+            <aside className="rounded-xl bg-card-hover dark:bg-dark-card border border-border-subtle dark:border-dark-border-subtle p-4 space-y-1">
+              <p className="font-mono text-xs text-text-primary dark:text-dark-text-primary font-medium">
                 Scope note
               </p>
               <p className="text-sm leading-relaxed text-text-secondary dark:text-dark-text-secondary">
