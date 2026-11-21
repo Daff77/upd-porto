@@ -36,7 +36,7 @@ export const LatestVideosSection: React.FC = () => {
 
       {/* Notes Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {LATEST_VIDEOS.map((item, idx) => (
+        {LATEST_VIDEOS.map((item) => (
           <a
             key={item.id}
             href={item.url}

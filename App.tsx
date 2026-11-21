@@ -4,12 +4,7 @@ import { useSwipeable } from 'react-swipeable';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { ProjectsSection } from './components/ProjectsSection';
-import { SpeakingEventsSection } from './components/SpeakingEventsSection';
-import { LatestVideosSection } from './components/LatestVideosSection';
-import { GitHubContributionsGraph } from './components/GitHubContributionsGraph';
-import { TechnicalFocusSection } from './components/TechnicalFocusSection';
 import { TechnicalFocusPage } from './components/TechnicalFocusPage';
-import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import { AboutPage } from './components/AboutPage';
 import { ProjectsPage } from './components/ProjectsPage';
@@ -27,7 +22,7 @@ const AppContent: React.FC = () => {
   const location = useLocation();
   const lenis = useLenis();
   const [showIntro, setShowIntro] = useState(false);
-  
+
   // Theme state initialization
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -159,7 +154,6 @@ const AppContent: React.FC = () => {
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   const currentTabIdx = menuTabs.indexOf(currentPage);
   const swipeStartAllowedRef = useRef(true);
-  const swipeStartAtRef = useRef<{ x: number; y: number } | null>(null);
 
   const goToTab = (idx: number) => {
     if (idx >= 0 && idx < menuTabs.length) {
@@ -168,20 +162,18 @@ const AppContent: React.FC = () => {
   };
   const swipeHandlers = useSwipeable({
     onSwipeStart: (e) => {
-      const touch = 'touches' in e && e.touches && e.touches[0] ? e.touches[0] : null;
-      const x = touch?.clientX ?? 0;
-      const y = touch?.clientY ?? 0;
-      swipeStartAtRef.current = { x, y };
+      const [x] = e.initial;
 
       const w = window.innerWidth || 1;
       const startRatio = x / w;
       const withinMiddle = startRatio >= 0.22 && startRatio <= 0.78;
 
-      const target = e.target as HTMLElement | null;
-      const isTyping = !!target?.closest('input, textarea, select, label');
-      const isInteractive = !!target?.closest('button, a, [role="button"]');
+      const target = e.event.target;
+      const isInteractive = target instanceof Element && Boolean(
+        target.closest('input, textarea, select, label, button, a, [role="button"]'),
+      );
 
-      swipeStartAllowedRef.current = withinMiddle && !isTyping && !isInteractive;
+      swipeStartAllowedRef.current = withinMiddle && !isInteractive;
     },
     onSwipedLeft: () => {
       if (!swipeStartAllowedRef.current) return;
@@ -206,125 +198,116 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div
-      className="min-h-screen bg-canvas dark:bg-dark-canvas text-text-primary dark:text-dark-text-primary py-3 sm:py-8 px-2 sm:px-4 md:px-6 flex justify-center items-start transition-colors duration-200"
-      {...swipeHandlers}
-    >
+    <div className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-200" {...swipeHandlers}>
       <SmoothScrollToTop pathname={location.pathname} />
 
-      {/* The Signature Elevated Rounded Card Container from porto-export reference */}
-      <div className="w-full max-w-[1150px] bg-background dark:bg-dark-background border border-border dark:border-dark-border rounded-[28px] sm:rounded-[48px] p-6 sm:p-10 md:p-16 shadow-[0px_1px_3px_#0000001a,0px_1px_1px_#0000001a] flex flex-col gap-12 sm:gap-20 overflow-hidden relative">
+      {/* Header Container */}
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
         <Header
           currentPage={currentPage}
           setCurrentPage={handleSetPage}
           theme={theme}
           toggleTheme={toggleTheme}
         />
+      </div>
 
-        <main 
-          key={location.pathname}
-          className={`w-full flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
-        >
-          <Routes>
-            <Route path="/" element={
-              <div className="flex flex-col gap-16 md:gap-24">
-                <Hero
-                  name={PERSONAL_INFO.name}
-                  title={PERSONAL_INFO.title}
-                  headline={PERSONAL_INFO.headline}
-                  university={PERSONAL_INFO.university}
-                  major={PERSONAL_INFO.major}
-                  primaryFocus={PERSONAL_INFO.primaryFocus}
-                  bio={PERSONAL_INFO.bio}
-                  imageUrl={PERSONAL_INFO.imageUrl}
-                  email={PERSONAL_INFO.email}
-                  circularText={PERSONAL_INFO.circularText}
-                  circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
-                  animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
-                  animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
-                  instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
-                  setCurrentPage={handleSetPage}
-                />
-                <ProjectsSection 
-                  projects={PROJECTS} 
-                  onViewAllClick={() => handleSetPage('projects')} 
-                  setCurrentPage={handleSetPage}
-                  title="Featured Projects"
-                />
-                <SpeakingEventsSection />
-                <LatestVideosSection />
-                <GitHubContributionsGraph username={PERSONAL_INFO.githubUsername} theme={theme} />
-              </div>
-            } />
-            
-            <Route path="/about" element={
-              <AboutPage 
-                personalInfo={PERSONAL_INFO} 
-                sideProjects={SIDE_PROJECTS} 
-                email={PERSONAL_INFO.email} 
-                setCurrentPage={handleSetPage} 
-                theme={theme} 
-                skills={SKILLS} 
-              />
-            } />
-            
-            <Route path="/projects" element={
-              <ProjectsPage 
-                projects={PROJECTS} 
-                sideProjects={SIDE_PROJECTS} 
-                email={PERSONAL_INFO.email} 
-                setCurrentPage={handleSetPage} 
-              />
-            } />
-
-            <Route path="/focus" element={
-              <TechnicalFocusPage 
-                setCurrentPage={handleSetPage}
+      <main
+        key={location.pathname}
+        className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
+      >
+        <Routes>
+          <Route path="/" element={
+            <div className="flex flex-col gap-16 md:gap-24">
+              <Hero
+                name={PERSONAL_INFO.name}
+                title={PERSONAL_INFO.title}
+                headline={PERSONAL_INFO.headline}
+                university={PERSONAL_INFO.university}
+                major={PERSONAL_INFO.major}
+                primaryFocus={PERSONAL_INFO.primaryFocus}
+                bio={PERSONAL_INFO.bio}
+                imageUrl={PERSONAL_INFO.imageUrl}
                 email={PERSONAL_INFO.email}
-              />
-            } />
-            
-            <Route path="/contact" element={
-              <HireMePage 
-                personalInfo={PERSONAL_INFO} 
-                socialLinks={SOCIAL_LINKS} 
-                setCurrentPage={handleSetPage} 
-              />
-            } />
-
-            {/* Backwards compatibility redirects */}
-            <Route path="/hire" element={<Navigate to="/contact" replace />} />
-            <Route path="/products" element={<Navigate to="/projects" replace />} />
-            <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
-            
-            <Route path="/project/:projectId" element={
-              <ProjectDetailsPage 
+                circularText={PERSONAL_INFO.circularText}
+                circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
+                animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
+                animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
+                instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
                 setCurrentPage={handleSetPage}
-                email={PERSONAL_INFO.email}
               />
-            } />
-            
-            <Route path="*" element={
-              <div className="text-center py-16 space-y-4">
-                <h1 className="text-3xl font-bold">Page Not Found</h1>
-                <p className="text-text-secondary dark:text-dark-text-secondary">The page you are looking for does not exist.</p>
-                <button
-                  onClick={() => handleSetPage('home')}
-                  className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
-                >
-                  Go Home
-                </button>
-              </div>
-            } />
-          </Routes>
-        </main>
+              <ProjectsSection
+                projects={PROJECTS}
+                onViewAllClick={() => handleSetPage('projects')}
+                setCurrentPage={handleSetPage}
+                title="Proyek Unggulan"
+              />
+            </div>
+          } />
 
+          <Route path="/about" element={
+            <AboutPage
+              personalInfo={PERSONAL_INFO}
+              sideProjects={SIDE_PROJECTS}
+              email={PERSONAL_INFO.email}
+              setCurrentPage={handleSetPage}
+              theme={theme}
+              skills={SKILLS}
+            />
+          } />
+
+          <Route path="/projects" element={
+            <ProjectsPage
+              projects={PROJECTS}
+              sideProjects={SIDE_PROJECTS}
+              email={PERSONAL_INFO.email}
+              setCurrentPage={handleSetPage}
+            />
+          } />
+
+          <Route path="/focus" element={
+            <TechnicalFocusPage
+              setCurrentPage={handleSetPage}
+              email={PERSONAL_INFO.email}
+            />
+          } />
+
+          <Route path="/contact" element={
+            <HireMePage
+              personalInfo={PERSONAL_INFO}
+              socialLinks={SOCIAL_LINKS}
+              setCurrentPage={handleSetPage}
+            />
+          } />
+
+          {/* Backwards compatibility redirects */}
+          <Route path="/hire" element={<Navigate to="/contact" replace />} />
+          <Route path="/products" element={<Navigate to="/projects" replace />} />
+          <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
+
+          <Route path="/project/:projectId" element={
+            <ProjectDetailsPage setCurrentPage={handleSetPage} />
+          } />
+
+          <Route path="*" element={
+            <div className="text-center py-16 space-y-4">
+              <h1 className="text-3xl font-bold">Page Not Found</h1>
+              <p className="text-text-secondary dark:text-dark-text-secondary">The page you are looking for does not exist.</p>
+              <button
+                onClick={() => handleSetPage('home')}
+                className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
+              >
+                Go Home
+              </button>
+            </div>
+          } />
+        </Routes>
+      </main>
+
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <Footer
           socialLinks={SOCIAL_LINKS}
           developerName={DEVELOPER_CREDIT.name}
           developerUrl={DEVELOPER_CREDIT.url}
-          animatedNameEnglish={DEVELOPER_CREDIT.animatedNameEnglish}
-          animatedNameJapanese={DEVELOPER_CREDIT.animatedNameJapanese}
         />
       </div>
     </div>

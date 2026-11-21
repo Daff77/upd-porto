@@ -1,14 +1,11 @@
 import React from 'react';
 import { AboutPageProps } from '../types';
-import { EXPERIENCES, EDUCATION, SOCIAL_LINKS } from '../constants';
+import { EXPERIENCES, EDUCATION } from '../constants';
 import {
   CodeBracketSquareIcon,
   CpuChipIcon,
   EnvelopeIcon,
-  CheckBadgeIcon,
-  ArrowRightIcon,
   FiLayers,
-  FiFeather,
   FiBookOpen,
 } from './icons';
 
@@ -25,7 +22,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           {/* Text introduction */}
           <div className="md:w-2/3 space-y-4">
             <div className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-              About & Background
+              Latar Belakang
             </div>
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
               {personalInfo.name}
@@ -44,13 +41,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 className="inline-flex items-center px-5 py-2.5 bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text rounded-full text-xs font-semibold hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors shadow-xs"
               >
                 <EnvelopeIcon className="w-3.5 h-3.5 mr-1.5" />
-                <span>Get in Touch</span>
+                <span>Kontak</span>
               </button>
               <button
                 onClick={() => setCurrentPage('projects')}
                 className="inline-flex items-center px-5 py-2.5 bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-primary dark:text-dark-text-primary border border-border dark:border-dark-border rounded-full text-xs font-semibold hover:border-accent-green/50 transition-colors"
               >
-                <span>View Projects Archive</span>
+                <span>Lihat Proyek</span>
               </button>
             </div>
           </div>
@@ -60,7 +57,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             <div className="w-[160px] sm:w-[190px] aspect-[3/4] shrink-0 p-1.5 bg-[#fff7ed80] border-[4px] border-white dark:border-[#262624] rounded-[24px] overflow-hidden shadow-sm">
               <img
                 src={personalInfo.imageUrl}
-                alt={personalInfo.name}
+                alt=""
                 className="w-full h-full object-cover rounded-[16px]"
               />
             </div>
@@ -72,10 +69,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       <section className="animated-item anim-fadeInUp space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            01 • Philosophy & Focus
+            01 • Cara Belajar
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Engineering Perspective
+            Pendekatan Pengembangan
           </h2>
         </div>
 
@@ -103,7 +100,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             02 • Specialization
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Core Technical Interests
+            Minat Teknis
           </h2>
         </div>
 
@@ -111,30 +108,30 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
             <CodeBracketSquareIcon className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
             <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              Interface Craft & Token Systems
+              Aplikasi Web dan Mobile
             </h3>
             <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              Design systems, WCAG 2.1 AA accessibility, fluid physics, and robust component architecture.
+              Antarmuka responsif dan alur pengguna untuk aplikasi web dan mobile.
             </p>
           </div>
 
           <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
             <FiLayers className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
             <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              Distributed WebSockets & Ingest
+              API dan Basis Data
             </h3>
             <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              Sub-second message streaming, offline-first IndexedDB queues, and zero-latency data pipelines.
+              Integrasi Express dan PostgreSQL dalam proyek Better Life.
             </p>
           </div>
 
           <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
             <CpuChipIcon className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
             <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              Client Machine Learning & WebGPU
+              Eksplorasi Machine Learning
             </h3>
             <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              On-device neural inference with zero cloud data transmission and real-time shader pipelines.
+              Eksperimen klasifikasi pada dataset Iris dan CIFAR-10.
             </p>
           </div>
         </div>
@@ -147,7 +144,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             03 • Trajectory
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Experience & Roles
+            Pengalaman Organisasi
           </h2>
         </div>
 
@@ -271,10 +268,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       {/* Social Links & Footer CTA */}
       <section className="animated-item anim-fadeInUp p-8 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-4 text-center">
         <h3 className="font-display text-2xl font-bold text-text-primary dark:text-dark-text-primary">
-          Let's Build Something Meaningful
+          Kontak
         </h3>
         <p className="text-sm text-text-secondary dark:text-dark-text-secondary max-w-lg mx-auto leading-relaxed">
-          Available for design system architecture, technical consulting, and high-impact software engineering roles.
+          Temukan kode proyek saya di GitHub.
         </p>
         <div className="pt-2 flex flex-wrap justify-center items-center gap-3">
           <button
@@ -282,7 +279,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             className="inline-flex items-center px-6 py-3 rounded-full bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text text-xs font-semibold hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
           >
             <EnvelopeIcon className="w-4 h-4 mr-2" />
-            <span>Send Direct Message</span>
+            <span>Lihat Kontak</span>
           </button>
         </div>
       </section>

@@ -1,42 +1,19 @@
 import React, { useState } from 'react';
 import { HeroProps } from '../types';
-import avatarImg from '../assets/custom/avatar.jpg';
-import kinetixImg from '../assets/custom/kinetix.jpg';
-import hyperionImg from '../assets/custom/hyperion.jpg';
-import auraImg from '../assets/custom/aura.jpg';
+import { PROJECTS } from '../constants';
+import { FeaturedProjectCover } from './FeaturedProjectCover';
 
 export const Hero: React.FC<HeroProps> = ({
-  name = "Daffa Pratama",
-  headline = "Design Engineer & Creative Developer crafting resilient web software, fluid interactions, and living design systems.",
+  name,
+  title,
+  headline,
+  bio,
+  university,
+  imageUrl,
   setCurrentPage,
 }) => {
-  const [activeTab, setActiveTab] = useState<'kinetix' | 'hyperion' | 'aura'>('kinetix');
-
-  const showcaseData = {
-    kinetix: {
-      image: kinetixImg,
-      badge: "Motion Physics Engine",
-      title: "Kinetix Studio — Canvas Spring Physics & Kinetic Typography",
-      metric: "60 FPS GPU Acceleration",
-      description: "Interactive timeline editor with offscreen Web Worker physics simulation.",
-    },
-    hyperion: {
-      image: hyperionImg,
-      badge: "Real-Time Telemetry",
-      title: "Hyperion Cloud — Sub-Second Observability Console",
-      metric: "<12ms Render Cycle",
-      description: "Information-dense dark telemetry dashboard with live WebSocket streaming.",
-    },
-    aura: {
-      image: auraImg,
-      badge: "Spatial Experience",
-      title: "Aura Soundworks — Parametric Acoustic Equalizer",
-      metric: "Web Audio API Live EQ",
-      description: "Editorial spatial audio e-commerce with real-time acoustic frequency profiling.",
-    },
-  };
-
-  const currentShowcase = showcaseData[activeTab];
+  const [activeTab, setActiveTab] = useState(PROJECTS[0].id);
+  const currentShowcase = PROJECTS.find((project) => project.id === activeTab) ?? PROJECTS[0];
 
   return (
     <section id="hero" className="w-full flex flex-col gap-10 md:gap-12 pt-2 pb-6">
@@ -47,8 +24,8 @@ export const Hero: React.FC<HeroProps> = ({
             {/* Portrait Avatar with signature elevated border */}
             <div className="w-[68px] h-[86px] sm:w-[76px] sm:h-[96px] shrink-0 p-1 bg-white/70 dark:bg-white/10 border-[3px] border-white dark:border-white/10 rounded-[20px] overflow-hidden shadow-md">
               <img
-                src={avatarImg}
-                alt={name}
+                src={imageUrl}
+                alt=""
                 className="w-full h-full object-cover rounded-[14px]"
               />
             </div>
@@ -59,15 +36,15 @@ export const Hero: React.FC<HeroProps> = ({
                 {name}
               </h1>
               <div className="flex items-center gap-2 pt-1 text-[13px] sm:text-[14px] text-text-secondary dark:text-dark-text-secondary font-medium">
-                <span>Design Engineer & Creative Technologist</span>
+                <span>{title}</span>
               </div>
             </div>
           </div>
 
           {/* Availability Pill */}
           <div className="self-start sm:self-auto inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[12px] font-medium">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Available for Q2/Q3 Projects</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span>{university}</span>
           </div>
         </div>
 
@@ -77,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({
             {headline}
           </h2>
           <p className="text-[15px] sm:text-[17px] leading-relaxed text-text-secondary dark:text-dark-text-secondary">
-            Bridging high-craft design thinking with modern frontend architecture. Bringing products from initial token concept to tactile, accessible production code.
+            {bio}
           </p>
         </div>
 
@@ -101,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({
                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               />
             </svg>
-            <span>Discuss a Project</span>
+            <span>Kontak</span>
           </button>
 
           {/* Secondary Button: Explore Works */}
@@ -118,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
-            <span>Explore Works</span>
+            <span>Lihat Proyek</span>
           </button>
 
           {/* About Me Link */}
@@ -126,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({
             onClick={() => setCurrentPage('about')}
             className="h-[50px] sm:h-[54px] px-5 rounded-full text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary text-[14px] font-medium transition-colors"
           >
-            Learn about me →
+            Tentang Saya
           </button>
         </div>
       </div>
@@ -136,94 +113,52 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Showcase Switcher Pills */}
         <div className="flex flex-wrap items-center justify-between gap-2 px-1">
           <div className="flex items-center gap-1.5 p-1 bg-black/5 dark:bg-white/5 rounded-full border border-border/60 dark:border-dark-border/60 text-xs font-medium">
-            <button
-              onClick={() => setActiveTab('kinetix')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeTab === 'kinetix'
-                  ? 'bg-white dark:bg-[#202125] text-text-primary dark:text-dark-text-primary font-semibold shadow-xs'
-                  : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary'
-              }`}
-            >
-              01. Motion Engine
-            </button>
-            <button
-              onClick={() => setActiveTab('hyperion')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeTab === 'hyperion'
-                  ? 'bg-white dark:bg-[#202125] text-text-primary dark:text-dark-text-primary font-semibold shadow-xs'
-                  : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary'
-              }`}
-            >
-              02. Cloud Telemetry
-            </button>
-            <button
-              onClick={() => setActiveTab('aura')}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                activeTab === 'aura'
-                  ? 'bg-white dark:bg-[#202125] text-text-primary dark:text-dark-text-primary font-semibold shadow-xs'
-                  : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary'
-              }`}
-            >
-              03. Spatial Audio
-            </button>
+            {PROJECTS.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                onClick={() => setActiveTab(project.id)}
+                aria-pressed={activeTab === project.id}
+                className={`px-2.5 sm:px-3.5 py-1.5 rounded-full transition-all ${
+                  activeTab === project.id
+                    ? 'bg-white dark:bg-[#202125] text-text-primary dark:text-dark-text-primary font-semibold shadow-xs'
+                    : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary'
+                }`}
+              >
+                {project.name}
+              </button>
+            ))}
           </div>
 
           <div className="hidden sm:flex items-center gap-2 text-[12px] font-medium text-text-secondary dark:text-dark-text-secondary">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>{currentShowcase.metric}</span>
+            <span>{currentShowcase.technologies[0]}</span>
           </div>
         </div>
 
         {/* Large Frame */}
         <div className="w-full rounded-[24px] bg-[#222327] overflow-hidden relative shadow-lg aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/10] group border border-border/50 dark:border-white/10">
-          <img
-            src={currentShowcase.image}
-            alt={currentShowcase.title}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.01]"
-          />
+          <FeaturedProjectCover project={currentShowcase} />
 
           {/* Bottom subtle title bar */}
           <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-white">
             <div className="space-y-0.5">
               <span className="text-[11px] uppercase tracking-wider font-semibold text-white/70">
-                {currentShowcase.badge}
+                {currentShowcase.category}
               </span>
               <h3 className="text-[15px] sm:text-[17px] font-semibold tracking-tight">
-                {currentShowcase.title}
+                {currentShowcase.name}
               </h3>
             </div>
             <button
               onClick={() => setCurrentPage('project-detail', activeTab)}
               className="self-start sm:self-auto px-4 py-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md text-[13px] font-medium transition-colors"
             >
-              View Case Study →
+              Lihat Detail
             </button>
           </div>
         </div>
 
-        {/* Collaborators & Endorsement Strip */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-3 px-1 text-text-secondary dark:text-dark-text-secondary text-[13px]">
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-2">
-              <div className="w-8 h-8 rounded-full bg-amber-500/20 border-2 border-white dark:border-[#141517] flex items-center justify-center text-[11px] font-bold text-amber-700 dark:text-amber-300">
-                EV
-              </div>
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 border-2 border-white dark:border-[#141517] flex items-center justify-center text-[11px] font-bold text-blue-700 dark:text-blue-300">
-                MR
-              </div>
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 border-2 border-white dark:border-[#141517] flex items-center justify-center text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
-                SL
-              </div>
-            </div>
-            <span className="italic">
-              &ldquo;Obsessive eye for tactile physics and production-ready code.&rdquo;
-            </span>
-          </div>
-
-          <div className="text-[12px] text-text-secondary/80">
-            Trusted by tech startups, studios & open-source teams
-          </div>
-        </div>
       </div>
     </section>
   );

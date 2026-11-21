@@ -2,7 +2,6 @@ import React from 'react';
 import { SectionTitle } from './SectionTitle';
 import { TechnicalFocusSection } from './TechnicalFocusSection';
 import { CallToAction } from './CallToAction';
-import { PERSONAL_INFO } from '../constants';
 import { CodeBracketSquareIcon, CpuChipIcon, FiLayers, FiBookOpen } from './icons';
 
 interface TechnicalFocusPageProps {

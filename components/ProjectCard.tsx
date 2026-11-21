@@ -1,3 +1,4 @@
+import { FeaturedProjectCover } from './FeaturedProjectCover';
 import React from 'react';
 import { Project } from '../types';
 
@@ -17,23 +18,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <button
       onClick={() => onProjectSelect(project.id)}
-      className={`group text-left flex flex-col gap-3 focus:outline-none transition-transform active:scale-[0.99] ${className}`}
+      className={`group text-left flex flex-col gap-3 focus-visible:ring-2 focus-visible:ring-accent-green transition-transform active:scale-[0.99] ${className}`}
       style={style}
       aria-label={`View case study for ${project.name}`}
     >
       {/* 4:3 Aspect Ratio Cover Frame */}
       <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-[#f7f7f4] dark:bg-white/5 border border-border/60 dark:border-dark-border/60 relative">
-        {project.cardImageUrl ? (
-          <img
-            src={project.cardImageUrl}
-            alt={project.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center font-mono text-xs text-text-secondary">
-            {project.name}
-          </div>
-        )}
+        <FeaturedProjectCover project={project} />
       </div>
 
       {/* Title & Category Info */}

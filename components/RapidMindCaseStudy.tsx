@@ -5,18 +5,13 @@ import {
   FiDatabase,
   FiServer,
   FiCpu,
-  FiMic,
   FiRadio,
   FiAlertTriangle,
   FiUsers,
   FiShield,
-  FiCheckCircle,
-  FiClock,
   ArrowTopRightOnSquareIcon,
   GithubIcon,
-  CheckBadgeIcon,
   ArrowLeftIcon,
-  CodeBracketSquareIcon,
 } from './icons';
 import { CallToAction } from './CallToAction';
 

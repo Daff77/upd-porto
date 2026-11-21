@@ -9,13 +9,13 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({
   socialLinks,
-  developerName = "Daffa Pratama",
+  developerName,
 }) => {
   return (
     <footer className="w-full shrink-0 flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border dark:border-dark-border text-[14px]/[21px] text-text-secondary dark:text-dark-text-secondary">
       {/* Copyright */}
       <div className="tracking-[0.35px]">
-        &copy; {new Date().getFullYear()} {developerName}. Designed &amp; Engineered with precision.
+        &copy; {new Date().getFullYear()} {developerName}
       </div>
 
       {/* Social Links */}

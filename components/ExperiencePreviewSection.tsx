@@ -1,7 +1,7 @@
 import React from 'react';
 import { EXPERIENCES } from '../constants';
 import { GitHubContributionsGraph } from './GitHubContributionsGraph';
-import { ArrowRightIcon, FiLayers } from './icons';
+import { ArrowRightIcon } from './icons';
 
 interface ExperiencePreviewSectionProps {
   setCurrentPage: (pageId: string) => void;
@@ -42,7 +42,7 @@ export const ExperiencePreviewSection: React.FC<ExperiencePreviewSectionProps> =
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Recent Trajectory Milestones */}
         <div className="lg:col-span-7 space-y-4">
-          {EXPERIENCES.slice(0, 3).map((exp, idx) => (
+          {EXPERIENCES.slice(0, 3).map((exp) => (
             <div
               key={exp.id}
               className="p-5 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border hover:border-accent-green/40 transition-colors space-y-2.5"

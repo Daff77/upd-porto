@@ -1,3 +1,4 @@
+import { PERSONAL_INFO } from '../constants';
 import React from 'react';
 import { SunIcon, MoonIcon } from './icons';
 
@@ -8,60 +9,60 @@ export const Header: React.FC<{
   toggleTheme: (event?: React.MouseEvent) => void;
 }> = ({ currentPage, setCurrentPage, theme, toggleTheme }) => {
   return (
-    <header className="w-full shrink-0 flex flex-row justify-between items-center py-3 border-b border-border/40 dark:border-dark-border/40 pb-6">
+    <header className="w-full shrink-0 flex flex-row gap-2 justify-between items-center py-3 border-b border-border/40 dark:border-dark-border/40 pb-6">
       {/* Brand Monogram & Name */}
       <button
         onClick={() => setCurrentPage('home')}
-        className="group flex items-center gap-3 text-left focus:outline-none"
-        aria-label="Daffa Pratama — Home"
+        className="group min-w-0 flex items-center gap-2 sm:gap-3 text-left focus-visible:ring-2 focus-visible:ring-accent-green"
+        aria-label={`Beranda ${PERSONAL_INFO.name}`}
       >
-        <div className="w-9 h-9 rounded-xl bg-text-primary dark:bg-dark-text-primary text-background dark:text-dark-background flex items-center justify-center font-bold text-[13px] tracking-tight transition-transform group-hover:scale-105 shadow-sm">
-          DP
+        <div className="w-9 h-9 shrink-0 rounded-xl bg-text-primary dark:bg-dark-text-primary text-background dark:text-dark-background flex items-center justify-center font-bold text-[13px] tracking-tight transition-transform group-hover:scale-105 shadow-sm">
+          DF
         </div>
         <div className="flex flex-col">
           <span className="text-[15px]/[20px] font-semibold text-text-primary dark:text-dark-text-primary tracking-tight">
-            Daffa Pratama
+            {PERSONAL_INFO.name}
           </span>
           <span className="text-[12px]/[16px] text-text-secondary dark:text-dark-text-secondary flex items-center gap-1.5 font-normal">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Design Engineer
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            {PERSONAL_INFO.title}
           </span>
         </div>
       </button>
 
       {/* Navigation Links + Theme Switcher */}
-      <nav className="flex items-center gap-5 sm:gap-7">
+      <nav className="shrink-0 flex items-center gap-2 sm:gap-7">
         <button
           onClick={() => setCurrentPage('about')}
-          className={`text-[14px]/[22px] transition-colors focus:outline-none ${
+          className={`text-[14px]/[22px] transition-colors focus-visible:ring-2 focus-visible:ring-accent-green ${
             currentPage === 'about'
               ? 'text-text-primary dark:text-dark-text-primary font-semibold'
               : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary font-normal'
           }`}
         >
-          About
+          Tentang
         </button>
 
         <button
           onClick={() => setCurrentPage('projects')}
-          className={`text-[14px]/[22px] transition-colors focus:outline-none ${
+          className={`text-[14px]/[22px] transition-colors focus-visible:ring-2 focus-visible:ring-accent-green ${
             currentPage === 'projects' || currentPage === 'project-detail'
               ? 'text-text-primary dark:text-dark-text-primary font-semibold'
               : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary font-normal'
           }`}
         >
-          Selected Works
+          Proyek
         </button>
 
         <button
           onClick={() => setCurrentPage('contact')}
-          className={`text-[14px]/[22px] transition-colors focus:outline-none ${
+          className={`text-[14px]/[22px] transition-colors focus-visible:ring-2 focus-visible:ring-accent-green ${
             currentPage === 'contact'
               ? 'text-text-primary dark:text-dark-text-primary font-semibold'
               : 'text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary font-normal'
           }`}
         >
-          Contact
+          Kontak
         </button>
 
         {/* Theme Toggle Pill */}

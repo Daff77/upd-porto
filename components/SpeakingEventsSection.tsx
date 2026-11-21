@@ -109,7 +109,7 @@ export const SpeakingEventsSection: React.FC = () => {
 
         {/* Right: Career Roles & Milestones Timeline (7 cols) */}
         <div className="lg:col-span-7 flex flex-col justify-between gap-4">
-          {EXPERIENCES.map((exp, index) => (
+          {EXPERIENCES.map((exp) => (
             <div
               key={exp.id}
               className="p-5 sm:p-6 rounded-[20px] bg-[#f9f9f7] dark:bg-white/[0.03] border border-border/50 dark:border-white/10 flex flex-col gap-3 transition-colors hover:border-text-primary/20"

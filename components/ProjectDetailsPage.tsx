@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { PROJECTS } from '../constants';
+import { FeaturedProjectCover } from './FeaturedProjectCover';
 import { ProjectCoverVisual } from './ProjectCoverVisual';
 import {
   ArrowLeftIcon,
@@ -8,18 +9,14 @@ import {
   ArrowTopRightOnSquareIcon,
   GithubIcon,
   CheckBadgeIcon,
-  EnvelopeIcon,
 } from './icons';
 
 export const ProjectDetailsPage: React.FC<{
   setCurrentPage: (pageId: string, projectId?: string) => void;
-  email: string;
-}> = ({ setCurrentPage, email }) => {
+}> = ({ setCurrentPage }) => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  // Find project or fallback to first project
-  const projectIndex = PROJECTS.findIndex((p) => p.id === projectId);
-  const activeIndex = projectIndex !== -1 ? projectIndex : 0;
+  const activeIndex = PROJECTS.findIndex((project) => project.id === projectId);
   const project = PROJECTS[activeIndex];
 
   // Calculate circular prev and next projects for pagination
@@ -29,15 +26,15 @@ export const ProjectDetailsPage: React.FC<{
   if (!project) {
     return (
       <div className="text-center py-20 space-y-4">
-        <h1 className="text-3xl font-bold">Project Not Found</h1>
+        <h1 className="text-3xl font-bold">Proyek tidak ditemukan</h1>
         <p className="text-text-secondary dark:text-dark-text-secondary max-w-md mx-auto">
-          The requested case study could not be found.
+          Halaman detail yang Anda cari tidak tersedia.
         </p>
         <button
           onClick={() => setCurrentPage('projects')}
           className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-full text-xs font-semibold"
         >
-          Back to Projects Archive
+          Kembali ke Proyek
         </button>
       </div>
     );
@@ -52,11 +49,11 @@ export const ProjectDetailsPage: React.FC<{
           className="inline-flex items-center text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
         >
           <ArrowLeftIcon className="w-3.5 h-3.5 mr-1.5 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Projects Archive</span>
+          <span>Kembali ke Proyek</span>
         </button>
 
         <span className="text-xs font-mono text-text-secondary/60 dark:text-dark-text-secondary/60">
-          Template Case Study {activeIndex + 1} of {PROJECTS.length}
+          Proyek {activeIndex + 1} dari {PROJECTS.length}
         </span>
       </div>
 
@@ -91,26 +88,28 @@ export const ProjectDetailsPage: React.FC<{
 
         {/* Project Metadata Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-y border-border dark:border-dark-border font-mono text-xs">
-          <div>
-            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Role</div>
-            <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">
-              {project.role || 'Lead Engineer'}
+          {project.role && (
+            <div>
+              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Kontribusi</div>
+              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">{project.role}</div>
             </div>
-          </div>
-          <div>
-            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Context</div>
-            <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">
-              {project.company || project.client || 'Open Source'}
+          )}
+          {(project.company || project.client) && (
+            <div>
+              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Konteks</div>
+              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">
+                {project.company || project.client}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Timeline</div>
-            <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">
-              {project.timeline || 'Q1 — Q2'}
+          )}
+          {project.timeline && (
+            <div>
+              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Periode</div>
+              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">{project.timeline}</div>
             </div>
-          </div>
-          <div>
-            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Links</div>
+          )}
+          {(project.liveLink || project.repoLink) && <div>
+            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Tautan</div>
             <div className="flex items-center space-x-2 pt-0.5">
               {project.liveLink && (
                 <a
@@ -130,11 +129,12 @@ export const ProjectDetailsPage: React.FC<{
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-text-primary dark:text-dark-text-secondary dark:hover:text-dark-text-primary flex items-center"
                 >
-                  <GithubIcon className="w-3.5 h-3.5" />
+                  <GithubIcon className="w-3.5 h-3.5 mr-1" />
+                  <span>GitHub</span>
                 </a>
               )}
             </div>
-          </div>
+          </div>}
         </div>
       </div>
 
@@ -142,15 +142,9 @@ export const ProjectDetailsPage: React.FC<{
       <div className="animated-item anim-fadeInUp anim-delay-200">
         <div className="p-2 sm:p-2.5 rounded-[2rem] bg-black/5 dark:bg-white/5 border border-border dark:border-white/10 shadow-lg">
           <div className="rounded-[calc(2rem-0.625rem)] overflow-hidden bg-card dark:bg-dark-card border border-border/80 dark:border-dark-border">
-            {project.cardImageUrl ? (
-              <img
-                src={project.cardImageUrl}
-                alt={`${project.name} cover`}
-                className="w-full aspect-[21/9] object-cover"
-              />
-            ) : (
-              <ProjectCoverVisual projectId={project.id} aspect="wide" />
-            )}
+            <div className="aspect-[21/9]">
+              <FeaturedProjectCover project={project} />
+            </div>
           </div>
         </div>
       </div>
@@ -159,10 +153,10 @@ export const ProjectDetailsPage: React.FC<{
       <section className="animated-item anim-fadeInUp anim-delay-300 space-y-6">
         <div className="space-y-1">
           <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            01 • Executive Overview
+            Ringkasan Proyek
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Architecture Summary
+            Gambaran Umum
           </h2>
         </div>
 
@@ -192,10 +186,10 @@ export const ProjectDetailsPage: React.FC<{
         <section className="animated-item anim-fadeInUp space-y-6">
           <div className="space-y-1">
             <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              02 • Challenge & Approach
+              Pendekatan
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              The Problem & Structural Solution
+              Masalah dan Solusi
             </h2>
           </div>
 
@@ -204,7 +198,7 @@ export const ProjectDetailsPage: React.FC<{
               <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-rose-500 font-semibold flex items-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2" />
-                  Problem Statement
+                  Masalah
                 </div>
                 <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
                   {project.problemStatement.title || 'The Core Bottleneck'}
@@ -219,7 +213,7 @@ export const ProjectDetailsPage: React.FC<{
               <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
                 <div className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold flex items-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2" />
-                  Engineering Solution
+                  Solusi
                 </div>
                 <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
                   {project.solutionStatement.title || 'Architectural Strategy'}
@@ -372,10 +366,10 @@ export const ProjectDetailsPage: React.FC<{
       <section className="animated-item anim-fadeInUp space-y-4">
         <div className="space-y-1">
           <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            07 • Technology Stack
+            Teknologi
           </span>
           <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Technologies & Tools
+            Teknologi dan Pendekatan
           </h2>
         </div>
 
@@ -401,7 +395,7 @@ export const ProjectDetailsPage: React.FC<{
             <ArrowLeftIcon className="w-4 h-4 text-text-secondary group-hover:text-accent-green transition-colors" />
             <div>
               <div className="text-[10px] font-mono uppercase tracking-wider text-text-secondary">
-                Previous Case Study
+                Proyek Sebelumnya
               </div>
               <div className="text-sm font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
                 {prevProject.name}
@@ -416,7 +410,7 @@ export const ProjectDetailsPage: React.FC<{
             <ArrowRightIcon className="w-4 h-4 text-text-secondary group-hover:text-accent-green transition-colors" />
             <div>
               <div className="text-[10px] font-mono uppercase tracking-wider text-text-secondary">
-                Next Case Study
+                Proyek Berikutnya
               </div>
               <div className="text-sm font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
                 {nextProject.name}

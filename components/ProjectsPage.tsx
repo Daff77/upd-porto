@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { ProjectsPageProps } from '../types';
+import { PERSONAL_INFO } from '../constants';
 import { ProjectCard } from './ProjectCard';
 import { ArrowLeftIcon } from './icons';
 
@@ -42,13 +43,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
       {/* Page Header */}
       <div className="animated-item anim-fadeInUp anim-delay-100 space-y-4 max-w-3xl">
         <div className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-          Projects Archive
+          Proyek
         </div>
         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
-          Selected Systems & Case Studies
+          Studi Kasus Proyek
         </h1>
         <p className="text-base sm:text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-          A collection of reusable project entries demonstrating full-stack architecture, token systems, real-time streaming, and graphics engineering.
+          {PERSONAL_INFO.projectsPageIntro}
         </p>
       </div>
 

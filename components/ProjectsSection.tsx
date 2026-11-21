@@ -1,3 +1,4 @@
+import { FeaturedProjectCover } from './FeaturedProjectCover';
 import React, { useState } from 'react';
 import { ProjectsSectionProps } from '../types';
 
@@ -81,21 +82,11 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <button
               key={project.id}
               onClick={() => setCurrentPage('project-detail', project.id)}
-              className="group text-left flex flex-col gap-3 focus:outline-none"
+              className="group text-left flex flex-col gap-3 focus-visible:ring-2 focus-visible:ring-accent-green"
             >
               {/* Card Image Container (4:3 aspect ratio, 16px radius) */}
               <div className="w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-[#f7f7f4] dark:bg-white/5 border border-border/40 dark:border-dark-border/40 relative">
-                {project.cardImageUrl ? (
-                  <img
-                    src={project.cardImageUrl}
-                    alt={project.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center font-mono text-xs text-text-secondary">
-                    {project.name}
-                  </div>
-                )}
+                <FeaturedProjectCover project={project} />
               </div>
 
               {/* Text Info */}
@@ -117,7 +108,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <button
               key={project.id}
               onClick={() => setCurrentPage('project-detail', project.id)}
-              className="group py-5 flex items-center justify-between text-left focus:outline-none hover:bg-black/[0.02] dark:hover:bg-white/[0.02] px-3 rounded-xl transition-colors"
+              className="group py-5 flex items-center justify-between text-left focus-visible:ring-2 focus-visible:ring-accent-green hover:bg-black/[0.02] dark:hover:bg-white/[0.02] px-3 rounded-xl transition-colors"
             >
               <div className="flex items-center gap-4">
                 {project.cardImageUrl && (

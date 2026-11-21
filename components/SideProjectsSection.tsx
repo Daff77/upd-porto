@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { SideProject, SideProjectsSectionProps } from '../types'; // Updated import
+import { SideProjectsSectionProps } from '../types'; // Updated import
 import { SideProjectCard } from './SideProjectCard';
 import { SectionTitle } from './SectionTitle';
 import { ArrowRightIcon } from './icons'; // Import ArrowRightIcon

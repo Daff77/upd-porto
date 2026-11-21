@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HireMePageProps } from '../types';
-import { CheckBadgeIcon, ArrowLeftIcon, EnvelopeIcon } from './icons';
+import { ArrowLeftIcon, EnvelopeIcon } from './icons';
 import { WEB3FORMS_ACCESS_KEY } from '../constants';
 
 interface FormErrors {
@@ -15,6 +15,7 @@ export const HireMePage: React.FC<HireMePageProps> = ({
   socialLinks,
   setCurrentPage,
 }) => {
+  const formEnabled = Boolean(WEB3FORMS_ACCESS_KEY);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<FormErrors>({});
@@ -54,6 +55,7 @@ export const HireMePage: React.FC<HireMePageProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formEnabled) return;
     if (!validateForm()) {
       setStatus('error');
       return;
@@ -61,15 +63,6 @@ export const HireMePage: React.FC<HireMePageProps> = ({
 
     setStatus('loading');
     setErrors({});
-
-    // If no access key is configured, simulate a smooth demo success response
-    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY_HERE') {
-      setTimeout(() => {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-      }, 700);
-      return;
-    }
 
     const formPayload = new FormData();
     formPayload.append('name', formData.name);
@@ -116,21 +109,17 @@ export const HireMePage: React.FC<HireMePageProps> = ({
       <button
         onClick={() => setCurrentPage('home')}
         className="animated-item anim-fadeInUp inline-flex items-center text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group mb-2"
-        aria-label="Back to Home"
+        aria-label="Kembali ke Beranda"
       >
         <ArrowLeftIcon className="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-1 transition-transform" />
-        Back to Home
+        Kembali ke Beranda
       </button>
 
       <div className="animated-item anim-fadeInUp bg-card dark:bg-dark-card p-6 sm:p-8 md:p-10 rounded-[2rem] shadow-sm border border-border dark:border-dark-border space-y-8">
         <section id="hire-me-form-section">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              Direct Contact
-            </span>
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-              <CheckBadgeIcon className="w-3.5 h-3.5 mr-1 text-accent-green" />
-              Open for Opportunities
+              Cara Menghubungi
             </span>
           </div>
 
@@ -141,8 +130,23 @@ export const HireMePage: React.FC<HireMePageProps> = ({
             {personalInfo.hireMePageSubtitle}
           </p>
 
+          <div className="flex flex-wrap gap-3">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border dark:border-dark-border text-sm font-semibold hover:border-accent-green/50 focus-visible:ring-2 focus-visible:ring-accent-green"
+              >
+                <link.icon className="w-4 h-4" />
+                {link.name}
+              </a>
+            ))}
+          </div>
+
           {/* Quick Direct Email Row */}
-          <div className="p-4 rounded-xl bg-button-secondary-bg/50 dark:bg-dark-button-secondary-bg/50 border border-border/80 dark:border-dark-border/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
+          {personalInfo.email && <div className="mt-6 p-4 rounded-xl bg-button-secondary-bg/50 dark:bg-dark-button-secondary-bg/50 border border-border/80 dark:border-dark-border/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
             <div className="flex items-center space-x-2 text-xs font-mono">
               <EnvelopeIcon className="w-4 h-4 text-accent-green" />
               <span className="text-text-secondary dark:text-dark-text-secondary">Direct Email:</span>
@@ -159,9 +163,9 @@ export const HireMePage: React.FC<HireMePageProps> = ({
                 {copied ? '✔ Copied to Clipboard' : 'Copy Email Address'}
               </button>
             </div>
-          </div>
+          </div>}
 
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+          {formEnabled && <form onSubmit={handleSubmit} className="mt-6 space-y-5" noValidate>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label htmlFor="name" className="block text-xs font-mono text-text-secondary dark:text-dark-text-secondary mb-1.5">
@@ -233,13 +237,13 @@ export const HireMePage: React.FC<HireMePageProps> = ({
 
             {status === 'success' && (
               <div className="p-4 rounded-xl bg-accent-green/10 border border-accent-green/30 text-accent-green dark:text-dark-accent-green text-sm font-medium">
-                Thank you! Your message placeholder was recorded successfully.
+                Terima kasih. Pesan Anda sudah terkirim.
               </div>
             )}
             {status === 'error' && errors.form && (
               <p className="text-sm text-accent-red mt-2">{errors.form}</p>
             )}
-          </form>
+          </form>}
         </section>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { TECHNICAL_FOCUS } from '../constants';
 import { SectionTitle } from './SectionTitle';
-import { ArrowRightIcon } from './icons';
 
 interface TechnicalFocusSectionProps {
   onLearnMoreClick?: () => void;
