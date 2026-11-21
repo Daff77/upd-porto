@@ -1,424 +1,439 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { PROJECTS } from '../constants';
-import { FeaturedProjectCover } from './FeaturedProjectCover';
-import { ProjectCoverVisual } from './ProjectCoverVisual';
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowTopRightOnSquareIcon,
-  GithubIcon,
-  CheckBadgeIcon,
-} from './icons';
+import { PROJECTS, getProject } from '../constants';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { AppLink } from './navigation';
+import { ProjectCover } from './ProjectCover';
+import { Tag } from './ui/Tag';
+import { ButtonLink } from './ui/Button';
+import { ArrowLeftIcon, ArrowRightIcon, GithubIcon } from './icons';
 
-export const ProjectDetailsPage: React.FC<{
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-}> = ({ setCurrentPage }) => {
+export const ProjectDetailsPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  const activeIndex = PROJECTS.findIndex((project) => project.id === projectId);
-  const project = PROJECTS[activeIndex];
+  const activeIndex = PROJECTS.findIndex((p) => p.id === projectId);
+  const project = getProject(projectId);
 
-  // Calculate circular prev and next projects for pagination
-  const prevProject = PROJECTS[(activeIndex - 1 + PROJECTS.length) % PROJECTS.length];
-  const nextProject = PROJECTS[(activeIndex + 1) % PROJECTS.length];
+  usePageMeta(
+    project
+      ? `${project.name} — Daffa Danendra Fairuzza`
+      : 'Project not found — Daffa Danendra Fairuzza',
+    project?.summary
+  );
 
   if (!project) {
     return (
       <div className="text-center py-20 space-y-4">
-        <h1 className="text-3xl font-bold">Proyek tidak ditemukan</h1>
+        <h1 className="font-display text-3xl font-medium text-text-primary dark:text-dark-text-primary">
+          Project not found
+        </h1>
         <p className="text-text-secondary dark:text-dark-text-secondary max-w-md mx-auto">
-          Halaman detail yang Anda cari tidak tersedia.
+          The project case study you are looking for does not exist.
         </p>
-        <button
-          onClick={() => setCurrentPage('projects')}
-          className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-full text-xs font-semibold"
-        >
-          Kembali ke Proyek
-        </button>
+        <div className="pt-2">
+          <ButtonLink to="/projects" variant="primary">
+            Back to projects
+          </ButtonLink>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div className="space-y-14 md:space-y-20">
-      {/* Top Breadcrumb Nav */}
-      <div className="animated-item anim-fadeInUp flex items-center justify-between">
-        <button
-          onClick={() => setCurrentPage('projects')}
-          className="inline-flex items-center text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
-        >
-          <ArrowLeftIcon className="w-3.5 h-3.5 mr-1.5 transition-transform group-hover:-translate-x-1" />
-          <span>Kembali ke Proyek</span>
-        </button>
+  const prevProject = PROJECTS[(activeIndex - 1 + PROJECTS.length) % PROJECTS.length];
+  const nextProject = PROJECTS[(activeIndex + 1) % PROJECTS.length];
 
-        <span className="text-xs font-mono text-text-secondary/60 dark:text-dark-text-secondary/60">
-          Proyek {activeIndex + 1} dari {PROJECTS.length}
+  return (
+    <article className="space-y-12 md:space-y-16">
+      {/* Top Breadcrumb */}
+      <div className="animated-item anim-fadeInUp flex items-center justify-between gap-4">
+        <AppLink
+          to="/projects"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
+        >
+          <ArrowLeftIcon
+            aria-hidden="true"
+            className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1"
+          />
+          <span>All projects</span>
+        </AppLink>
+
+        <span className="font-mono text-xs text-text-secondary/70 dark:text-dark-text-secondary/70">
+          Project {activeIndex + 1} of {PROJECTS.length}
         </span>
       </div>
 
-      {/* Project Header */}
-      <div className="animated-item anim-fadeInUp anim-delay-100 space-y-6 max-w-3xl">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-            {project.category || 'Architecture'}
-          </span>
-          {project.year && (
-            <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary px-2.5 py-1 rounded-md bg-button-secondary-bg dark:bg-dark-button-secondary-bg border border-border/60 dark:border-dark-border/60">
-              {project.year}
-            </span>
-          )}
-          {project.projectType && (
-            <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary px-2.5 py-1 rounded-md bg-button-secondary-bg/60 dark:bg-dark-button-secondary-bg/60 border border-border/50 dark:border-dark-border/50">
-              {project.projectType}
-            </span>
-          )}
-        </div>
-
-        <div className="space-y-3">
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight leading-[1.1]">
+      {/* Header */}
+      <header className="animated-item anim-fadeInUp anim-delay-100 space-y-6">
+        <div className="space-y-3 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
+            {[project.category, project.context].filter(Boolean).join(' · ')}
+          </p>
+          <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-medium tracking-tight leading-[1.06] text-text-primary dark:text-dark-text-primary">
             {project.name}
           </h1>
-          {project.tagline && (
-            <p className="text-lg sm:text-xl font-medium text-accent-green dark:text-dark-accent-green">
-              {project.tagline}
-            </p>
-          )}
+          <p className="text-base sm:text-lg leading-relaxed text-text-secondary dark:text-dark-text-secondary max-w-[64ch]">
+            {project.summary}
+          </p>
         </div>
 
-        {/* Project Metadata Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-y border-border dark:border-dark-border font-mono text-xs">
-          {project.role && (
-            <div>
-              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Kontribusi</div>
-              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">{project.role}</div>
-            </div>
-          )}
-          {(project.company || project.client) && (
-            <div>
-              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Konteks</div>
-              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">
-                {project.company || project.client}
-              </div>
-            </div>
-          )}
-          {project.timeline && (
-            <div>
-              <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Periode</div>
-              <div className="font-semibold text-text-primary dark:text-dark-text-primary pt-0.5">{project.timeline}</div>
-            </div>
-          )}
-          {(project.liveLink || project.repoLink) && <div>
-            <div className="text-text-secondary/70 dark:text-dark-text-secondary/70">Tautan</div>
-            <div className="flex items-center space-x-2 pt-0.5">
-              {project.liveLink && (
+        {/* Meta strip */}
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-y border-border-subtle dark:border-dark-border-subtle font-mono text-xs">
+          <div>
+            <dt className="text-text-secondary dark:text-dark-text-secondary">Stage</dt>
+            <dd className="mt-1 font-medium text-text-primary dark:text-dark-text-primary">
+              {project.stage ?? '—'}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-text-secondary dark:text-dark-text-secondary">Context</dt>
+            <dd className="mt-1 font-medium text-text-primary dark:text-dark-text-primary">
+              {project.context}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-text-secondary dark:text-dark-text-secondary">Stack</dt>
+            <dd className="mt-1 font-medium text-text-primary dark:text-dark-text-primary">
+              {project.stack.length > 0
+                ? `${project.stack.length} technologies`
+                : 'To be documented'}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-text-secondary dark:text-dark-text-secondary">Links</dt>
+            <dd className="mt-1">
+              {project.links.length > 0 ? (
                 <a
-                  href={project.liveLink}
+                  href={project.links[0].url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent-green dark:text-dark-accent-green hover:underline flex items-center font-semibold"
+                  className="inline-flex items-center gap-1.5 font-medium text-accent-green dark:text-dark-accent-green hover:underline"
                 >
-                  <span>Live</span>
-                  <ArrowTopRightOnSquareIcon className="w-3 h-3 ml-0.5" />
+                  <GithubIcon aria-hidden="true" className="w-3.5 h-3.5" />
+                  <span>{project.links[0].label}</span>
                 </a>
-              )}
-              {project.repoLink && (
-                <a
-                  href={project.repoLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary dark:text-dark-text-secondary dark:hover:text-dark-text-primary flex items-center"
-                >
-                  <GithubIcon className="w-3.5 h-3.5 mr-1" />
-                  <span>GitHub</span>
-                </a>
-              )}
-            </div>
-          </div>}
-        </div>
-      </div>
-
-      {/* Prominent Visual Showcase Cover */}
-      <div className="animated-item anim-fadeInUp anim-delay-200">
-        <div className="p-2 sm:p-2.5 rounded-[2rem] bg-black/5 dark:bg-white/5 border border-border dark:border-white/10 shadow-lg">
-          <div className="rounded-[calc(2rem-0.625rem)] overflow-hidden bg-card dark:bg-dark-card border border-border/80 dark:border-dark-border">
-            <div className="aspect-[21/9]">
-              <FeaturedProjectCover project={project} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Narrative Section 01: Overview & Metrics */}
-      <section className="animated-item anim-fadeInUp anim-delay-300 space-y-6">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            Ringkasan Proyek
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Gambaran Umum
-          </h2>
-        </div>
-
-        <p className="text-base sm:text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed max-w-3xl">
-          {project.overview || project.description}
-        </p>
-
-        {/* Highlight Metrics */}
-        {project.metrics && project.metrics.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border font-mono">
-            {project.metrics.map((metric, i) => (
-              <div key={i} className="space-y-1">
-                <div className="text-2xl font-bold text-text-primary dark:text-dark-text-primary">
-                  {metric.value}
-                </div>
-                <div className="text-xs text-text-secondary dark:text-dark-text-secondary">
-                  {metric.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Narrative Section 02: The Problem & Solution Statement */}
-      {(project.problemStatement || project.solutionStatement) && (
-        <section className="animated-item anim-fadeInUp space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              Pendekatan
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              Masalah dan Solusi
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {project.problemStatement && (
-              <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
-                <div className="text-xs font-mono uppercase tracking-wider text-rose-500 font-semibold flex items-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2" />
-                  Masalah
-                </div>
-                <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
-                  {project.problemStatement.title || 'The Core Bottleneck'}
-                </h3>
-                <p className="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                  {project.problemStatement.description}
-                </p>
-              </div>
-            )}
-
-            {project.solutionStatement && (
-              <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
-                <div className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold flex items-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2" />
-                  Solusi
-                </div>
-                <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
-                  {project.solutionStatement.title || 'Architectural Strategy'}
-                </h3>
-                <p className="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                  {project.solutionStatement.description}
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* Narrative Section 03: Core Goals */}
-      {project.goals && project.goals.length > 0 && (
-        <section className="animated-item anim-fadeInUp space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              03 • System Objectives
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              Core Technical Goals
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {project.goals.map((goal, idx) => (
-              <div
-                key={idx}
-                className="flex items-start space-x-3 p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border text-sm"
-              >
-                <CheckBadgeIcon className="w-5 h-5 text-accent-green shrink-0 mt-0.5" />
-                <span className="text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                  {goal}
+              ) : (
+                <span className="text-text-secondary dark:text-dark-text-secondary">
+                  No public link yet
                 </span>
-              </div>
-            ))}
+              )}
+            </dd>
           </div>
-        </section>
-      )}
+        </dl>
+      </header>
 
-      {/* Narrative Section 04: Technical Decisions */}
-      {project.decisions && project.decisions.length > 0 && (
-        <section className="animated-item anim-fadeInUp space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              04 • Architectural Pillars
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              Key Engineering Decisions
+      {/* Hero Cover */}
+      <div className="animated-item anim-fadeInUp anim-delay-200 w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
+        <ProjectCover project={project} variant="hero" />
+      </div>
+
+      {/* Main Content + Sticky Aside */}
+      <div className="animated-item anim-fadeInUp anim-delay-300 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
+        {/* Main column */}
+        <div className="space-y-10 min-w-0">
+          {/* Overview */}
+          <section className="space-y-4">
+            <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+              Overview
             </h2>
-          </div>
+            <div className="space-y-3 max-w-[64ch] text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+              {project.overview.map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))}
+            </div>
+          </section>
 
-          <div className="space-y-4">
-            {project.decisions.map((decision, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3"
-              >
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono text-accent-green dark:text-dark-accent-green font-bold">
-                    Pillar 0{idx + 1}
-                  </span>
-                  <span className="text-text-secondary/40">•</span>
-                  <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
-                    {decision.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                  {decision.explanation}
-                </p>
-                <div className="p-3 rounded-lg bg-button-secondary-bg/60 dark:bg-dark-button-secondary-bg/60 border border-border/50 dark:border-dark-border/50 text-xs font-mono text-accent-green dark:text-dark-accent-green">
-                  <strong>Impact:</strong> {decision.impact}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Narrative Section 05: Visual Showcase & Gallery */}
-      {project.gallery && project.gallery.length > 0 && (
-        <section className="animated-item anim-fadeInUp space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              05 • Visual Gallery
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              Interface & Systems Frames
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {project.gallery.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3"
-              >
-                <div className="overflow-hidden rounded-xl border border-border/70 dark:border-dark-border/70">
-                  {project.cardImageUrl ? (
-                    <img
-                      src={project.cardImageUrl}
-                      alt={item.title}
-                      className="w-full aspect-video object-cover"
-                    />
-                  ) : (
-                    <ProjectCoverVisual projectId={project.id} aspect="video" />
-                  )}
-                </div>
-                <div className="space-y-1 pt-1">
-                  <div className="font-display text-sm font-bold text-text-primary dark:text-dark-text-primary">
-                    {item.title}
+          {/* Problem & Goal */}
+          {(project.problem || project.goal) && (
+            <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-5">
+              <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+                Problem &amp; goal
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {project.problem && (
+                  <div className="space-y-1.5">
+                    <h3 className="font-mono text-xs uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                      Problem
+                    </h3>
+                    <p className="text-sm sm:text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                      {project.problem}
+                    </p>
                   </div>
-                  <p className="text-xs text-text-secondary dark:text-dark-text-secondary">
-                    {item.caption}
-                  </p>
-                </div>
+                )}
+                {project.goal && (
+                  <div className="space-y-1.5">
+                    <h3 className="font-mono text-xs uppercase tracking-wider text-accent-green dark:text-dark-accent-green">
+                      Goal
+                    </h3>
+                    <p className="text-sm sm:text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                      {project.goal}
+                    </p>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+            </section>
+          )}
 
-      {/* Narrative Section 06: Results & Impact */}
-      {project.results && project.results.length > 0 && (
-        <section className="animated-item anim-fadeInUp space-y-4">
-          <div className="space-y-1">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-              06 • Outcomes & Impact
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-              Measurable Results
+          {/* Features */}
+          {project.features.map((group) => (
+            <section
+              key={group.title}
+              className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4"
+            >
+              <div className="space-y-1">
+                <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+                  {group.title}
+                </h2>
+                {group.note && (
+                  <p className="text-xs italic text-text-secondary dark:text-dark-text-secondary">
+                    {group.note}
+                  </p>
+                )}
+              </div>
+              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+                {group.items.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
+                    />
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+
+          {/* Contribution (only when explicitly confirmed) */}
+          {project.contribution && project.contribution.length > 0 && (
+            <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4">
+              <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+                My contribution
+              </h2>
+              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+                {project.contribution.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
+                    />
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Work Areas */}
+          {project.workAreas && (
+            <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4">
+              <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+                {project.workAreas.title}
+              </h2>
+              {project.workAreas.intro && (
+                <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
+                  {project.workAreas.intro}
+                </p>
+              )}
+              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+                {project.workAreas.items.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
+                    />
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Takeaways */}
+          {project.takeaways && project.takeaways.length > 0 && (
+            <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4">
+              <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+                What it demonstrates
+              </h2>
+              <ul className="space-y-2.5 text-sm sm:text-base text-text-secondary dark:text-dark-text-secondary">
+                {project.takeaways.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="w-1.5 h-1.5 rounded-full bg-accent-green dark:bg-dark-accent-green shrink-0 mt-2"
+                    />
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Scope Note */}
+          {project.scopeNote && (
+            <aside className="border-l-2 border-accent-green dark:border-dark-accent-green pl-4 py-1 space-y-1">
+              <p className="font-mono text-xs uppercase tracking-wider text-accent-green dark:text-dark-accent-green">
+                Scope note
+              </p>
+              <p className="text-sm leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                {project.scopeNote}
+              </p>
+            </aside>
+          )}
+
+          {/* Media Section */}
+          <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4">
+            <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
+              Screenshots &amp; demo
             </h2>
+            {project.media && project.media.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6">
+                {project.media.map((item) => (
+                  <figure key={item.src} className="space-y-2">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      className="w-full rounded-2xl border border-border-subtle dark:border-dark-border-subtle object-cover"
+                    />
+                    {item.caption && (
+                      <figcaption className="text-xs text-text-secondary dark:text-dark-text-secondary">
+                        {item.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
+                Screenshots and a demo will be added here once they&apos;re available.
+              </p>
+            )}
+          </section>
+        </div>
+
+        {/* Aside */}
+        <aside className="lg:sticky lg:top-8 space-y-8 border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-8 lg:pt-0 lg:pl-8">
+          {/* Tech stack */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+              Tech stack
+            </h2>
+            {project.stack.length > 0 ? (
+              <div className="flex flex-wrap gap-1.5">
+                {project.stack.map((tech) => (
+                  <Tag key={tech}>{tech}</Tag>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
+                To be documented
+              </p>
+            )}
           </div>
 
-          <div className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3">
-            <ul className="space-y-2.5 text-sm text-text-secondary dark:text-dark-text-secondary">
-              {project.results.map((result, idx) => (
-                <li key={idx} className="flex items-start space-x-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-green shrink-0 mt-2" />
-                  <span>{result}</span>
+          {/* Architecture */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+              Architecture
+            </h2>
+            <ol className="space-y-3">
+              {project.architecture.map((node, idx) => (
+                <li key={node.label} className="flex items-baseline gap-3 text-sm">
+                  <span className="font-mono text-xs text-accent-green dark:text-dark-accent-green shrink-0">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <div className="font-medium text-text-primary dark:text-dark-text-primary">
+                      {node.label}
+                    </div>
+                    {node.detail && (
+                      <div className="font-mono text-xs text-text-secondary dark:text-dark-text-secondary">
+                        {node.detail}
+                      </div>
+                    )}
+                  </div>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
-        </section>
-      )}
 
-      {/* Technology Stack Matrix */}
-      <section className="animated-item anim-fadeInUp space-y-4">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            Teknologi
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Teknologi dan Pendekatan
-          </h2>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1.5 text-xs font-mono bg-card dark:bg-dark-card border border-border dark:border-dark-border text-text-primary dark:text-dark-text-primary rounded-lg shadow-2xs"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* Pagination Navigation to Prev / Next Projects */}
-      <div className="animated-item anim-fadeInUp pt-8 border-t border-border dark:border-dark-border">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <button
-            onClick={() => setCurrentPage('project-detail', prevProject.id)}
-            className="flex items-center space-x-3 p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border hover:border-accent-green/50 transition-colors text-left group"
-          >
-            <ArrowLeftIcon className="w-4 h-4 text-text-secondary group-hover:text-accent-green transition-colors" />
-            <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-text-secondary">
-                Proyek Sebelumnya
+          {/* Links */}
+          <div className="space-y-3">
+            <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+              Links
+            </h2>
+            {project.links.length > 0 ? (
+              <div className="flex flex-col gap-2 items-start">
+                {project.links.map((link) => (
+                  <ButtonLink
+                    key={link.url}
+                    href={link.url}
+                    variant="secondary"
+                    icon={
+                      link.kind === 'repo' ? (
+                        <GithubIcon aria-hidden="true" className="w-4 h-4" />
+                      ) : undefined
+                    }
+                  >
+                    {link.label}
+                  </ButtonLink>
+                ))}
               </div>
-              <div className="text-sm font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
-                {prevProject.name}
-              </div>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setCurrentPage('project-detail', nextProject.id)}
-            className="flex items-center justify-between p-4 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border hover:border-accent-green/50 transition-colors text-right group sm:flex-row-reverse"
-          >
-            <ArrowRightIcon className="w-4 h-4 text-text-secondary group-hover:text-accent-green transition-colors" />
-            <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-text-secondary">
-                Proyek Berikutnya
-              </div>
-              <div className="text-sm font-bold text-text-primary dark:text-dark-text-primary group-hover:text-accent-green transition-colors">
-                {nextProject.name}
-              </div>
-            </div>
-          </button>
-        </div>
+            ) : (
+              <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
+                No public link yet
+              </p>
+            )}
+          </div>
+        </aside>
       </div>
-    </div>
+
+      {/* Prev / Next Navigation */}
+      <nav
+        aria-label="Project pagination"
+        className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle grid grid-cols-1 sm:grid-cols-2 gap-4"
+      >
+        <AppLink
+          to={`/project/${prevProject.id}`}
+          className="group flex items-center gap-3 p-4 rounded-xl border border-border-subtle dark:border-dark-border-subtle hover:border-border dark:hover:border-dark-border transition-colors text-left"
+        >
+          <ArrowLeftIcon
+            aria-hidden="true"
+            className="w-4 h-4 text-text-secondary dark:text-dark-text-secondary group-hover:text-accent-green dark:group-hover:text-dark-accent-green transition-transform group-hover:-translate-x-0.5 shrink-0"
+          />
+          <div className="min-w-0">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+              Previous
+            </div>
+            <div className="text-sm font-medium text-text-primary dark:text-dark-text-primary truncate">
+              {prevProject.name}
+            </div>
+            <div className="text-xs text-text-secondary dark:text-dark-text-secondary truncate">
+              {prevProject.category}
+            </div>
+          </div>
+        </AppLink>
+
+        <AppLink
+          to={`/project/${nextProject.id}`}
+          className="group flex items-center justify-between gap-3 p-4 rounded-xl border border-border-subtle dark:border-dark-border-subtle hover:border-border dark:hover:border-dark-border transition-colors text-right sm:flex-row-reverse"
+        >
+          <ArrowRightIcon
+            aria-hidden="true"
+            className="w-4 h-4 text-text-secondary dark:text-dark-text-secondary group-hover:text-accent-green dark:group-hover:text-dark-accent-green transition-transform group-hover:translate-x-0.5 shrink-0"
+          />
+          <div className="min-w-0">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+              Next
+            </div>
+            <div className="text-sm font-medium text-text-primary dark:text-dark-text-primary truncate">
+              {nextProject.name}
+            </div>
+            <div className="text-xs text-text-secondary dark:text-dark-text-secondary truncate">
+              {nextProject.category}
+            </div>
+          </div>
+        </AppLink>
+      </nav>
+    </article>
   );
 };

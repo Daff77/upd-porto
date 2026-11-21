@@ -1,15 +1,22 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daffa Danendra Fairuzza | Portofolio</title>
-    <meta name="description" content="Portofolio Daffa Danendra Fairuzza, mahasiswa Sistem Informasi UIN Sunan Ampel Surabaya yang berfokus pada pengembangan aplikasi web dan mobile." />
+    <title>Daffa Danendra Fairuzza — Aspiring Software Engineer</title>
+    <meta name="description" content="Portfolio of Daffa Danendra Fairuzza, an Information Systems student at UIN Sunan Ampel Surabaya focused on full-stack development, with an interest in software engineering and AI/ML." />
     <meta name="author" content="Daffa Danendra Fairuzza" />
+    <meta property="og:title" content="Daffa Danendra Fairuzza — Aspiring Software Engineer" />
+    <meta property="og:description" content="Portfolio of Daffa Danendra Fairuzza, an Information Systems student at UIN Sunan Ampel Surabaya focused on full-stack development, with an interest in software engineering and AI/ML." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#ececea" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/assets/typography.css" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -39,9 +46,9 @@
         theme: {
           extend: {
             fontFamily: {
-              display: ['"Satoshi"', '"Outfit"', 'system-ui', 'sans-serif'],
-              sans: ['"Satoshi"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+              display: ["Satoshi", "system-ui", "sans-serif"],
+              sans: ["Satoshi", "system-ui", "sans-serif"],
+              mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
             },
             colors: {
               // Outer page canvas
@@ -53,22 +60,23 @@
               card: "#ffffff",
               "card-hover": "#f7f7f4",
               border: "#cdcdc9", // Reference border
+              "border-subtle": "#E4E3DF",
               "input-bg": "#f7f7f4",
               "input-border": "#cdcdc9",
-              "text-primary": "#262510", // Warm obsidian olive from reference
-              "text-secondary": "#7a7974", // Warm stone gray from reference
+              "text-primary": "#242424", // Primary neutral text
+              "text-secondary": "#666666", // Secondary neutral text
               "text-placeholder": "#a2a19c",
 
-              "button-primary-bg": "#262510",
+              "button-primary-bg": "#242424",
               "button-primary-text": "#ffffff",
               "button-primary-hover": "#111111",
 
               "button-secondary-bg": "#f7f7f4",
-              "button-secondary-text": "#262510",
+              "button-secondary-text": "#242424",
               "button-secondary-hover": "#e6e5e0",
 
-              "accent-green": "#30a14e", // Signature GitHub emerald
-              "accent-green-bg": "#ebedf0",
+              "accent-green": "#2F6B4F",
+              "accent-green-bg": "#E8F1EC",
               "accent-red": "#E11D48",
 
               // Dark theme matching editorial aesthetic
@@ -76,10 +84,11 @@
               "dark-card": "#18191C",
               "dark-card-hover": "#202126",
               "dark-border": "rgba(255, 255, 255, 0.12)",
+              "dark-border-subtle": "rgba(255, 255, 255, 0.07)",
               "dark-input-bg": "#18191C",
               "dark-input-border": "rgba(255, 255, 255, 0.15)",
-              "dark-text-primary": "#F4F4F0",
-              "dark-text-secondary": "#9E9D98",
+              "dark-text-primary": "#f3f3f3",
+              "dark-text-secondary": "#b5b5b5",
               "dark-text-placeholder": "#6E6D68",
 
               "dark-button-primary-bg": "#F4F4F0",
@@ -90,8 +99,8 @@
               "dark-button-secondary-text": "#F4F4F0",
               "dark-button-secondary-hover": "#2A2C33",
 
-              "dark-accent-green": "#40c463",
-              "dark-accent-green-bg": "rgba(64, 196, 99, 0.15)",
+              "dark-accent-green": "#8CCBA8",
+              "dark-accent-green-bg": "rgba(140, 203, 168, 0.12)",
               "dark-accent-red": "#FB7185",
             },
             ringColor: (theme) => ({
@@ -150,30 +159,6 @@
         flex-direction: column;
       }
 
-      /* Header nav active pill */
-      :root {
-        --current-accent-color-text: #059669; /* For active icon text (light) */
-        --current-accent-pill-bg: #f4f4f5; /* For pill background (light theme) */
-      }
-      html.dark {
-        --current-accent-color-text: #10b981; /* For active icon text (dark) */
-        --current-accent-pill-bg: #1c2128; /* For pill background (dark theme) */
-      }
-      .nav-active-pill {
-        position: absolute;
-        background-color: var(--current-accent-pill-bg);
-        border-radius: 9999px; /* Pill shape */
-        transition:
-          left 0.3s ease-in-out,
-          width 0.3s ease-in-out,
-          top 0.3s ease-in-out,
-          height 0.3s ease-in-out,
-          opacity 0.3s ease-in-out,
-          background-color 0.3s ease-in-out; /* Added background-color transition */
-        opacity: 0;
-        z-index: -1; /* Ensure it's behind the icon/text content of NavItem */
-      }
-
       /* Global transitions for theme changes */
       *,
       *::before,
@@ -183,11 +168,6 @@
         transition-duration: 0.3s;
         transition-timing-function: ease-in-out;
       }
-
-      /* Ensure .page-transition and .nav-active-pill specific transitions are respected. */
-      /* The transition shorthand on these classes will correctly override the global * transition-property for them. */
-      /* For .page-transition, it will only transition opacity. */
-      /* For .nav-active-pill, it will transition its listed properties (left, width, etc., and now background-color). */
 
       /* Theme toggle: smooth top→bottom reveal */
       @media (prefers-reduced-motion: no-preference) {
@@ -234,201 +214,6 @@
         }
       }
 
-      /* Intro Animation Styles */
-      @keyframes intro-letter-anim {
-        from {
-          opacity: 0;
-          transform: translateY(50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes intro-line-anim {
-        from {
-          width: 0%;
-          left: 50%;
-          transform: translateX(-50%);
-        }
-        to {
-          width: 100%;
-          left: 0%;
-          transform: translateX(0%);
-        }
-      }
-
-      .intro-letter {
-        opacity: 0; /* Initial state */
-        animation: intro-letter-anim 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-
-      .intro-line {
-        animation: intro-line-anim 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-        animation-delay: 0.5s;
-      }
-
-      @keyframes intro-float {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        50% {
-          transform: translate3d(18px, -14px, 0) scale(1.03);
-        }
-        100% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-      }
-
-      @keyframes intro-float-reverse {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        50% {
-          transform: translate3d(-16px, 12px, 0) scale(1.02);
-        }
-        100% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-      }
-
-      @keyframes intro-text-pan {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 420px 420px;
-        }
-      }
-
-      .intro-bg-grid {
-        opacity: 0.5;
-        background-image:
-          linear-gradient(
-            to right,
-            rgba(60, 60, 67, 0.08) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(60, 60, 67, 0.08) 1px,
-            transparent 1px
-          );
-        background-size: 56px 56px;
-        mask-image: radial-gradient(
-          circle at 50% 45%,
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.25) 55%,
-          transparent 72%
-        );
-      }
-      .dark .intro-bg-grid {
-        opacity: 0.35;
-        background-image:
-          linear-gradient(
-            to right,
-            rgba(235, 235, 245, 0.08) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(235, 235, 245, 0.08) 1px,
-            transparent 1px
-          );
-      }
-
-      .intro-blob {
-        border-radius: 9999px;
-        filter: blur(42px);
-        opacity: 0.42;
-        background:
-          radial-gradient(
-            circle at 30% 30%,
-            rgba(52, 199, 89, 0.65),
-            transparent 62%
-          ),
-          radial-gradient(
-            circle at 70% 70%,
-            rgba(0, 0, 0, 0.22),
-            transparent 58%
-          );
-        animation: intro-float 4.8s ease-in-out infinite;
-      }
-      .dark .intro-blob {
-        opacity: 0.35;
-        background:
-          radial-gradient(
-            circle at 30% 30%,
-            rgba(48, 209, 88, 0.55),
-            transparent 62%
-          ),
-          radial-gradient(
-            circle at 70% 70%,
-            rgba(255, 255, 255, 0.12),
-            transparent 58%
-          );
-      }
-      .intro-blob--right {
-        animation: intro-float-reverse 5.6s ease-in-out infinite;
-      }
-
-      .intro-diagonal-text {
-        opacity: 0.18;
-        background-image: repeating-linear-gradient(
-          135deg,
-          rgba(60, 60, 67, 0.18) 0px,
-          rgba(60, 60, 67, 0.18) 1px,
-          transparent 1px,
-          transparent 18px
-        );
-        mask-image: radial-gradient(
-          circle at 55% 45%,
-          rgba(0, 0, 0, 0.7) 0%,
-          transparent 70%
-        );
-      }
-      .dark .intro-diagonal-text {
-        opacity: 0.12;
-        background-image: repeating-linear-gradient(
-          135deg,
-          rgba(235, 235, 245, 0.22) 0px,
-          rgba(235, 235, 245, 0.22) 1px,
-          transparent 1px,
-          transparent 18px
-        );
-      }
-
-      .intro-tagline {
-        opacity: 0;
-        animation: fadeIn 0.7s ease-out forwards;
-        animation-delay: 0.9s;
-      }
-
-      /* Mobile polish for intro background */
-      @media (max-width: 640px) {
-        .intro-bg-grid {
-          opacity: 0.32;
-          background-size: 44px 44px;
-        }
-        .dark .intro-bg-grid {
-          opacity: 0.24;
-        }
-        .intro-blob {
-          filter: blur(36px);
-          opacity: 0.32;
-        }
-        .dark .intro-blob {
-          opacity: 0.26;
-        }
-        .intro-diagonal-text {
-          opacity: 0.1;
-        }
-        .dark .intro-diagonal-text {
-          opacity: 0.08;
-        }
-      }
-
       /* Page Load Animations */
       @keyframes fadeInUp {
         from {
@@ -450,19 +235,8 @@
         }
       }
 
-      /* Custom spin animation (if not using Tailwind's extended animation) */
-      @keyframes spin-slow-custom {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .animate-spin-slow-custom {
-        /* Use if Tailwind extend doesn't work as expected */
-        animation: spin-slow-custom 20s linear infinite;
-      }
-
       .animated-item {
-        opacity: 0; /* Initial state, animation will override */
+        opacity: 0;
       }
 
       .anim-fadeInUp {
@@ -473,7 +247,6 @@
         animation: fadeIn 0.4s ease-out forwards;
       }
 
-      /* Animation Delay Utilities */
       .anim-delay-100 {
         animation-delay: 0.1s;
       }
@@ -496,188 +269,27 @@
         animation-delay: 0.7s;
       }
 
-      /* About page profile image: clean glitch (no base shake) */
-      .about-profile-glitch-wrap {
-        position: relative;
-        overflow: hidden;
-        border-radius: 0.5rem; /* keep rounded even with overflow hidden */
-        background: transparent;
-        cursor: pointer;
-        --mx: 50%;
-        --my: 50%;
-      }
-      .about-profile-glitch-base {
-        display: block;
-      }
-      /* Black & white only under cursor (masked layer) */
-      .about-profile-glitch-bw {
-        position: absolute;
-        inset: 0;
+      .reveal {
         opacity: 0;
-        pointer-events: none;
-        filter: grayscale(1) contrast(1.08);
-        will-change:
-          opacity,
-          -webkit-mask-image,
-          mask-image;
-        -webkit-mask-image: radial-gradient(
-          circle 200px at var(--mx) var(--my),
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.65) 38%,
-          rgba(0, 0, 0, 0.28) 62%,
-          rgba(0, 0, 0, 0) 85%
-        );
-        mask-image: radial-gradient(
-          circle 200px at var(--mx) var(--my),
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.65) 38%,
-          rgba(0, 0, 0, 0.28) 62%,
-          rgba(0, 0, 0, 0) 85%
-        );
+        transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .about-profile-glitch-wrap:hover .about-profile-glitch-bw,
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-bw {
+      .reveal.is-visible {
         opacity: 1;
-        transition: opacity 140ms ease;
+        transform: none;
       }
-      .about-profile-glitch-layer {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        mix-blend-mode: screen;
-        will-change: opacity, clip-path, filter, transform;
+      :focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        border-radius: 6px;
       }
-
-      @keyframes glitch-hover-a {
-        0%,
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        25% {
-          opacity: 0.14;
-          clip-path: inset(18% 0 76% 0);
-          filter: hue-rotate(95deg) saturate(1.15);
-          transform: translate3d(1px, 0, 0);
-        }
-        55% {
-          opacity: 0.1;
-          clip-path: inset(62% 0 30% 0);
-          filter: hue-rotate(115deg) saturate(1.18);
-          transform: translate3d(-1px, 0, 0);
-        }
-      }
-
-      @keyframes glitch-hover-b {
-        0%,
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        35% {
-          opacity: 0.12;
-          clip-path: inset(34% 0 56% 0);
-          filter: hue-rotate(-18deg) saturate(1.2) contrast(1.05);
-          transform: translate3d(-1.5px, 0, 0);
-        }
-        70% {
-          opacity: 0.08;
-          clip-path: inset(72% 0 20% 0);
-          filter: hue-rotate(-8deg) saturate(1.16);
-          transform: translate3d(1.5px, 0, 0);
-        }
-      }
-
-      /* Hover interaction: clean, subtle shimmer */
-      .about-profile-glitch-wrap:hover .about-profile-glitch-layer--a {
-        animation: glitch-hover-a 900ms ease-in-out both;
-      }
-      .about-profile-glitch-wrap:hover .about-profile-glitch-layer--b {
-        animation: glitch-hover-b 900ms ease-in-out both;
-      }
-
-      /* Click/tap interaction: short burst */
-      @keyframes glitch-burst-a {
-        0% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        20% {
-          opacity: 0.32;
-          clip-path: inset(10% 0 78% 0);
-          filter: hue-rotate(110deg) saturate(1.35);
-          transform: translate3d(2px, 0, 0);
-        }
-        45% {
-          opacity: 0.26;
-          clip-path: inset(52% 0 38% 0);
-          filter: hue-rotate(135deg) saturate(1.4) contrast(1.06);
-          transform: translate3d(-2px, 0, 0);
-        }
-        70% {
-          opacity: 0.18;
-          clip-path: inset(76% 0 18% 0);
-          filter: hue-rotate(95deg) saturate(1.3);
-          transform: translate3d(1px, 0, 0);
-        }
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      @keyframes glitch-burst-b {
-        0% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-        30% {
-          opacity: 0.24;
-          clip-path: inset(28% 0 60% 0);
-          filter: hue-rotate(-22deg) saturate(1.35) contrast(1.08);
-          transform: translate3d(-3px, 0, 0);
-        }
-        55% {
-          opacity: 0.18;
-          clip-path: inset(66% 0 26% 0);
-          filter: hue-rotate(-10deg) saturate(1.25);
-          transform: translate3d(3px, 0, 0);
-        }
-        100% {
-          opacity: 0;
-          clip-path: inset(0 0 100% 0);
-          filter: none;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-layer--a {
-        animation: glitch-burst-a 420ms ease-out both;
-      }
-      .about-profile-glitch-wrap.is-glitching .about-profile-glitch-layer--b {
-        animation: glitch-burst-b 420ms ease-out both;
-      }
-
       @media (prefers-reduced-motion: reduce) {
-        .about-profile-glitch-layer {
-          animation: none !important;
-          filter: none !important;
+        .reveal,
+        .animated-item {
+          opacity: 1 !important;
           transform: none !important;
-          opacity: 0 !important;
-        }
-        .about-profile-glitch-bw {
-          opacity: 0 !important;
-          -webkit-mask-image: none !important;
-          mask-image: none !important;
+          animation: none !important;
+          transition: none !important;
         }
       }
     </style>
@@ -691,8 +303,6 @@
         }
       }
     </script>
-    <!-- optional local stylesheet hook (safe if missing) -->
-    <!-- <link rel="stylesheet" href="/index.css" /> -->
   </head>
   <body
     class="bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary font-sans antialiased selection:bg-accent-green/20 selection:text-text-primary dark:selection:text-dark-text-primary"

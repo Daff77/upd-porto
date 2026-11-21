@@ -1,111 +1,118 @@
-import React, { useState, useMemo } from 'react';
-import { ProjectsPageProps } from '../types';
-import { PERSONAL_INFO } from '../constants';
+import React, { useMemo, useState } from 'react';
+import { PROJECTS, FEATURED, EXPERIMENTS, PROJECT_FILTERS } from '../constants';
+import { ProjectFilter } from '../types';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { SectionHeading } from './ui/SectionHeading';
+import { Reveal } from './ui/Reveal';
 import { ProjectCard } from './ProjectCard';
-import { ArrowLeftIcon } from './icons';
+import { ExperimentRow } from './ExperimentRow';
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({
-  projects,
-  setCurrentPage,
-}) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+export const ProjectsPage: React.FC = () => {
+  usePageMeta(
+    'Projects — Daffa Danendra Fairuzza',
+    "Projects I've built, prototyped, or explored — from full-stack mobile apps to backend tooling and video processing."
+  );
 
-  // Extract unique categories
-  const categories = useMemo(() => {
-    const cats = ['All'];
-    projects.forEach((p) => {
-      if (p.category && !cats.includes(p.category)) {
-        cats.push(p.category);
-      }
-    });
-    return cats;
-  }, [projects]);
+  const [selectedFilter, setSelectedFilter] = useState<'all' | ProjectFilter>('all');
 
-  // Filter projects by category
-  const filteredProjects = useMemo(() => {
-    if (selectedCategory === 'All') return projects;
-    return projects.filter((p) => p.category === selectedCategory);
-  }, [projects, selectedCategory]);
+  const countFor = (filterId: 'all' | ProjectFilter) =>
+    filterId === 'all'
+      ? PROJECTS.length
+      : PROJECTS.filter((p) => p.filter === filterId).length;
+
+  const filteredFeatured = useMemo(() => {
+    if (selectedFilter === 'all') return FEATURED;
+    return FEATURED.filter((p) => p.filter === selectedFilter);
+  }, [selectedFilter]);
+
+  const filteredExperiments = useMemo(() => {
+    if (selectedFilter === 'all') return EXPERIMENTS;
+    return EXPERIMENTS.filter((p) => p.filter === selectedFilter);
+  }, [selectedFilter]);
 
   return (
     <div className="space-y-12 md:space-y-16">
-      {/* Top Breadcrumb Nav */}
-      <div className="animated-item anim-fadeInUp">
-        <button
-          onClick={() => setCurrentPage('home')}
-          className="inline-flex items-center text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
-        >
-          <ArrowLeftIcon className="w-3.5 h-3.5 mr-1.5 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Home</span>
-        </button>
-      </div>
-
-      {/* Page Header */}
-      <div className="animated-item anim-fadeInUp anim-delay-100 space-y-4 max-w-3xl">
-        <div className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-          Proyek
-        </div>
-        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
-          Studi Kasus Proyek
-        </h1>
-        <p className="text-base sm:text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-          {PERSONAL_INFO.projectsPageIntro}
+      {/* Header */}
+      <header className="animated-item anim-fadeInUp space-y-4 max-w-3xl">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
+          Projects
         </p>
+        <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
+          Work, prototypes &amp; experiments
+        </h1>
+        <p className="text-base sm:text-lg leading-relaxed text-text-secondary dark:text-dark-text-secondary max-w-[64ch]">
+          Projects I&apos;ve built, prototyped, or explored &mdash; from full-stack mobile apps to backend tooling and video processing. Each one is labelled honestly: some are working builds, others are concepts, explorations, or learning experiments.
+        </p>
+      </header>
+
+      {/* Filter Pills */}
+      <div
+        role="group"
+        aria-label="Filter projects by category"
+        className="animated-item anim-fadeInUp anim-delay-100 flex flex-wrap items-center gap-2 pb-4 border-b border-border-subtle dark:border-dark-border-subtle"
+      >
+        {PROJECT_FILTERS.map((filter) => {
+          const active = selectedFilter === filter.id;
+          const count = countFor(filter.id);
+          return (
+            <button
+              key={filter.id}
+              type="button"
+              onClick={() => setSelectedFilter(filter.id)}
+              aria-pressed={active}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors active:scale-[0.98] ${
+                active
+                  ? 'bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text font-medium'
+                  : 'bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary border border-border-subtle dark:border-dark-border-subtle'
+              }`}
+            >
+              {filter.label} ({count})
+            </button>
+          );
+        })}
       </div>
 
-      {/* Category Filter Pills */}
-      <div className="animated-item anim-fadeInUp anim-delay-200 flex flex-wrap items-center gap-2 pb-2 border-b border-border dark:border-dark-border">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all duration-200 active:scale-[0.98] ${
-              selectedCategory === cat
-                ? 'bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text font-semibold shadow-xs'
-                : 'bg-button-secondary-bg/80 dark:bg-dark-button-secondary-bg/80 text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary border border-border/60 dark:border-dark-border/60'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {/* Featured Projects */}
+      {filteredFeatured.length > 0 && (
+        <section aria-label="Featured projects" className="animated-item anim-fadeInUp anim-delay-200 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+          {filteredFeatured.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </section>
+      )}
 
-      {/* Projects Grid */}
-      <div className="animated-item anim-fadeInUp anim-delay-300 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-        {filteredProjects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            onProjectSelect={(id) => setCurrentPage('project-detail', id)}
+      {/* Experiments & Coursework */}
+      {filteredExperiments.length > 0 && (
+        <Reveal as="section" aria-labelledby="experiments-heading" className="space-y-6 pt-4">
+          <SectionHeading
+            id="experiments-heading"
+            eyebrow="Additional work"
+            title="Experiments & coursework"
           />
-        ))}
-      </div>
 
-      {/* Empty State Fallback */}
-      {filteredProjects.length === 0 && (
+          <div className="divide-y divide-border-subtle dark:divide-dark-border-subtle">
+            {filteredExperiments.map((project) => (
+              <ExperimentRow key={project.id} project={project} />
+            ))}
+          </div>
+        </Reveal>
+      )}
+
+      {/* Empty State */}
+      {filteredFeatured.length === 0 && filteredExperiments.length === 0 && (
         <div className="text-center py-12 space-y-3">
           <p className="text-sm font-mono text-text-secondary dark:text-dark-text-secondary">
-            No projects found in category "{selectedCategory}".
+            Nothing in this category yet.
           </p>
           <button
-            onClick={() => setSelectedCategory('All')}
-            className="text-xs font-semibold text-accent-green hover:underline"
+            type="button"
+            onClick={() => setSelectedFilter('all')}
+            className="text-sm font-medium text-accent-green dark:text-dark-accent-green hover:underline"
           >
-            Reset Filters
+            Show all
           </button>
         </div>
       )}
-
-      {/* Template Guide Callout */}
-      <div className="animated-item anim-fadeInUp anim-delay-400 p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-        <h3 className="font-display text-sm font-bold text-text-primary dark:text-dark-text-primary flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-accent-green" />
-          <span>Template Architecture Note</span>
-        </h3>
-        <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-          These projects are modular placeholders illustrating the portfolio structure. To connect your personal projects, simply modify the <code className="font-mono text-accent-green bg-accent-green/10 px-1 py-0.5 rounded">PROJECTS</code> array in <code className="font-mono text-accent-green bg-accent-green/10 px-1 py-0.5 rounded">constants.ts</code>.
-        </p>
-      </div>
     </div>
   );
 };

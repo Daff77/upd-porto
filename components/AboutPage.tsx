@@ -1,288 +1,315 @@
 import React from 'react';
-import { AboutPageProps } from '../types';
-import { EXPERIENCES, EDUCATION } from '../constants';
 import {
-  CodeBracketSquareIcon,
-  CpuChipIcon,
-  EnvelopeIcon,
-  FiLayers,
-  FiBookOpen,
-} from './icons';
+  PROFILE,
+  ABOUT_STORY,
+  DIRECTION,
+  APPROACH,
+  LANGUAGES,
+  EXPERIENCES,
+  EDUCATION,
+} from '../constants';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { SectionHeading } from './ui/SectionHeading';
+import { Reveal } from './ui/Reveal';
+import { SkillsMatrix } from './SkillsMatrix';
+import { Timeline } from './Timeline';
+import { GitHubContributionsGraph } from './GitHubContributionsGraph';
+import { ContactBand } from './ContactBand';
 
-export const AboutPage: React.FC<AboutPageProps> = ({
-  personalInfo,
-  setCurrentPage,
-  skills,
-}) => {
+export const AboutPage: React.FC = () => {
+  usePageMeta(
+    'About — Daffa Danendra Fairuzza',
+    'Background, full-stack focus, organizational activities, education, and technical toolkit of Daffa Danendra Fairuzza.'
+  );
+
+  const [uinsa, sman3] = EDUCATION;
+
   return (
-    <div className="space-y-16 md:space-y-24">
-      {/* Profile Introduction & Headline */}
-      <section id="about-intro" className="animated-item anim-fadeInUp space-y-6">
-        <div className="flex flex-col-reverse md:flex-row items-start justify-between gap-8 md:gap-12">
-          {/* Text introduction */}
-          <div className="md:w-2/3 space-y-4">
-            <div className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-accent-green/10 text-accent-green dark:text-dark-accent-green border border-accent-green/20">
-              Latar Belakang
-            </div>
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-primary dark:text-dark-text-primary tracking-tight">
-              {personalInfo.name}
-            </h1>
-            <p className="text-lg sm:text-xl font-medium text-accent-green dark:text-dark-accent-green">
-              {personalInfo.title}
-            </p>
-            <p className="text-base sm:text-lg text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              {personalInfo.aboutMeIntro}
-            </p>
-            
-            {/* Quick Contact & Resume CTAs */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                onClick={() => setCurrentPage('contact')}
-                className="inline-flex items-center px-5 py-2.5 bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text rounded-full text-xs font-semibold hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors shadow-xs"
-              >
-                <EnvelopeIcon className="w-3.5 h-3.5 mr-1.5" />
-                <span>Kontak</span>
-              </button>
-              <button
-                onClick={() => setCurrentPage('projects')}
-                className="inline-flex items-center px-5 py-2.5 bg-button-secondary-bg dark:bg-dark-button-secondary-bg text-text-primary dark:text-dark-text-primary border border-border dark:border-dark-border rounded-full text-xs font-semibold hover:border-accent-green/50 transition-colors"
-              >
-                <span>Lihat Proyek</span>
-              </button>
-            </div>
-          </div>
+    <div className="space-y-16 md:space-y-20">
+      {/* Header */}
+      <header className="animated-item anim-fadeInUp space-y-4 max-w-3xl">
+        <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
+          About
+        </p>
+        <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
+          Learning software engineering by building it.
+        </h1>
+        <p className="font-mono text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
+          {PROFILE.roles.join(' · ')}
+        </p>
+      </header>
 
-          {/* Profile Portrait Frame matching reference */}
-          <div className="md:w-1/3 w-full flex justify-center md:justify-end">
-            <div className="w-[160px] sm:w-[190px] aspect-[3/4] shrink-0 p-1.5 bg-[#fff7ed80] border-[4px] border-white dark:border-[#262624] rounded-[24px] overflow-hidden shadow-sm">
-              <img
-                src={personalInfo.imageUrl}
-                alt=""
-                className="w-full h-full object-cover rounded-[16px]"
-              />
-            </div>
-          </div>
+      {/* Story + Sticky Facts */}
+      <section aria-label="Biography" className="animated-item anim-fadeInUp anim-delay-100 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 items-start">
+        <div className="space-y-5 max-w-[64ch]">
+          {ABOUT_STORY.map((paragraph, idx) => (
+            <p
+              key={idx}
+              className={
+                idx === 0
+                  ? 'text-lg leading-relaxed text-text-primary dark:text-dark-text-primary'
+                  : 'text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary'
+              }
+            >
+              {paragraph}
+            </p>
+          ))}
         </div>
+
+        <aside className="lg:sticky lg:top-8 border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-6 lg:pt-0 lg:pl-6">
+          <dl className="space-y-4 text-sm">
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                Program
+              </dt>
+              <dd className="mt-0.5 font-medium text-text-primary dark:text-dark-text-primary">
+                {PROFILE.program} ({PROFILE.degree})
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                Faculty
+              </dt>
+              <dd className="mt-0.5 text-text-primary dark:text-dark-text-primary">
+                {PROFILE.faculty}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                University
+              </dt>
+              <dd className="mt-0.5 text-text-primary dark:text-dark-text-primary">
+                {PROFILE.university}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                Based in
+              </dt>
+              <dd className="mt-0.5 text-text-primary dark:text-dark-text-primary">
+                {PROFILE.location}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                Focus
+              </dt>
+              <dd className="mt-0.5 font-medium text-text-primary dark:text-dark-text-primary">
+                Full-stack development
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                Also exploring
+              </dt>
+              <dd className="mt-0.5 text-text-primary dark:text-dark-text-primary">
+                AI / ML, video processing
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">
+                GitHub
+              </dt>
+              <dd className="mt-0.5">
+                <a
+                  href={PROFILE.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs font-medium text-accent-green dark:text-dark-accent-green hover:underline"
+                >
+                  @{PROFILE.githubUsername} &rarr;
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </aside>
       </section>
 
-      {/* Personal Background & Philosophy */}
-      <section className="animated-item anim-fadeInUp space-y-6">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            01 • Cara Belajar
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Pendekatan Pengembangan
-          </h2>
-        </div>
+      {/* 01 — Direction */}
+      <Reveal as="section" aria-labelledby="direction-heading" className="space-y-8">
+        <SectionHeading
+          id="direction-heading"
+          index="01"
+          eyebrow="Direction"
+          title="Where I'm heading"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {personalInfo.aboutMeDetailed.map((paragraph, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {DIRECTION.map((item) => (
             <div
-              key={idx}
-              className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3"
+              key={item.label}
+              className="border-t border-border-subtle dark:border-dark-border-subtle pt-4 space-y-2"
             >
-              <div className="text-xs font-mono font-bold text-accent-green dark:text-dark-accent-green">
-                Principle 0{idx + 1}
-              </div>
-              <p className="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                {paragraph}
+              <p className="font-mono text-xs uppercase tracking-wider text-accent-green dark:text-dark-accent-green">
+                {item.label}
+              </p>
+              <h3 className="text-base font-medium text-text-primary dark:text-dark-text-primary">
+                {item.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                {item.body}
               </p>
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
-      {/* Professional Interests & Technical Focus */}
-      <section className="animated-item anim-fadeInUp space-y-6">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            02 • Specialization
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Minat Teknis
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-            <CodeBracketSquareIcon className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
-            <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              Aplikasi Web dan Mobile
-            </h3>
-            <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              Antarmuka responsif dan alur pengguna untuk aplikasi web dan mobile.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-            <FiLayers className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
-            <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              API dan Basis Data
-            </h3>
-            <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              Integrasi Express dan PostgreSQL dalam proyek Better Life.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-2">
-            <CpuChipIcon className="w-5 h-5 text-accent-green dark:text-dark-accent-green" />
-            <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-              Eksplorasi Machine Learning
-            </h3>
-            <p className="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-              Eksperimen klasifikasi pada dataset Iris dan CIFAR-10.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Timeline */}
-      <section className="animated-item anim-fadeInUp space-y-6">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            03 • Trajectory
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Pengalaman Organisasi
-          </h2>
-        </div>
+      {/* 02 — How I work */}
+      <Reveal as="section" aria-labelledby="approach-heading" className="space-y-8">
+        <SectionHeading
+          id="approach-heading"
+          index="02"
+          eyebrow="Process"
+          title="How I approach projects"
+        />
 
         <div className="space-y-4">
-          {EXPERIENCES.map((exp) => (
-            <div
-              key={exp.id}
-              className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-3"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-text-primary dark:text-dark-text-primary">
-                    {exp.role}
-                  </h3>
-                  <div className="text-sm font-semibold text-accent-green dark:text-dark-accent-green">
-                    {exp.company} {exp.location && <span className="text-text-secondary/60 font-normal">• {exp.location}</span>}
-                  </div>
-                </div>
-                <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary self-start sm:self-center">
-                  {exp.period}
+          <ol className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0">
+            {APPROACH.map((step, idx) => (
+              <li
+                key={step.title}
+                className="border-t border-border-subtle dark:border-dark-border-subtle py-5 flex items-baseline gap-4"
+              >
+                <span className="font-mono text-base sm:text-lg font-medium text-accent-green dark:text-dark-accent-green shrink-0">
+                  {String(idx + 1).padStart(2, '0')}
                 </span>
+                <div className="space-y-1">
+                  <h3 className="text-base font-medium text-text-primary dark:text-dark-text-primary">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                    {step.body}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <p className="text-xs text-text-secondary dark:text-dark-text-secondary">
+            A general pattern drawn from my projects, not a formal methodology.
+          </p>
+        </div>
+      </Reveal>
+
+      {/* 03 — Skills */}
+      <Reveal as="section" aria-labelledby="skills-heading" className="space-y-8">
+        <SectionHeading
+          id="skills-heading"
+          index="03"
+          eyebrow="Skills"
+          title="Technologies & tools"
+        />
+
+        <SkillsMatrix />
+      </Reveal>
+
+      {/* 04 — Experience & activities */}
+      <Reveal as="section" aria-labelledby="experience-heading" className="space-y-8">
+        <SectionHeading
+          id="experience-heading"
+          index="04"
+          eyebrow="Involvement"
+          title="Experience & activities"
+        />
+
+        <Timeline items={EXPERIENCES} />
+      </Reveal>
+
+      {/* 05 — Education */}
+      <Reveal as="section" aria-labelledby="education-heading" className="space-y-8">
+        <SectionHeading
+          id="education-heading"
+          index="05"
+          eyebrow="Academic"
+          title="Education"
+        />
+
+        <div className="space-y-8">
+          {uinsa && (
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-lg font-medium text-text-primary dark:text-dark-text-primary">
+                  {uinsa.credential}
+                </h3>
+                <p className="text-sm text-text-secondary dark:text-dark-text-secondary mt-0.5">
+                  {uinsa.institution}
+                  {uinsa.detail && ` · ${uinsa.detail}`}
+                </p>
               </div>
 
-              <p className="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                {exp.description}
-              </p>
-
-              {exp.achievements && exp.achievements.length > 0 && (
-                <ul className="space-y-1 pt-1 text-xs text-text-secondary dark:text-dark-text-secondary">
-                  {exp.achievements.map((item, idx) => (
-                    <li key={idx} className="flex items-start space-x-2">
-                      <span className="w-1 h-1 rounded-full bg-accent-green shrink-0 mt-1.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {exp.technologies && (
-                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-border/50 dark:border-dark-border/50">
-                  {exp.technologies.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 text-[11px] font-mono bg-button-secondary-bg/60 dark:bg-dark-button-secondary-bg/60 rounded text-text-secondary"
+              {uinsa.areas && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 pt-2">
+                  {uinsa.areas.map((area) => (
+                    <div
+                      key={area.title}
+                      className="border-t border-border-subtle dark:border-dark-border-subtle pt-3 space-y-1"
                     >
-                      {t}
-                    </span>
+                      <h4 className="text-sm font-medium text-text-primary dark:text-dark-text-primary">
+                        {area.title}
+                      </h4>
+                      <p className="text-sm leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                        {area.detail}
+                      </p>
+                    </div>
                   ))}
                 </div>
               )}
             </div>
-          ))}
-        </div>
-      </section>
+          )}
 
-      {/* Education */}
-      <section className="animated-item anim-fadeInUp space-y-4">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            04 • Foundations
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Education & Academic Credentials
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4">
-          {EDUCATION.map((edu) => (
-            <div
-              key={edu.id}
-              className="p-6 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
-            >
-              <div className="space-y-1">
-                <div className="flex items-center space-x-2">
-                  <FiBookOpen className="w-4 h-4 text-accent-green" />
-                  <h3 className="font-display text-base font-bold text-text-primary dark:text-dark-text-primary">
-                    {edu.degree}
-                  </h3>
-                </div>
-                <div className="text-sm text-text-secondary dark:text-dark-text-secondary">
-                  {edu.institution}
-                </div>
-                {edu.details && (
-                  <p className="text-xs text-text-secondary/80 dark:text-dark-text-secondary/80 pt-0.5">
-                    {edu.details}
-                  </p>
-                )}
-              </div>
-              <span className="text-xs font-mono text-text-secondary dark:text-dark-text-secondary shrink-0">
-                {edu.period}
+          {sman3 && (
+            <div className="border-t border-border-subtle dark:border-dark-border-subtle pt-4 flex flex-wrap items-baseline justify-between gap-2 text-sm">
+              <span className="font-medium text-text-primary dark:text-dark-text-primary">
+                {sman3.institution}
+              </span>
+              <span className="text-text-secondary dark:text-dark-text-secondary">
+                {sman3.credential}
               </span>
             </div>
-          ))}
+          )}
         </div>
-      </section>
+      </Reveal>
 
-      {/* Skills Matrix */}
-      <section className="animated-item anim-fadeInUp space-y-4">
-        <div className="space-y-1">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-accent-green dark:text-dark-accent-green">
-            05 • Tooling & Technologies
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-text-primary dark:text-dark-text-primary">
-            Skills & Competencies
-          </h2>
-        </div>
+      {/* 06 — Languages */}
+      <Reveal as="section" aria-labelledby="languages-heading" className="space-y-8">
+        <SectionHeading
+          id="languages-heading"
+          index="06"
+          eyebrow="Communication"
+          title="Languages"
+        />
 
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill) => (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {LANGUAGES.map((lang) => (
             <div
-              key={skill.name}
-              className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${skill.backgroundColor} ${skill.textColor}`}
+              key={lang.name}
+              className="border-t border-border-subtle dark:border-dark-border-subtle pt-3 space-y-1"
             >
-              {skill.icon && <skill.icon className="w-3.5 h-3.5 mr-1.5 shrink-0" />}
-              <span>{skill.name}</span>
+              <h3 className="text-base font-medium text-text-primary dark:text-dark-text-primary">
+                {lang.name}
+              </h3>
+              <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
+                {lang.note}
+              </p>
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
-      {/* Social Links & Footer CTA */}
-      <section className="animated-item anim-fadeInUp p-8 rounded-2xl bg-card dark:bg-dark-card border border-border dark:border-dark-border space-y-4 text-center">
-        <h3 className="font-display text-2xl font-bold text-text-primary dark:text-dark-text-primary">
-          Kontak
-        </h3>
-        <p className="text-sm text-text-secondary dark:text-dark-text-secondary max-w-lg mx-auto leading-relaxed">
-          Temukan kode proyek saya di GitHub.
-        </p>
-        <div className="pt-2 flex flex-wrap justify-center items-center gap-3">
-          <button
-            onClick={() => setCurrentPage('contact')}
-            className="inline-flex items-center px-6 py-3 rounded-full bg-button-primary-bg dark:bg-dark-button-primary-bg text-button-primary-text dark:text-dark-button-primary-text text-xs font-semibold hover:bg-button-primary-hover dark:hover:bg-dark-button-primary-hover transition-colors"
-          >
-            <EnvelopeIcon className="w-4 h-4 mr-2" />
-            <span>Lihat Kontak</span>
-          </button>
-        </div>
-      </section>
+      {/* Activity */}
+      <Reveal as="section" aria-labelledby="about-github-heading" className="space-y-6">
+        <SectionHeading
+          id="about-github-heading"
+          eyebrow="Activity"
+          title="GitHub contributions"
+        />
+
+        <GitHubContributionsGraph />
+      </Reveal>
+
+      <Reveal>
+        <ContactBand />
+      </Reveal>
     </div>
   );
 };

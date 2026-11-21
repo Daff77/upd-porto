@@ -1,28 +1,40 @@
-# Daffa Danendra Fairuzza: Developer Portfolio
+# Daffa Danendra Fairuzza — Developer Portfolio
 
-Personal developer portfolio for **Daffa Danendra Fairuzza**, Information Systems student at UIN Sunan Ampel Surabaya, focused on Web Development, Software Engineering, and Machine Learning.
+Personal developer portfolio for **Daffa Danendra Fairuzza**: Information Systems student at UIN Sunan Ampel Surabaya, aspiring Software Engineer focused on Full-Stack Development with an interest in AI/ML.
 
-> "Building Software. Exploring Intelligence."
+## Project Structure
 
-## Primary Focus Areas
-1. **Web Development**: Modern frontend architecture, responsive layouts, accessible UI design.
-2. **Software Development**: Systems analysis, structured software engineering, data modeling.
-3. **Machine Learning**: Foundations of computational intelligence, predictive analytics, decision support systems.
+```text
+├── content/                  # Editable profile, skills, experience & project data
+│   ├── profile.ts            # Identity, bio, direction, approach & languages
+│   ├── skills.ts             # Categorized technical skills ("used" vs "explored")
+│   ├── experience.ts         # Organizational involvement & education
+│   └── projects.ts           # Featured projects & learning experiments
+├── components/               # Pages and layout components
+│   ├── ui/                   # Reusable UI primitives (Button, Reveal, SectionHeading, Tag)
+│   ├── navigation.tsx        # AppLink & NavigationContext
+│   └── ...
+├── hooks/                    # Custom hooks (usePageMeta)
+├── assets/                   # Fonts, audio, GitHub snapshot, static assets
+├── constants.ts              # Central re-export hub + nav/social config
+├── types.ts                  # TypeScript definitions
+└── App.tsx                   # Routing, theme toggling & smooth scroll shell
+```
 
-## Featured Project
-- **RAPID-MIND**: Web-Based Emergency Psychological Triage System Concept.
+## Updating Content
 
-## Features
-- **5-Section Content Architecture**: Home, About Me, Featured Projects, Technical Focus, and Contact.
-- **Responsive Layout**: Desktop, tablet, and mobile optimized.
-- **Theme Support**: Smooth light/dark mode transitions.
-- **Smooth Scrolling**: Lenis smooth scroll engine.
-- **Surabaya Local Clock**: Live WIB (`Asia/Jakarta`) time and online status indicator.
-- **Interactive Monogram & Branding**: Modern vector monogram with circular orbital text.
-- **Contact Form**: Web3Forms integration with validation.
-- **Intro Animation**: Personalized splash screen with smooth exit animations.
+### Profile, Email & LinkedIn
+Edit `content/profile.ts` to populate `email`, `linkedinUrl`, or `photoUrl` when available.
 
-## Development & Build
+### Project Screenshots
+1. Place image files inside `assets/projects/`.
+2. Import them in `content/projects.ts`.
+3. Add entries to the project's `media` array (`{ src, alt, caption }`). The first item automatically replaces the architectural diagram cover.
+
+### Optional Contact Form
+Copy `.env.example` to `.env` and set `VITE_WEB3FORMS_ACCESS_KEY` with a [Web3Forms](https://web3forms.com) access key to enable the message form on the Contact page.
+
+## Scripts
 
 ```bash
 # Install dependencies

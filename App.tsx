@@ -1,27 +1,44 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
+import { useLenis } from 'lenis/react';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { ProjectsSection } from './components/ProjectsSection';
-import { TechnicalFocusPage } from './components/TechnicalFocusPage';
 import { Footer } from './components/Footer';
+import { HomePage } from './components/HomePage';
 import { AboutPage } from './components/AboutPage';
 import { ProjectsPage } from './components/ProjectsPage';
-import { HireMePage } from './components/HireMePage';
 import { ProjectDetailsPage } from './components/ProjectDetailsPage';
-import { PERSONAL_INFO, PROJECTS, SIDE_PROJECTS, SOCIAL_LINKS, SKILLS, DEVELOPER_CREDIT } from './constants';
-import { IntroAnimation } from './components/IntroAnimation';
+import { HireMePage } from './components/HireMePage';
+import { NavigationContext } from './components/navigation';
+import { ButtonLink } from './components/ui/Button';
 import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScrollProvider';
-import { useLenis } from 'lenis/react';
+import { usePageMeta } from './hooks/usePageMeta';
 import clickSound from './assets/click_sound.wav';
 
-// Wrapper component to handle navigation and theme
+const NotFoundPage: React.FC = () => {
+  usePageMeta('Page not found — Daffa Danendra Fairuzza');
+
+  return (
+    <div className="text-center py-16 space-y-4">
+      <h1 className="font-display text-3xl font-medium text-text-primary dark:text-dark-text-primary">
+        Page not found
+      </h1>
+      <p className="text-text-secondary dark:text-dark-text-secondary">
+        The page you are looking for does not exist.
+      </p>
+      <div className="pt-2">
+        <ButtonLink to="/" variant="primary">
+          Back to home
+        </ButtonLink>
+      </div>
+    </div>
+  );
+};
+
 const AppContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lenis = useLenis();
-  const [showIntro, setShowIntro] = useState(false);
 
   // Theme state initialization
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -33,12 +50,7 @@ const AppContent: React.FC = () => {
 
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleAnimationComplete = useCallback(() => {
-    setShowIntro(false);
-  }, []);
-
   useEffect(() => {
-    // Sync theme with HTML class and localStorage
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -50,7 +62,6 @@ const AppContent: React.FC = () => {
   }, [theme]);
 
   useEffect(() => {
-    // Global UI click sound for buttons/menus
     const audio = new Audio(clickSound);
     audio.preload = 'auto';
     audio.volume = 0.35;
@@ -59,10 +70,8 @@ const AppContent: React.FC = () => {
       const target = event.target as HTMLElement | null;
       if (!target) return;
 
-      // Skip form typing interactions
       if (target.closest('input, textarea, select, label')) return;
 
-      // Play for interactive UI controls
       const interactive = target.closest('button, a, [role="button"], [data-click-sound="true"]');
       if (!interactive) return;
       if ((interactive as HTMLButtonElement).disabled) return;
@@ -106,7 +115,6 @@ const AppContent: React.FC = () => {
         return;
       }
 
-      // Fallback: plain state toggle
       setTheme(nextTheme);
       window.setTimeout(() => {
         document.documentElement.removeAttribute('data-theme-transition');
@@ -115,75 +123,59 @@ const AppContent: React.FC = () => {
     [theme]
   );
 
-  const handleSetPage = useCallback((page: string, projectId?: string) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      if (page === 'home') {
-        navigate('/');
-      } else if (page === 'project-detail' && projectId) {
-        navigate(`/project/${projectId}`);
-      } else if (page === 'hire') {
-        navigate('/contact');
-      } else {
-        navigate(`/${page}`);
-      }
-      setIsTransitioning(false);
-      if (lenis) {
-        lenis.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo(0, 0);
-      }
-    }, 150);
-  }, [navigate, lenis]);
+  const go = useCallback(
+    (path: string) => {
+      if (path === location.pathname) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        navigate(path);
+        setIsTransitioning(false);
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 150);
+    },
+    [location.pathname, navigate, lenis]
+  );
 
-  // Menu tab order for swipe navigation: Home, About, Projects, Contact
-  const menuTabs = ['home', 'about', 'projects', 'contact'];
-
-  // Get current page from location
-  const getCurrentPage = () => {
-    const path = location.pathname;
-    if (path === '/') return 'home';
-    if (path.startsWith('/project/')) return 'project-detail';
-    if (path === '/hire') return 'contact';
-    return path.slice(1);
-  };
-
-  const currentPage = getCurrentPage();
-
-  // Swipe gesture handlers
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-  const currentTabIdx = menuTabs.indexOf(currentPage);
+  // Swipe navigation tabs
+  const menuTabs = ['/', '/about', '/projects', '/contact'];
+  const currentTabIdx = menuTabs.indexOf(location.pathname);
   const swipeStartAllowedRef = useRef(true);
 
   const goToTab = (idx: number) => {
     if (idx >= 0 && idx < menuTabs.length) {
-      handleSetPage(menuTabs[idx]);
+      go(menuTabs[idx]);
     }
   };
+
   const swipeHandlers = useSwipeable({
     onSwipeStart: (e) => {
       const [x] = e.initial;
-
       const w = window.innerWidth || 1;
       const startRatio = x / w;
       const withinMiddle = startRatio >= 0.22 && startRatio <= 0.78;
 
       const target = e.event.target;
-      const isInteractive = target instanceof Element && Boolean(
-        target.closest('input, textarea, select, label, button, a, [role="button"]'),
-      );
+      const isInteractive =
+        target instanceof Element &&
+        Boolean(target.closest('input, textarea, select, label, button, a, [role="button"]'));
 
       swipeStartAllowedRef.current = withinMiddle && !isInteractive;
     },
     onSwipedLeft: () => {
       if (!swipeStartAllowedRef.current) return;
-      if (isMobile && currentTabIdx !== -1 && currentPage !== 'project-detail') {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+      if (isMobile && currentTabIdx !== -1 && !location.pathname.startsWith('/project/')) {
         goToTab(currentTabIdx + 1);
       }
     },
     onSwipedRight: () => {
       if (!swipeStartAllowedRef.current) return;
-      if (isMobile && currentTabIdx !== -1 && currentPage !== 'project-detail') {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+      if (isMobile && currentTabIdx !== -1 && !location.pathname.startsWith('/project/')) {
         goToTab(currentTabIdx - 1);
       }
     },
@@ -193,124 +185,52 @@ const AppContent: React.FC = () => {
     preventScrollOnSwipe: false,
   });
 
-  if (showIntro) {
-    return <IntroAnimation onAnimationComplete={handleAnimationComplete} />;
-  }
-
   return (
-    <div className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-200" {...swipeHandlers}>
-      <SmoothScrollToTop pathname={location.pathname} />
-
-      {/* Header Container */}
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
-        <Header
-          currentPage={currentPage}
-          setCurrentPage={handleSetPage}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      </div>
-
-      <main
-        key={location.pathname}
-        className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 md:space-y-24 flex-grow page-transition ${isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'}`}
+    <NavigationContext.Provider value={go}>
+      <div
+        className="min-h-screen flex flex-col bg-canvas dark:bg-dark-canvas sm:px-5 sm:py-6 lg:py-10 text-text-primary dark:text-dark-text-primary transition-colors duration-200"
+        {...swipeHandlers}
       >
-        <Routes>
-          <Route path="/" element={
-            <div className="flex flex-col gap-16 md:gap-24">
-              <Hero
-                name={PERSONAL_INFO.name}
-                title={PERSONAL_INFO.title}
-                headline={PERSONAL_INFO.headline}
-                university={PERSONAL_INFO.university}
-                major={PERSONAL_INFO.major}
-                primaryFocus={PERSONAL_INFO.primaryFocus}
-                bio={PERSONAL_INFO.bio}
-                imageUrl={PERSONAL_INFO.imageUrl}
-                email={PERSONAL_INFO.email}
-                circularText={PERSONAL_INFO.circularText}
-                circularTextLetterSpacing={PERSONAL_INFO.circularTextLetterSpacing}
-                animatedNameEnglish={PERSONAL_INFO.animatedNameEnglish}
-                animatedNameJapanese={PERSONAL_INFO.animatedNameJapanese}
-                instagramUrl={SOCIAL_LINKS.find((link) => link.name === 'Instagram')?.url ?? 'https://instagram.com'}
-                setCurrentPage={handleSetPage}
-              />
-              <ProjectsSection
-                projects={PROJECTS}
-                onViewAllClick={() => handleSetPage('projects')}
-                setCurrentPage={handleSetPage}
-                title="Proyek Unggulan"
-              />
-            </div>
-          } />
+        <SmoothScrollToTop pathname={location.pathname} />
 
-          <Route path="/about" element={
-            <AboutPage
-              personalInfo={PERSONAL_INFO}
-              sideProjects={SIDE_PROJECTS}
-              email={PERSONAL_INFO.email}
-              setCurrentPage={handleSetPage}
+        <div className="w-full max-w-6xl flex flex-1 flex-col mx-auto bg-background dark:bg-dark-background sm:rounded-[28px] sm:border sm:border-border dark:sm:border-dark-border">
+          <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-4 sm:pt-6">
+            <Header
+              currentPath={location.pathname}
               theme={theme}
-              skills={SKILLS}
+              toggleTheme={toggleTheme}
             />
-          } />
+          </div>
 
-          <Route path="/projects" element={
-            <ProjectsPage
-              projects={PROJECTS}
-              sideProjects={SIDE_PROJECTS}
-              email={PERSONAL_INFO.email}
-              setCurrentPage={handleSetPage}
-            />
-          } />
+          <main
+            key={location.pathname}
+            className={`w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-7 sm:py-10 lg:py-12 space-y-16 md:space-y-24 flex-grow page-transition ${
+              isTransitioning ? 'page-fade-exit-active' : 'page-fade-enter-active'
+            }`}
+          >
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/project/:projectId" element={<ProjectDetailsPage />} />
+              <Route path="/contact" element={<HireMePage />} />
 
-          <Route path="/focus" element={
-            <TechnicalFocusPage
-              setCurrentPage={handleSetPage}
-              email={PERSONAL_INFO.email}
-            />
-          } />
+              {/* Redirects */}
+              <Route path="/hire" element={<Navigate to="/contact" replace />} />
+              <Route path="/products" element={<Navigate to="/projects" replace />} />
+              <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
+              <Route path="/focus" element={<Navigate to="/about" replace />} />
 
-          <Route path="/contact" element={
-            <HireMePage
-              personalInfo={PERSONAL_INFO}
-              socialLinks={SOCIAL_LINKS}
-              setCurrentPage={handleSetPage}
-            />
-          } />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
 
-          {/* Backwards compatibility redirects */}
-          <Route path="/hire" element={<Navigate to="/contact" replace />} />
-          <Route path="/products" element={<Navigate to="/projects" replace />} />
-          <Route path="/product/:sideProjectId" element={<Navigate to="/projects" replace />} />
-
-          <Route path="/project/:projectId" element={
-            <ProjectDetailsPage setCurrentPage={handleSetPage} />
-          } />
-
-          <Route path="*" element={
-            <div className="text-center py-16 space-y-4">
-              <h1 className="text-3xl font-bold">Page Not Found</h1>
-              <p className="text-text-secondary dark:text-dark-text-secondary">The page you are looking for does not exist.</p>
-              <button
-                onClick={() => handleSetPage('home')}
-                className="px-5 py-2.5 bg-button-primary-bg text-button-primary-text dark:bg-dark-button-primary-bg dark:text-dark-button-primary-text rounded-lg hover:opacity-90 transition-opacity text-sm font-medium"
-              >
-                Go Home
-              </button>
-            </div>
-          } />
-        </Routes>
-      </main>
-
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <Footer
-          socialLinks={SOCIAL_LINKS}
-          developerName={DEVELOPER_CREDIT.name}
-          developerUrl={DEVELOPER_CREDIT.url}
-        />
+          <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pb-12">
+            <Footer />
+          </div>
+        </div>
       </div>
-    </div>
+    </NavigationContext.Provider>
   );
 };
 

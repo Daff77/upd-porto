@@ -11,241 +11,81 @@ export interface NavItem {
   icon: React.ComponentType<IconProps>;
 }
 
-export interface PersonalInfo {
-  name: string;
-  title: string;
-  headline?: string;
-  university?: string;
-  major?: string;
-  primaryFocus?: string[];
-  bio: string;
-  imageUrl: string;
-  email: string;
-  /** Text spinning around the profile image on the home hero. Falls back to name if omitted. */
-  circularText?: string;
-  /** Letter spacing for the circular text (CSS value, e.g. "0.9em", "4px"). */
-  circularTextLetterSpacing?: string;
-  /** English word that swaps with Japanese on home / about title / footer */
-  animatedNameEnglish?: string;
-  /** Japanese (or alt) text shown in the name swap animation */
-  animatedNameJapanese?: string;
-  /** First letter shown in the opening intro animation */
-  introLetter1?: string;
-  /** Second letter shown in the opening intro animation */
-  introLetter2?: string;
-  /** Tagline shown at the bottom of the opening intro animation */
-  introTagline?: string;
-  aboutMeIntro: string;
-  aboutMeDetailed: string[];
-  aboutPageImageUrl: string;
-  projectsPageIntro: string;
-  sideProjectsPageIntro?: string;
-  productsPageIntro?: string; // Optional: Intro for the new Products page
-  hireMePageTitle: string; // For Hire Me page
-  hireMePageSubtitle: string; // For Hire Me page
-  githubUsername?: string; // Added for GitHub contributions
-}
-
-export interface TechnicalFocusItem {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  topics: string[];
-  iconComponent: React.ComponentType<IconProps>;
-  badgeColor?: string;
-}
-
-export interface ProjectStatement {
-  title?: string;
-  description: string;
-  images?: string[];
-}
-
-export interface Project {
-  id: string;
-  iconChar?: string;
-  iconBgColor?: string;
-  iconComponent?: React.ComponentType<IconProps>;
-  name: string;
-  description: string; // Short description for card
-  technologies: string[];
-  longDescription?: string; // Could be deprecated or merged into overview
-  images?: string[]; // Main project images for carousel/gallery
-  liveLink?: string;
-  repoLink?: string;
-  cardImageUrl?: string; // New field for card image
-  logoImageUrl?: string; // New field for logo image
-
-  // Fields for Project Details & Case Studies
-  category?: string;
-  client?: string;
-  company?: string;
-  projectType?: string;
-  year?: string;
-  tagline?: string; // Engaging sentence under the main title on detail page
-  overview?: string; // Main introductory paragraph on detail page
-  role?: string;
-  timeline?: string;
-  metrics?: { label: string; value: string }[];
-  goals?: string[];
-  process?: { step: string; title: string; description: string }[];
-  decisions?: { title: string; explanation: string; impact: string }[];
-  gallery?: { title: string; caption: string; imageType?: string; aspect?: string }[];
-  results?: string[];
-  problemStatement?: ProjectStatement;
-  solutionStatement?: ProjectStatement;
-}
-
-export interface ExperienceItem {
-  id: string;
-  role: string;
-  company: string;
-  location?: string;
-  period: string;
-  description: string;
-  achievements?: string[];
-  technologies?: string[];
-}
-
-export interface EducationItem {
-  id: string;
-  degree: string;
-  institution: string;
-  period: string;
-  details?: string;
-}
-
-export interface SpeakingEvent {
-  id: string;
-  title: string;
-  organizer: string;
-  location: string;
-  date: string;
-  format: 'Offline' | 'Online';
-  imageUrl: string;
-  featured?: boolean;
-}
-
-export interface VideoItem {
-  id: string;
-  title: string;
-  category: string;
-  duration: string;
-  url: string;
-  thumbnailUrl?: string;
-}
-
-export interface SideProject {
-  id: string;
-  iconChar?: string;
-  iconBgColor?: string;
-  iconComponent?: React.ComponentType<IconProps>;
-  name: string;
-  tag: string;
-  link?: string;
-  linkText?: string;
-  description?: string;
-  keyFeatures?: string[];
-  cardImageUrl?: string; // New field for card image
-
-  // Optional fields for a details page (like main projects)
-  year?: string;
-  projectType?: string;
-  tagline?: string;
-  overview?: string;
-  technologies?: string[];
-  images?: string[];
-  playStoreStats?: {
-    downloads: string;
-    rating: string;
-  };
-}
-
 export interface SocialLink {
   name: string;
   url: string;
   icon: React.ComponentType<IconProps>;
 }
 
-export interface Skill {
-  name: string;
-  backgroundColor: string; // e.g., 'bg-blue-500'
-  textColor: string; // e.g., 'text-white'
-  icon?: React.ComponentType<IconProps>;
+export type ProjectStage = 'Concept' | 'Exploration' | 'Prototype' | 'Learning project';
+export type ProjectFilter = 'web' | 'mobile' | 'systems' | 'desktop' | 'ml';
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+  kind: 'repo' | 'demo' | 'docs';
 }
 
-export interface HeroProps {
-  name: string;
+export interface ArchitectureNode {
+  label: string;
+  detail?: string;
+}
+
+export interface FeatureGroup {
   title: string;
-  headline?: string;
-  university?: string;
-  major?: string;
-  primaryFocus?: string[];
-  bio: string;
-  imageUrl: string;
-  email: string;
-  instagramUrl: string;
-  circularText?: string;
-  circularTextLetterSpacing?: string;
-  animatedNameEnglish?: string;
-  animatedNameJapanese?: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+  items: string[];
+  note?: string;
 }
 
-export interface CallToActionProps {
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+export interface ProjectMedia {
+  src: string;
+  alt: string;
+  caption?: string;
 }
 
-export interface AboutPageProps {
-  personalInfo: PersonalInfo;
-  sideProjects: SideProject[];
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-  theme: "light" | "dark"; // Updated theme prop type
-  skills: Skill[]; // Added skills prop
+export interface Project {
+  id: string;
+  name: string;
+  featured: boolean;
+  category: string;
+  filter: ProjectFilter;
+  context: string;
+  stage?: ProjectStage;
+  summary: string;
+  overview: string[];
+  problem?: string;
+  goal?: string;
+  architecture: ArchitectureNode[];
+  stack: string[];
+  features: FeatureGroup[];
+  contribution?: string[];
+  workAreas?: { title: string; intro?: string; items: string[] };
+  takeaways?: string[];
+  scopeNote?: string;
+  links: ProjectLink[];
+  media?: ProjectMedia[];
+  accent: string;
 }
 
-export interface ProjectsPageProps {
-  projects: Project[];
-  sideProjects: SideProject[];
-  email: string;
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+export interface SkillGroup {
+  title: string;
+  used: string[];
+  explored: string[];
 }
 
-export interface ProductsPageProps {
-  // New Props for Products Page
-  sideProjects: SideProject[];
-  personalInfo: Pick<PersonalInfo, "email" | "productsPageIntro">; // Only need email and intro
-  setCurrentPage: (pageId: string, projectId?: string) => void;
+export interface ExperienceItem {
+  id: string;
+  organization: string;
+  role: string;
+  type: string;
+  period?: string;
+  description: string;
 }
 
-export interface HireMePageProps {
-  personalInfo: PersonalInfo;
-  socialLinks: SocialLink[];
-  setCurrentPage: (pageId: string) => void; // Added setCurrentPage
-}
-
-export interface ProjectsSectionProps {
-  projects: Project[];
-  onViewAllClick?: () => void;
-  setCurrentPage: (pageId: string, projectId?: string) => void; // Added for project selection
-  title?: string; // Optional title for reusability
-  maxItems?: number; // Optional max items to display
-}
-
-export interface SideProjectsSectionProps {
-  sideProjects: SideProject[];
-  title?: string;
-  subtitle?: string;
-  onViewAllClick?: () => void; // Added for "View All" functionality
-  viewAllText?: string; // Added for custom "View All" text
-}
-
-export interface ProjectDetailsPageProps {
-  project: Project;
-  otherProjects: Project[];
-  setCurrentPage: (pageId: string, projectId?: string) => void;
-  email: string; // For CTA
+export interface EducationItem {
+  id: string;
+  institution: string;
+  credential: string;
+  detail?: string;
+  areas?: { title: string; detail: string }[];
 }

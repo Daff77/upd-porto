@@ -1,39 +1,42 @@
 import React from 'react';
-import { SocialLink } from '../types';
+import { NAV_ITEMS, PROFILE } from '../constants';
+import { AppLink } from './navigation';
+import { GithubIcon } from './icons';
 
-interface FooterProps {
-  socialLinks: SocialLink[];
-  developerName?: string;
-  developerUrl?: string;
-}
-
-export const Footer: React.FC<FooterProps> = ({
-  socialLinks,
-  developerName,
-}) => {
+export const Footer: React.FC = () => {
   return (
-    <footer className="w-full shrink-0 flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border dark:border-dark-border text-[14px]/[21px] text-text-secondary dark:text-dark-text-secondary">
-      {/* Copyright */}
-      <div className="tracking-[0.35px]">
-        &copy; {new Date().getFullYear()} {developerName}
-      </div>
+    <footer className="w-full shrink-0 flex flex-col gap-4 pt-8 border-t border-border/70 dark:border-dark-border text-sm text-text-secondary dark:text-dark-text-secondary">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="font-medium text-text-primary dark:text-dark-text-primary">
+          &copy; {new Date().getFullYear()} {PROFILE.name}
+        </div>
 
-      {/* Social Links */}
-      <div className="flex items-center gap-6">
-        {socialLinks.map((link) => (
+        <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          {NAV_ITEMS.map((item) => (
+            <AppLink
+              key={item.id}
+              to={item.href}
+              className="text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors"
+            >
+              {item.name}
+            </AppLink>
+          ))}
           <a
-            key={link.name}
-            href={link.url}
+            href={PROFILE.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors font-medium flex items-center gap-1.5"
-            aria-label={`Follow on ${link.name}`}
+            className="inline-flex items-center gap-1.5 text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors font-medium"
+            aria-label="GitHub profile"
           >
-            <link.icon className="w-4 h-4" />
-            <span className="hidden sm:inline text-xs">{link.name}</span>
+            <GithubIcon aria-hidden="true" className="w-4 h-4" />
+            <span>GitHub</span>
           </a>
-        ))}
+        </nav>
       </div>
+
+      <p className="font-mono text-xs text-text-secondary/80 dark:text-dark-text-secondary/80">
+        Built with React, Vite &amp; Tailwind CSS
+      </p>
     </footer>
   );
 };
