@@ -11,6 +11,7 @@ import {
 import { usePageMeta } from '../hooks/usePageMeta';
 import { SectionHeading } from './ui/SectionHeading';
 import { Reveal } from './ui/Reveal';
+import { ProfilePhoto } from './ui/ProfilePhoto';
 import { SkillsMatrix } from './SkillsMatrix';
 import { Timeline } from './Timeline';
 import { GitHubContributionsGraph } from './GitHubContributionsGraph';
@@ -27,7 +28,7 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="space-y-16 md:space-y-20">
       {/* Header */}
-      <header className="animated-item anim-fadeInUp space-y-4 max-w-3xl">
+      <header className="rise-in space-y-4 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-green dark:text-dark-accent-green">
           About
         </p>
@@ -40,7 +41,7 @@ export const AboutPage: React.FC = () => {
       </header>
 
       {/* Story + Sticky Facts */}
-      <section aria-label="Biography" className="animated-item anim-fadeInUp anim-delay-100 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 items-start">
+      <section aria-label="Biography" className="rise-in grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 items-start" style={{ '--n': 1 } as React.CSSProperties}>
         <div className="space-y-5 max-w-[64ch]">
           {ABOUT_STORY.map((paragraph, idx) => (
             <p
@@ -57,6 +58,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         <aside className="lg:sticky lg:top-8 border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-6 lg:pt-0 lg:pl-6">
+          <ProfilePhoto variant="portrait" className="mb-6" />
           <dl className="space-y-4 text-sm">
             <div>
               <dt className="font-mono text-[11px] uppercase tracking-wider text-text-secondary dark:text-dark-text-secondary">

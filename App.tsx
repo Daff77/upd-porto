@@ -13,7 +13,6 @@ import { NavigationContext } from './components/navigation';
 import { ButtonLink } from './components/ui/Button';
 import { SmoothScrollProvider, SmoothScrollToTop } from './components/SmoothScrollProvider';
 import { usePageMeta } from './hooks/usePageMeta';
-import clickSound from './assets/click_sound.wav';
 
 const NotFoundPage: React.FC = () => {
   usePageMeta('Page not found — Daffa Danendra Fairuzza');
@@ -61,40 +60,13 @@ const AppContent: React.FC = () => {
     }
   }, [theme]);
 
-  useEffect(() => {
-    const audio = new Audio(clickSound);
-    audio.preload = 'auto';
-    audio.volume = 0.35;
-
-    const onDocumentClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-
-      if (target.closest('input, textarea, select, label')) return;
-
-      const interactive = target.closest('button, a, [role="button"], [data-click-sound="true"]');
-      if (!interactive) return;
-      if ((interactive as HTMLButtonElement).disabled) return;
-      if (interactive.getAttribute('aria-disabled') === 'true') return;
-
-      try {
-        audio.currentTime = 0;
-        void audio.play();
-      } catch {
-        // Ignore autoplay / platform restrictions
-      }
-    };
-
-    document.addEventListener('click', onDocumentClick, true);
-    return () => {
-      document.removeEventListener('click', onDocumentClick, true);
-      audio.pause();
-    };
-  }, []);
-
   const toggleTheme = useCallback(
-    (_event?: React.MouseEvent) => {
+    (event?: React.MouseEvent) => {
       const nextTheme = theme === 'light' ? 'dark' : 'light';
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       const doc = document as unknown as {
         startViewTransition?: (cb: () => void) => {
           ready: Promise<void>;
@@ -102,23 +74,67 @@ const AppContent: React.FC = () => {
         };
       };
 
-      document.documentElement.setAttribute('data-theme-transition', nextTheme);
+      const applyThemeDom = (targetTheme: 'light' | 'dark') => {
+        if (targetTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        try {
+          localStorage.setItem('theme', targetTheme);
+        } catch {
+          // ignore storage restrictions
+        }
+        setTheme(targetTheme);
+      };
 
-      if (doc.startViewTransition) {
-        const transition = doc.startViewTransition(() => {
-          setTheme(nextTheme);
-        });
-
-        void transition.finished.finally(() => {
-          document.documentElement.removeAttribute('data-theme-transition');
-        });
+      if (!doc.startViewTransition || prefersReducedMotion) {
+        applyThemeDom(nextTheme);
         return;
       }
 
-      setTheme(nextTheme);
-      window.setTimeout(() => {
+      const btn = event?.currentTarget as HTMLElement | undefined;
+      const rect = btn?.getBoundingClientRect();
+      const x = rect
+        ? rect.left + rect.width / 2
+        : (event?.clientX ?? window.innerWidth / 2);
+      const y = rect
+        ? rect.top + rect.height / 2
+        : (event?.clientY ?? 24);
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      document.documentElement.setAttribute('data-theme-transition', nextTheme);
+
+      const transition = doc.startViewTransition(() => {
+        applyThemeDom(nextTheme);
+      });
+
+      transition.ready
+        .then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 520,
+              easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+              pseudoElement: '::view-transition-new(root)',
+            }
+          );
+        })
+        .catch(() => {
+          // ignore aborted view transition
+        });
+
+      void transition.finished.finally(() => {
         document.documentElement.removeAttribute('data-theme-transition');
-      }, 500);
+      });
     },
     [theme]
   );

@@ -16,7 +16,7 @@ export const PROFILE = {
   githubUrl: 'https://github.com/Daff77',
   email: '' as string,
   linkedinUrl: '' as string,
-  photoUrl: '' as string, // fill in when available
+  photoUrl: '' as string, // Put your photo in public/ (e.g., public/profile.jpg) and set '/profile.jpg'
 };
 
 export const CURRENT_FOCUS = [

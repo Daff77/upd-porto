@@ -6,6 +6,7 @@ import { ButtonLink } from './ui/Button';
 import { SectionHeading } from './ui/SectionHeading';
 import { Reveal } from './ui/Reveal';
 import { ProjectCard } from './ProjectCard';
+import { ProfilePhoto } from './ui/ProfilePhoto';
 import { SkillsMatrix } from './SkillsMatrix';
 import { GitHubContributionsGraph } from './GitHubContributionsGraph';
 import { ContactBand } from './ContactBand';
@@ -22,12 +23,15 @@ export const HomePage: React.FC = () => {
       {/* Hero */}
       <section aria-labelledby="hero-name" className="pt-2 space-y-8">
         {/* Top meta bar */}
-        <div className="animated-item anim-fadeInUp flex flex-wrap items-center justify-between gap-3 text-xs text-text-secondary dark:text-dark-text-secondary">
+        <div
+          className="rise-in flex flex-wrap items-center justify-between gap-3 text-xs text-text-secondary dark:text-dark-text-secondary"
+          style={{ '--n': 0 } as React.CSSProperties}
+        >
           <div className="inline-flex items-center gap-2 font-medium text-text-primary dark:text-dark-text-primary">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green dark:bg-dark-accent-green opacity-60" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-green dark:bg-dark-accent-green" />
-            </span>
+            <span
+              className="inline-flex rounded-full h-2 w-2 bg-accent-green dark:bg-dark-accent-green"
+              aria-hidden="true"
+            />
             <span>{PROFILE.availability}</span>
           </div>
           <span className="font-mono">
@@ -36,16 +40,11 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Name & Roles */}
-        <div className="animated-item anim-fadeInUp anim-delay-100 flex items-center gap-6">
-          {PROFILE.photoUrl && (
-            <img
-              src={PROFILE.photoUrl}
-              alt={PROFILE.name}
-              width={96}
-              height={96}
-              className="w-24 h-24 rounded-2xl object-cover shrink-0 border border-border-subtle dark:border-dark-border-subtle"
-            />
-          )}
+        <div
+          className="rise-in flex items-center gap-5 sm:gap-6"
+          style={{ '--n': 1 } as React.CSSProperties}
+        >
+          <ProfilePhoto variant="avatar" />
           <div className="space-y-3 min-w-0">
             <h1
               id="hero-name"
@@ -60,7 +59,10 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Two-column intro + current focus */}
-        <div className="animated-item anim-fadeInUp anim-delay-200 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+        <div
+          className="rise-in grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start"
+          style={{ '--n': 2 } as React.CSSProperties}
+        >
           <div className="space-y-6">
             <p className="text-xl sm:text-2xl font-medium leading-snug tracking-tight text-balance text-text-primary dark:text-dark-text-primary">
               {PROFILE.headline}

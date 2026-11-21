@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700&display=swap" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" />
     <script>
       // IIFE to avoid polluting global scope
       (function () {
@@ -48,7 +48,7 @@
             fontFamily: {
               display: ["Satoshi", "system-ui", "sans-serif"],
               sans: ["Satoshi", "system-ui", "sans-serif"],
-              mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+              mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
             },
             colors: {
               // Outer page canvas
@@ -119,6 +119,9 @@
       };
     </script>
     <style>
+      :root {
+        --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      }
       html.lenis,
       html.lenis body {
         height: auto;
@@ -169,52 +172,47 @@
         transition-timing-function: ease-in-out;
       }
 
-      /* Theme toggle: smooth top→bottom reveal */
-      @media (prefers-reduced-motion: no-preference) {
-        ::view-transition-old(root),
-        ::view-transition-new(root) {
-          mix-blend-mode: normal;
-          animation-duration: 500ms;
-          animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
+      /* Theme toggle: Circular Theme Reveal from toggle button */
+      [data-theme-transition],
+      [data-theme-transition] *,
+      [data-theme-transition] *::before,
+      [data-theme-transition] *::after {
+        transition: none !important;
+      }
 
-        ::view-transition-old(root) {
-          z-index: 1;
-          animation-name: theme-fade-out;
-        }
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+      }
 
-        ::view-transition-new(root) {
-          z-index: 2;
-          animation-name: theme-wipe-down;
-        }
+      ::view-transition-old(root) {
+        z-index: 1;
+      }
 
-        @keyframes theme-wipe-down {
-          from {
-            clip-path: inset(0 0 100% 0);
-          }
-          to {
-            clip-path: inset(0 0 0 0);
-          }
-        }
+      ::view-transition-new(root) {
+        z-index: 9999;
+      }
 
-        @keyframes theme-fade-out {
-          from {
-            opacity: 1;
-          }
-          to {
-            opacity: 0;
-          }
+      /* Page Load Animations (Faiz-inspired blur + vertical rise) */
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          filter: blur(2px);
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
         }
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        ::view-transition-old(root),
-        ::view-transition-new(root) {
-          animation: none !important;
-        }
+      .rise-in {
+        animation: rise-in 520ms var(--ease-out) both;
+        animation-delay: calc(var(--n, 0) * 90ms);
       }
 
-      /* Page Load Animations */
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -271,11 +269,16 @@
 
       .reveal {
         opacity: 0;
-        transform: translateY(14px);
-        transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        filter: blur(2px);
+        transform: translateY(10px);
+        transition:
+          opacity 480ms var(--ease-out),
+          transform 520ms var(--ease-out),
+          filter 480ms var(--ease-out);
       }
       .reveal.is-visible {
         opacity: 1;
+        filter: blur(0);
         transform: none;
       }
       :focus-visible {
@@ -285,8 +288,10 @@
       }
       @media (prefers-reduced-motion: reduce) {
         .reveal,
+        .rise-in,
         .animated-item {
           opacity: 1 !important;
+          filter: none !important;
           transform: none !important;
           animation: none !important;
           transition: none !important;
