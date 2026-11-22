@@ -14,7 +14,7 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) 
       <img
         src={firstMedia.src}
         alt={firstMedia.alt}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
       />
     );
   }

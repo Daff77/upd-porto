@@ -4,6 +4,7 @@ import { PROJECTS, getProject } from '../constants';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { AppLink } from './navigation';
 import { ProjectCover } from './ProjectCover';
+import { ProjectPreview } from './ProjectPreview';
 import { Tag } from './ui/Tag';
 import { ButtonLink } from './ui/Button';
 import { ArrowLeftIcon, ArrowRightIcon, GithubIcon } from './icons';
@@ -121,10 +122,13 @@ export const ProjectDetailsPage: React.FC = () => {
         </dl>
       </header>
 
-      {/* Hero Cover */}
-      <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2 } as React.CSSProperties}>
-        <ProjectCover project={project} variant="hero" />
-      </div>
+      {project.media?.length ? (
+        <ProjectPreview key={project.id} project={project} />
+      ) : (
+        <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2 } as React.CSSProperties}>
+          <ProjectCover project={project} variant="hero" />
+        </div>
+      )}
 
       {/* Main Content + Sticky Aside */}
       <div className="rise-in grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start" style={{ '--n': 3 } as React.CSSProperties}>
@@ -264,34 +268,6 @@ export const ProjectDetailsPage: React.FC = () => {
             </aside>
           )}
 
-          {/* Media Section */}
-          <section className="pt-8 border-t border-border-subtle dark:border-dark-border-subtle space-y-4">
-            <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
-              Screenshots &amp; demo
-            </h2>
-            {project.media && project.media.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6">
-                {project.media.map((item) => (
-                  <figure key={item.src} className="space-y-2">
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      className="w-full rounded-2xl border border-border-subtle dark:border-dark-border-subtle object-cover"
-                    />
-                    {item.caption && (
-                      <figcaption className="text-xs text-text-secondary dark:text-dark-text-secondary">
-                        {item.caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
-                Screenshots and a demo will be added here once they&apos;re available.
-              </p>
-            )}
-          </section>
         </div>
 
         {/* Aside */}

@@ -27,7 +27,7 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
           src={PROFILE.photoUrl}
           alt={PROFILE.name}
           onError={() => setImgError(true)}
-          className="h-full w-full object-cover transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.03]"
+          className="h-full w-full object-cover object-[center_32%] origin-[center_41%] scale-[2.2] transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[2.24]"
         />
       </div>
     );

@@ -1,3 +1,9 @@
+import rapidMindVolunteer from '../assets/previews/rapidmind-volunteer.webp';
+import posCafeMenu from '../assets/previews/pos-cafe-menu.webp';
+import posCafeTransaction from '../assets/previews/pos-cafe-transaksi.webp';
+import betterLifePreview from '../assets/previews/better-life.webp';
+import rapidMindPreview from '../assets/previews/rapidmind.webp';
+import posCafePreview from '../assets/previews/pos-cafe.webp';
 import { Project, ProjectFilter } from '../types';
 
 export const PROJECTS: Project[] = [
@@ -43,7 +49,7 @@ export const PROJECTS: Project[] = [
     links: [
       { label: 'View repository', url: 'https://github.com/Daff77/better-life', kind: 'repo' },
     ],
-    media: [],
+    media: [{ src: betterLifePreview, alt: 'Better Life nutrition onboarding', caption: 'Better Life nutrition onboarding' }],
   },
   {
     id: 'rapidmind',
@@ -95,7 +101,14 @@ export const PROJECTS: Project[] = [
     ],
     scopeNote: 'RapidMind is a triage-support concept, not a diagnostic tool, and it is not a substitute for mental health professionals.',
     links: [],
-    media: [],
+    media: [
+      {
+        src: rapidMindVolunteer,
+        alt: 'RapidMind volunteer screen with search by identity, wristband ID, or name and a QR scan option',
+        caption: 'Field screening starts with survivor lookup',
+      },
+      { src: rapidMindPreview, alt: 'RapidMind sign-in form', caption: 'RapidMind sign-in' },
+    ],
   },
   {
     id: 'camhub',
@@ -229,7 +242,19 @@ export const PROJECTS: Project[] = [
     links: [
       { label: 'View repository', url: 'https://github.com/Daff77/ProjekCafePBO', kind: 'repo' },
     ],
-    media: [],
+    media: [
+      {
+        src: posCafeTransaction,
+        alt: 'POS Cafe checkout with a menu table, a two-line sample cart, and an order total',
+        caption: 'Sales and checkout with sample order data',
+      },
+      {
+        src: posCafeMenu,
+        alt: 'POS Cafe main menu with access to transactions, inventory, catalog and sales reports',
+        caption: 'Main menu for cafe operations',
+      },
+      { src: posCafePreview, alt: 'POS Cafe desktop sign-in form', caption: 'POS Cafe sign-in' },
+    ],
   },
   {
     id: 'cifar10-cnn-svm',
