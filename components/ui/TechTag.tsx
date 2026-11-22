@@ -4,7 +4,8 @@ import {
   SiAmd, SiDotnet, SiDrizzle, SiExpo, SiExpress, SiNvidia,
   SiPostgresql, SiPython, SiReact, SiScikitlearn, SiTypescript,
 } from 'react-icons/si';
-import { FiCamera, FiCode, FiCpu, FiPackage } from '../icons';
+import { SiInertia, SiLaravel, SiTailwindcss, SiVuedotjs } from 'react-icons/si';
+import { FiCamera, FiCode, FiCpu, FiDatabase, FiMic, FiPackage } from '../icons';
 import { Tag } from './Tag';
 
 const icons: Partial<Record<string, IconType>> = {
@@ -14,6 +15,13 @@ const icons: Partial<Record<string, IconType>> = {
   Express: SiExpress,
   TypeScript: SiTypescript,
   PostgreSQL: SiPostgresql,
+  'PostgreSQL + PostGIS': SiPostgresql,
+  Laravel: SiLaravel,
+  Vue: SiVuedotjs,
+  'Inertia.js': SiInertia,
+  'Tailwind CSS': SiTailwindcss,
+  'Dexie.js': FiDatabase,
+  'Whisper (Transformers.js)': FiMic,
   'Drizzle ORM': SiDrizzle,
   Java: FaJava,
   'REST API': FiCode,

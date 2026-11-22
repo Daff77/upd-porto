@@ -8,6 +8,28 @@ interface ProjectCoverProps {
 
 export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) => {
   const firstMedia = project.media?.[0];
+  const recipeMedia = project.id === 'better-life' ? project.media?.[3] : undefined;
+
+  if (variant === 'card' && firstMedia && recipeMedia) {
+    return (
+      <div className="relative isolate flex h-full w-full items-start justify-center gap-[4%] overflow-hidden bg-[#e8eae6] pt-[5%] dark:bg-[#252a27]">
+        <img
+          src={firstMedia.src}
+          alt={firstMedia.alt}
+          width={610}
+          height={1356}
+          className="relative z-10 w-[30%] max-w-[13rem] rounded-[clamp(0.85rem,3vw,1.5rem)] border-[clamp(3px,0.65vw,6px)] border-neutral-900 shadow-xl"
+        />
+        <img
+          src={recipeMedia.src}
+          alt={recipeMedia.alt}
+          width={610}
+          height={1356}
+          className="mt-[8%] w-[30%] max-w-[13rem] rounded-[clamp(0.85rem,3vw,1.5rem)] border-[clamp(3px,0.65vw,6px)] border-neutral-900 shadow-xl"
+        />
+      </div>
+    );
+  }
 
   if (firstMedia) {
     return (

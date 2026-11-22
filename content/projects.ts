@@ -89,7 +89,7 @@ export const PROJECTS: Project[] = [
       { label: 'Admin dashboard', detail: 'Data monitoring' },
       { label: 'AI/ML module', detail: 'Exploratory' },
     ],
-    stack: [],
+    stack: ['Laravel', 'Vue', 'TypeScript', 'Inertia.js', 'Tailwind CSS', 'PostgreSQL + PostGIS', 'Dexie.js', 'Whisper (Transformers.js)'],
     features: [
       {
         title: 'Planned system components',
