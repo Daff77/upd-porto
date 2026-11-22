@@ -36,7 +36,7 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) 
       <img
         src={firstMedia.src}
         alt={firstMedia.alt}
-        className="w-full h-full object-contain"
+        className={`w-full h-full ${project.id === 'camhub' && variant === 'card' ? 'object-cover' : 'object-contain'}`}
       />
     );
   }

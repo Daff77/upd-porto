@@ -31,7 +31,7 @@ export const CURRENT_FOCUS = [
 export const ABOUT_STORY = [
   "I'm Daffa, an Information Systems student at the Faculty of Science and Technology, UIN Sunan Ampel Surabaya. Information Systems sits between two worlds: understanding what organizations and users need, and using technology to build systems that serve those needs. Over time, my interest has settled firmly on the technical side: building software.",
   "My main focus right now is full-stack development. I want a balanced understanding of both frontend and backend, so I can see how an application works as one system: from understanding requirements and mapping the flow, to designing the interface, writing backend logic, managing data, and testing and fixing what breaks.",
-  "Most of what I know comes from building things. Better Life showed me how a mobile app talks to an API and a database. POS Cafe grounded me in Java, object-oriented design, and relational data. Explorations like CamHUB and Quantis pushed me beyond CRUD apps into process management, service integration, and video processing.",
+  "Most of what I know comes from building things. Better Life showed me how a mobile app talks to an API and a database. POS Cafe grounded me in Java, object-oriented design, and relational data. CamHUB gave me experience with process management and integrating camera services.",
   "Alongside software engineering, I'm interested in artificial intelligence and machine learning, less in training models for their own sake, and more in how intelligent features can be integrated into software people actually use. It's the layer I plan to go deeper on once my engineering foundation is stronger.",
 ];
 

@@ -13,6 +13,10 @@ import betterLifeInsights from '../assets/previews/better-life-insights.webp';
 import betterLifeAssistant from '../assets/previews/better-life-assistant.webp';
 import betterLifeProfile from '../assets/previews/better-life-profile.webp';
 import posCafePreview from '../assets/previews/pos-cafe.webp';
+import camHubDashboard from '../assets/previews/camhub-dashboard.webp';
+import camHubLive from '../assets/previews/camhub-live.webp';
+import camHubPlayback from '../assets/previews/camhub-playback.webp';
+import camHubEvents from '../assets/previews/camhub-events.webp';
 import { Project, ProjectFilter } from '../types';
 
 export const PROJECTS: Project[] = [
@@ -174,51 +178,12 @@ export const PROJECTS: Project[] = [
     ],
     scopeNote: 'An exploration project — not every feature is production-ready.',
     links: [],
-    media: [],
-  },
-  {
-    id: 'quantis',
-    name: 'Quantis',
-    featured: true,
-    category: 'Video processing',
-    filter: 'systems',
-    context: 'Concept & exploration',
-    stage: 'Concept',
-    accent: '#2B2433',
-    summary: 'A video-processing concept exploring H.264 → AV1 compression, CPU vs. hardware encoders, and VMAF quality evaluation.',
-    overview: [
-      'Quantis is a project concept focused on managing and processing video — specifically, exploring compression from H.264 to AV1, the choice of encoder, and how to evaluate the quality of the result.',
-      'The technical aim is to understand the trade-offs between file size, visual quality, encoding time, and hardware utilization.',
+    media: [
+      { src: camHubDashboard, alt: 'CamHUB · Camera health and stream performance', caption: 'Camera health and stream performance' },
+      { src: camHubLive, alt: 'CamHUB · Live view and multi-lens camera controls', caption: 'Live view and multi-lens camera controls' },
+      { src: camHubPlayback, alt: 'CamHUB · Recording playback and local archive', caption: 'Recording playback and local archive' },
+      { src: camHubEvents, alt: 'CamHUB · Motion and AI detection events', caption: 'Motion and AI detection events' },
     ],
-    problem: 'Modern codecs like AV1 promise smaller files, but the right encoder and settings depend on the hardware and on how much quality loss is acceptable — which is hard to judge without measuring.',
-    goal: 'Explore an application flow that transcodes video to AV1, supports different encoding paths, and evaluates output quality objectively.',
-    architecture: [
-      { label: 'H.264 source' },
-      { label: 'AV1 encode', detail: 'CPU or GPU path' },
-      { label: 'Quality check', detail: 'VMAF' },
-    ],
-    stack: ['AV1', 'H.264', 'VMAF', 'NVIDIA NVENC', 'AMD encoders', 'YOLO'],
-    features: [
-      {
-        title: 'Concept features',
-        items: [
-          'Encoding/transcoding video from H.264 to AV1',
-          'CPU-based and hardware-accelerated encoding paths',
-          'Exploring AMD encoders and NVIDIA NVENC',
-          'Evaluating compression quality with VMAF',
-          'Exploring object detection with YOLO',
-          'Managing video processing within a single application flow',
-        ],
-      },
-    ],
-    takeaways: [
-      'Video codecs, media formats, and hardware acceleration',
-      'Objective video-quality evaluation',
-      'Software that works with computation and multimedia — not only CRUD',
-    ],
-    scopeNote: 'No benchmark results are published yet. Quality and speed figures will only be shared once tests are documented.',
-    links: [],
-    media: [],
   },
   {
     id: 'pos-cafe',
