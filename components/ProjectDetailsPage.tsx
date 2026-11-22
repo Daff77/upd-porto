@@ -6,9 +6,9 @@ import { AppLink } from './navigation';
 import { ProjectCover } from './ProjectCover';
 import { ProjectPreview } from './ProjectPreview';
 import { PhonePreview } from './PhonePreview';
-import { Tag } from './ui/Tag';
+import { TechTag } from './ui/TechTag';
 import { ButtonLink } from './ui/Button';
-import { ArrowLeftIcon, ArrowRightIcon, GithubIcon } from './icons';
+import { ArrowLeftIcon, ArrowRightIcon, GithubIcon, FiLayers, FiGitBranch } from './icons';
 
 export const ProjectDetailsPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -158,7 +158,7 @@ export const ProjectDetailsPage: React.FC = () => {
         </div>
       )}
 
-      {/* Main Content + Sticky Aside */}
+      {/* Main Content + Aside */}
       <div className="rise-in grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start" style={{ '--n': 3 } as React.CSSProperties}>
         {/* Main column */}
         <div className="space-y-10 min-w-0">
@@ -299,16 +299,17 @@ export const ProjectDetailsPage: React.FC = () => {
         </div>
 
         {/* Aside */}
-        <aside className="lg:sticky lg:top-8 space-y-8 border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-8 lg:pt-0 lg:pl-8">
+        <aside className="space-y-8 border-t lg:border-t-0 lg:border-l border-border-subtle dark:border-dark-border-subtle pt-8 lg:pt-0 lg:pl-8">
           {/* Tech stack */}
           <div className="space-y-3">
-            <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+            <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+              <FiLayers aria-hidden="true" className="h-4 w-4 shrink-0" />
               Tech stack
             </h2>
             {project.stack.length > 0 ? (
               <div className="flex flex-wrap gap-1.5">
                 {project.stack.map((tech) => (
-                  <Tag key={tech}>{tech}</Tag>
+                  <TechTag key={tech} name={tech} />
                 ))}
               </div>
             ) : (
@@ -320,7 +321,8 @@ export const ProjectDetailsPage: React.FC = () => {
 
           {/* Architecture */}
           <div className="space-y-3">
-            <h2 className="font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+            <h2 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary dark:text-dark-text-secondary">
+              <FiGitBranch aria-hidden="true" className="h-4 w-4 shrink-0" />
               Architecture
             </h2>
             <ol className="space-y-3">
