@@ -5,6 +5,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 import { AppLink } from './navigation';
 import { ProjectCover } from './ProjectCover';
 import { ProjectPreview } from './ProjectPreview';
+import { PhonePreview } from './PhonePreview';
 import { Tag } from './ui/Tag';
 import { ButtonLink } from './ui/Button';
 import { ArrowLeftIcon, ArrowRightIcon, GithubIcon } from './icons';
@@ -42,6 +43,8 @@ export const ProjectDetailsPage: React.FC = () => {
 
   const prevProject = PROJECTS[(activeIndex - 1 + PROJECTS.length) % PROJECTS.length];
   const nextProject = PROJECTS[(activeIndex + 1) % PROJECTS.length];
+  const betterLifeScreen = project.id === 'better-life' ? project.media?.[0] : undefined;
+  const repository = project.links.find((link) => link.kind === 'repo');
 
   return (
     <article className="space-y-12 md:space-y-16">
@@ -63,7 +66,31 @@ export const ProjectDetailsPage: React.FC = () => {
         </span>
       </div>
 
-      {/* Header */}
+      {betterLifeScreen ? (
+        <header className="rise-in grid items-center gap-10 rounded-2xl border border-border-subtle bg-[#f2f1ee] px-6 py-10 dark:border-dark-border-subtle dark:bg-dark-card sm:px-10 md:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)] md:py-14" style={{ '--n': 1 } as React.CSSProperties}>
+          <div>
+            <p className="font-display text-base font-semibold">{project.name}</p>
+            <h1 className="mt-5 max-w-[14ch] font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-semibold leading-[1.02] tracking-tight">
+              Understand your daily calorie needs
+            </h1>
+            <p className="mt-4 max-w-[38ch] text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+              A mobile nutrition app that estimates how much energy you need each day using your personal inputs.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
+              {repository && (
+                <a href={repository.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-neutral-900 px-4 text-white hover:bg-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-neutral-200 dark:text-neutral-900 dark:hover:bg-white">
+                  <GithubIcon aria-hidden="true" className="h-4 w-4" />
+                  {repository.label}
+                </a>
+              )}
+              <a href="#better-life-overview" className="inline-flex min-h-11 items-center rounded-lg border border-current px-4 hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 dark:hover:bg-white/10">
+                Explore the project
+              </a>
+            </div>
+          </div>
+          <PhonePreview slides={project.media ?? []} />
+        </header>
+      ) : (
       <header className="rise-in space-y-6" style={{ '--n': 1 } as React.CSSProperties}>
         <div className="space-y-3 max-w-3xl">
           <p className="text-sm text-text-secondary dark:text-dark-text-secondary">
@@ -121,8 +148,9 @@ export const ProjectDetailsPage: React.FC = () => {
           </div>
         </dl>
       </header>
+      )}
 
-      {project.media?.length ? (
+      {betterLifeScreen ? null : project.media?.length ? (
         <ProjectPreview key={project.id} project={project} />
       ) : (
         <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2 } as React.CSSProperties}>
@@ -135,7 +163,7 @@ export const ProjectDetailsPage: React.FC = () => {
         {/* Main column */}
         <div className="space-y-10 min-w-0">
           {/* Overview */}
-          <section className="space-y-4">
+          <section id={betterLifeScreen ? 'better-life-overview' : undefined} className="scroll-mt-24 space-y-4">
             <h2 className="font-display text-xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary">
               Overview
             </h2>

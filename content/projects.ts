@@ -1,7 +1,13 @@
 import rapidMindVolunteer from '../assets/previews/rapidmind-volunteer.webp';
 import posCafeMenu from '../assets/previews/pos-cafe-menu.webp';
 import posCafeTransaction from '../assets/previews/pos-cafe-transaksi.webp';
-import betterLifePreview from '../assets/previews/better-life.webp';
+import betterLifeDashboard from '../assets/previews/better-life-dashboard.webp';
+import betterLifeJournal from '../assets/previews/better-life-journal.webp';
+import betterLifeMealLog from '../assets/previews/better-life-meal-log.webp';
+import betterLifeRecipes from '../assets/previews/better-life-recipes.webp';
+import betterLifeInsights from '../assets/previews/better-life-insights.webp';
+import betterLifeAssistant from '../assets/previews/better-life-assistant.webp';
+import betterLifeProfile from '../assets/previews/better-life-profile.webp';
 import rapidMindPreview from '../assets/previews/rapidmind.webp';
 import posCafePreview from '../assets/previews/pos-cafe.webp';
 import { Project, ProjectFilter } from '../types';
@@ -49,7 +55,15 @@ export const PROJECTS: Project[] = [
     links: [
       { label: 'View repository', url: 'https://github.com/Daff77/better-life', kind: 'repo' },
     ],
-    media: [{ src: betterLifePreview, alt: 'Better Life nutrition onboarding', caption: 'Better Life nutrition onboarding' }],
+    media: [
+      { src: betterLifeDashboard, alt: 'Better Life · Daily dashboard', caption: 'Daily dashboard' },
+      { src: betterLifeJournal, alt: 'Better Life · Energy, macros and daily journal', caption: 'Energy, macros and daily journal' },
+      { src: betterLifeMealLog, alt: 'Better Life · Meal logging', caption: 'Meal logging' },
+      { src: betterLifeRecipes, alt: 'Better Life · Recipe catalog', caption: 'Recipe catalog' },
+      { src: betterLifeInsights, alt: 'Better Life · Nutrition tools and meal inspiration', caption: 'Nutrition tools and meal inspiration' },
+      { src: betterLifeAssistant, alt: 'Better Life AI assistant suggesting meals for a Rp 20,000 daily budget', caption: 'AI assistant for budget-friendly meals' },
+      { src: betterLifeProfile, alt: 'Better Life · Profile and nutrition targets', caption: 'Profile and nutrition targets' },
+    ],
   },
   {
     id: 'rapidmind',
