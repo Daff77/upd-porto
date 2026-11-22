@@ -1,4 +1,8 @@
-import rapidMindVolunteer from '../assets/previews/rapidmind-volunteer.webp';
+import rapidMind8 from '../assets/previews/rapidmind-8.webp';
+import rapidMind10 from '../assets/previews/rapidmind-10.webp';
+import rapidMind11 from '../assets/previews/rapidmind-11.webp';
+import rapidMind12 from '../assets/previews/rapidmind-12.webp';
+import rapidMind13 from '../assets/previews/rapidmind-13.webp';
 import posCafeMenu from '../assets/previews/pos-cafe-menu.webp';
 import posCafeTransaction from '../assets/previews/pos-cafe-transaksi.webp';
 import betterLifeDashboard from '../assets/previews/better-life-dashboard.webp';
@@ -8,7 +12,6 @@ import betterLifeRecipes from '../assets/previews/better-life-recipes.webp';
 import betterLifeInsights from '../assets/previews/better-life-insights.webp';
 import betterLifeAssistant from '../assets/previews/better-life-assistant.webp';
 import betterLifeProfile from '../assets/previews/better-life-profile.webp';
-import rapidMindPreview from '../assets/previews/rapidmind.webp';
 import posCafePreview from '../assets/previews/pos-cafe.webp';
 import { Project, ProjectFilter } from '../types';
 
@@ -117,11 +120,14 @@ export const PROJECTS: Project[] = [
     links: [],
     media: [
       {
-        src: rapidMindVolunteer,
-        alt: 'RapidMind volunteer screen with search by identity, wristband ID, or name and a QR scan option',
-        caption: 'Field screening starts with survivor lookup',
+        src: rapidMind8,
+        alt: 'RapidMind verbal and adaptive non-verbal screening modes',
+        caption: 'Verbal and adaptive non-verbal modes',
       },
-      { src: rapidMindPreview, alt: 'RapidMind sign-in form', caption: 'RapidMind sign-in' },
+      { src: rapidMind10, alt: 'RapidMind prototype assessment flow', caption: 'Prototype assessment flow' },
+      { src: rapidMind11, alt: 'RapidMind assessment review and triage recommendation', caption: 'Assessment review and triage recommendation' },
+      { src: rapidMind12, alt: 'RapidMind T0 emergency verification flow', caption: 'T0 emergency verification' },
+      { src: rapidMind13, alt: 'RapidMind healthcare dashboard for triage management', caption: 'Healthcare triage dashboard' },
     ],
   },
   {
