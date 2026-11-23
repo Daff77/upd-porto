@@ -11,6 +11,7 @@ import { SkillsMatrix } from './SkillsMatrix';
 import { GitHubContributionsGraph } from './GitHubContributionsGraph';
 import { ContactBand } from './ContactBand';
 import { GithubIcon } from './icons';
+import homePortrait from '../assets/home-portrait.jpeg';
 
 export const HomePage: React.FC = () => {
   usePageMeta(
@@ -22,73 +23,83 @@ export const HomePage: React.FC = () => {
     <div className="flex flex-col gap-16 md:gap-24">
       {/* Hero */}
       <section aria-labelledby="hero-name" className="pt-2 space-y-10">
-        {/* Greeting + status */}
-        <div
-          className="rise-in flex items-center gap-4"
-          style={{ '--n': 0 } as React.CSSProperties}
-        >
-          <ProfilePhoto variant="avatar" frameReveal />
-          <div className="min-w-0 space-y-0.5">
-            <p className="font-hand text-2xl sm:text-[1.75rem] leading-none text-accent dark:text-dark-accent -rotate-2 origin-left">
-              Hi, I&apos;m Daffa.
-            </p>
-            <p className="inline-flex items-center gap-2 text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
-              <span
-                aria-hidden="true"
-                className="inline-block h-1.5 w-1.5 rounded-full bg-status-live dark:bg-dark-status-live shrink-0"
-              />
-              {PROFILE.availability}
-            </p>
+        <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,300px)] xl:items-center xl:gap-12">
+          <div className="min-w-0 space-y-10">
+            {/* Greeting + status */}
+            <div
+              className="rise-in flex items-center gap-4"
+              style={{ '--n': 0 } as React.CSSProperties}
+            >
+              <div className="xl:hidden">
+                <ProfilePhoto variant="avatar" src={homePortrait} frameReveal />
+              </div>
+              <div className="min-w-0 space-y-0.5">
+                <p className="font-hand text-2xl sm:text-[1.75rem] leading-none text-accent dark:text-dark-accent -rotate-2 origin-left">
+                  Hi, I&apos;m Daffa.
+                </p>
+                <p className="inline-flex items-center gap-2 text-xs sm:text-sm text-text-secondary dark:text-dark-text-secondary">
+                  <span
+                    aria-hidden="true"
+                    className="inline-block h-1.5 w-1.5 rounded-full bg-status-live dark:bg-dark-status-live shrink-0"
+                  />
+                  {PROFILE.availability}
+                </p>
+              </div>
+            </div>
+
+            {/* Name + roles */}
+            <div
+              className="rise-in home-hero-copy space-y-3"
+              style={{ '--n': 1 } as React.CSSProperties}
+            >
+              <h1
+                id="hero-name"
+                className="font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-medium tracking-[-0.03em] leading-[1.04] text-balance text-text-primary dark:text-dark-text-primary"
+              >
+                {PROFILE.name}
+              </h1>
+              <p className="text-base text-text-secondary dark:text-dark-text-secondary">
+                {PROFILE.roles.join(' · ')}
+              </p>
+            </div>
+
+            {/* Lead + intro */}
+            <div
+              className="rise-in home-hero-copy space-y-4 max-w-[62ch]"
+              style={{ '--n': 2 } as React.CSSProperties}
+            >
+              <p className="text-xl sm:text-2xl font-medium leading-snug tracking-[-0.01em] text-balance text-text-primary dark:text-dark-text-primary max-w-[34ch]">
+                {PROFILE.headline}
+              </p>
+              <p className="text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
+                {PROFILE.intro}
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div
+              className="rise-in flex flex-wrap items-center gap-3"
+              style={{ '--n': 3 } as React.CSSProperties}
+            >
+              <ButtonLink to="/projects" variant="primary" arrow>
+                View projects
+              </ButtonLink>
+              <ButtonLink to="/about" variant="secondary">
+                About me
+              </ButtonLink>
+              <ButtonLink
+                href={PROFILE.githubUrl}
+                variant="ghost"
+                icon={<GithubIcon aria-hidden="true" className="w-4 h-4" />}
+              >
+                GitHub
+              </ButtonLink>
+            </div>
+
           </div>
-        </div>
-
-        {/* Name + roles */}
-        <div
-          className="rise-in home-hero-copy space-y-3"
-          style={{ '--n': 1 } as React.CSSProperties}
-        >
-          <h1
-            id="hero-name"
-            className="font-display text-[clamp(2.25rem,5.5vw,3.75rem)] font-medium tracking-[-0.03em] leading-[1.04] text-balance text-text-primary dark:text-dark-text-primary"
-          >
-            {PROFILE.name}
-          </h1>
-          <p className="text-base text-text-secondary dark:text-dark-text-secondary">
-            {PROFILE.roles.join(' · ')}
-          </p>
-        </div>
-
-        {/* Lead + intro */}
-        <div
-          className="rise-in home-hero-copy space-y-4 max-w-[62ch]"
-          style={{ '--n': 2 } as React.CSSProperties}
-        >
-          <p className="text-xl sm:text-2xl font-medium leading-snug tracking-[-0.01em] text-balance text-text-primary dark:text-dark-text-primary max-w-[34ch]">
-            {PROFILE.headline}
-          </p>
-          <p className="text-base leading-relaxed text-text-secondary dark:text-dark-text-secondary">
-            {PROFILE.intro}
-          </p>
-        </div>
-
-        {/* CTAs */}
-        <div
-          className="rise-in flex flex-wrap items-center gap-3"
-          style={{ '--n': 3 } as React.CSSProperties}
-        >
-          <ButtonLink to="/projects" variant="primary" arrow>
-            View projects
-          </ButtonLink>
-          <ButtonLink to="/about" variant="secondary">
-            About me
-          </ButtonLink>
-          <ButtonLink
-            href={PROFILE.githubUrl}
-            variant="ghost"
-            icon={<GithubIcon aria-hidden="true" className="w-4 h-4" />}
-          >
-            GitHub
-          </ButtonLink>
+          <div className="hidden xl:block">
+            <ProfilePhoto variant="hero" src={homePortrait} frameReveal />
+          </div>
         </div>
 
         {/* Currently strengthening */}

@@ -2,6 +2,7 @@ import React from 'react';
 import { NAV_ITEMS, PROFILE } from '../constants';
 import { AppLink } from './navigation';
 import { SunIcon, MoonIcon } from './icons';
+import brandLogo from '../favicon.svg';
 
 interface HeaderProps {
   currentPath: string;
@@ -27,9 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
         className="group min-w-0 flex items-center gap-2.5 sm:gap-3 text-left"
         aria-label={`${PROFILE.name} · Home`}
       >
-        <div className="w-9 h-9 shrink-0 rounded-xl bg-text-primary dark:bg-dark-text-primary text-background dark:text-dark-background flex items-center justify-center font-bold text-[13px] tracking-tight transition-transform duration-200 group-hover:scale-105">
-          {PROFILE.initials}
-        </div>
+        <img src={brandLogo} alt="" width={36} height={36} className="h-9 w-9 shrink-0 motion-safe:transition-transform motion-safe:group-hover:scale-105" />
         <div className="flex flex-col min-w-0">
           <span className="text-[14px] sm:text-[15px] leading-tight font-semibold text-text-primary dark:text-dark-text-primary tracking-tight truncate">
             <span className="hidden sm:inline">{PROFILE.name}</span>

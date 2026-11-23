@@ -2,23 +2,27 @@ import React, { useState } from 'react';
 import { PROFILE } from '../../constants';
 
 interface ProfilePhotoProps {
-  variant?: 'avatar' | 'portrait';
+  variant?: 'avatar' | 'portrait' | 'hero';
+  src?: string;
   className?: string;
   frameReveal?: boolean;
 }
 
 export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   variant = 'avatar',
+  src = PROFILE.photoUrl,
   className = '',
   frameReveal = false,
 }) => {
   const [imgError, setImgError] = useState(false);
-  const showImage = Boolean(PROFILE.photoUrl) && !imgError;
+  const showImage = Boolean(src) && !imgError;
 
-  const sizeClass =
-    variant === 'portrait'
-      ? 'w-full aspect-[4/5] max-w-[240px]'
-      : 'w-14 h-14 sm:w-16 sm:h-16 shrink-0';
+  const sizeClass = {
+    avatar: 'w-14 h-14 sm:w-16 sm:h-16 shrink-0',
+    portrait: 'w-full aspect-[4/5] max-w-[240px]',
+    hero: 'w-full aspect-[3/4] max-w-[300px]',
+  }[variant];
+  const imagePosition = variant === 'portrait' ? 'object-[center_86%]' : 'object-[center_65%]';
 
   if (showImage) {
     return (
@@ -38,10 +42,10 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
         } : undefined}
       >
         <img
-          src={PROFILE.photoUrl}
+          src={src}
           alt={PROFILE.name}
           onError={() => setImgError(true)}
-          className="h-full w-full object-cover object-[center_32%] origin-[center_41%] scale-[2.2] transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[2.24]"
+          className={`h-full w-full object-cover ${imagePosition} motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-[var(--ease-out)] motion-safe:group-hover:scale-[1.02]`}
         />
       </div>
     );

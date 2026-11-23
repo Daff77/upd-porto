@@ -6,6 +6,7 @@ import { SectionHeading } from './ui/SectionHeading';
 import { Reveal } from './ui/Reveal';
 import { ProjectCard } from './ProjectCard';
 import { ExperimentRow } from './ExperimentRow';
+import { ProjectPendulums } from './ProjectPendulums';
 
 export const ProjectsPage: React.FC = () => {
   usePageMeta(
@@ -33,14 +34,17 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="space-y-12 md:space-y-16">
       {/* Header */}
-      <header className="rise-in space-y-4 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
+      <div className="relative">
+        <ProjectPendulums />
+        <header className="rise-in space-y-4 max-w-3xl" style={{ '--n': 0 } as React.CSSProperties}>
         <h1 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-medium tracking-tight leading-[1.08] text-text-primary dark:text-dark-text-primary">
           Work, prototypes &amp; experiments
         </h1>
         <p className="text-base sm:text-lg leading-relaxed text-text-secondary dark:text-dark-text-secondary max-w-[64ch]">
           Projects I&apos;ve built, prototyped, or explored, from full-stack mobile apps to backend tooling and video processing. Each one is labelled honestly: some are working builds, others are concepts, explorations, or learning experiments.
         </p>
-      </header>
+        </header>
+      </div>
 
       {/* Filter Pills */}
       <div

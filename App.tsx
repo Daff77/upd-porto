@@ -243,7 +243,7 @@ const AppContent: React.FC = () => {
       >
         <SmoothScrollToTop pathname={location.pathname} scrollY={location.state?.restoreScrollY} />
 
-        <div className="w-full max-w-4xl flex flex-1 flex-col mx-auto px-5 sm:px-8 pt-4 sm:pt-6">
+        <div className="w-full max-w-4xl xl:max-w-[1164px] flex flex-1 flex-col mx-auto px-5 sm:px-8 pt-4 sm:pt-6">
           <Header
             currentPath={location.pathname}
             theme={theme}
