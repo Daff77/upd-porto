@@ -187,14 +187,14 @@ export const AboutPage: React.FC = () => {
       </Reveal>
 
       {/* Skills */}
-      <Reveal as="section" aria-labelledby="skills-heading" className="space-y-8">
+      <section aria-labelledby="skills-heading" className="space-y-8">
         <SectionHeading
           id="skills-heading"
           title="Technologies & tools"
         />
 
         <SkillsMatrix />
-      </Reveal>
+      </section>
 
       {/* Experience & activities */}
       <Reveal as="section" aria-labelledby="experience-heading" className="space-y-8">

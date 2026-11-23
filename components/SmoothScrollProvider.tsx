@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { ReactLenis, useLenis } from 'lenis/react';
 import type { LenisOptions } from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -11,16 +11,16 @@ const lenisOptions: LenisOptions = {
 };
 
 /** Scroll to top on route change using Lenis when available */
-export const SmoothScrollToTop: React.FC<{ pathname: string }> = ({ pathname }) => {
+export const SmoothScrollToTop: React.FC<{ pathname: string; scrollY?: number }> = ({ pathname, scrollY = 0 }) => {
   const lenis = useLenis();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (lenis) {
-      lenis.scrollTo(0, { immediate: true });
+      lenis.scrollTo(scrollY, { immediate: true });
     } else {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, scrollY);
     }
-  }, [pathname, lenis]);
+  }, [pathname, scrollY, lenis]);
 
   return null;
 };

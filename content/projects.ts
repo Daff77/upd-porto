@@ -3,8 +3,9 @@ import rapidMind10 from '../assets/previews/rapidmind-10.webp';
 import rapidMind11 from '../assets/previews/rapidmind-11.webp';
 import rapidMind12 from '../assets/previews/rapidmind-12.webp';
 import rapidMind13 from '../assets/previews/rapidmind-13.webp';
-import posCafeMenu from '../assets/previews/pos-cafe-menu.webp';
-import posCafeTransaction from '../assets/previews/pos-cafe-transaksi.webp';
+import nomCherryCatalog from '../assets/previews/nomcherry-catalog-1440.png';
+import nomCherryReports from '../assets/previews/nomcherry-reports-1440.png';
+import nomCherryLogin from '../assets/previews/nomcherry-login-1440.png';
 import betterLifeDashboard from '../assets/previews/better-life-dashboard.webp';
 import betterLifeJournal from '../assets/previews/better-life-journal.webp';
 import betterLifeMealLog from '../assets/previews/better-life-meal-log.webp';
@@ -12,7 +13,6 @@ import betterLifeRecipes from '../assets/previews/better-life-recipes.webp';
 import betterLifeInsights from '../assets/previews/better-life-insights.webp';
 import betterLifeAssistant from '../assets/previews/better-life-assistant.webp';
 import betterLifeProfile from '../assets/previews/better-life-profile.webp';
-import posCafePreview from '../assets/previews/pos-cafe.webp';
 import camHubDashboard from '../assets/previews/camhub-dashboard.webp';
 import camHubLive from '../assets/previews/camhub-live.webp';
 import camHubPlayback from '../assets/previews/camhub-playback.webp';
@@ -187,40 +187,39 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'pos-cafe',
-    name: 'POS Cafe',
+    name: 'NomCherry Café POS',
     featured: true,
-    category: 'Desktop application',
-    filter: 'desktop',
-    context: 'Java OOP project',
+    category: 'Web application',
+    filter: 'web',
+    context: 'Point of sale and inventory',
     accent: '#3A2F24',
-    summary: 'A Java desktop point-of-sale and inventory app for a café, backed by PostgreSQL.',
+    summary: 'A web-based point of sale for café checkout, multi-branch inventory, and sales reporting.',
     overview: [
-      'POS Cafe is a desktop application that supports sales transactions and inventory management for a café. It applies object-oriented programming concepts and connects a Java application to a PostgreSQL database.',
+      'NomCherry Café POS brings checkout, product management, stock tracking, and sales reports into one browser-based application.',
       'A point-of-sale system has to keep products, transactions, and stock consistent with each other — which made this project a practical way to understand how a desktop interface, business logic, and data storage fit together.',
     ],
     problem: 'Café operations need sales, product data, and stock levels recorded consistently and easy to access.',
     goal: 'Combine transaction recording and inventory management in one desktop application with a relational database behind it.',
     architecture: [
-      { label: 'Desktop UI', detail: 'Java' },
-      { label: 'Business logic', detail: 'Object-oriented design' },
-      { label: 'Database', detail: 'PostgreSQL' },
+      { label: 'Browser interface', detail: 'HTML, CSS, JavaScript' },
+      { label: 'Application server', detail: 'Node.js and Express' },
+      { label: 'Database', detail: 'SQLite' },
     ],
-    stack: ['Java', 'PostgreSQL'],
+    stack: ['JavaScript', 'Node.js', 'Express', 'SQLite'],
     features: [
       {
         title: 'System functions',
         items: [
           'Product data management',
           'Sales transaction recording',
-          'Stock and inventory management',
-          'Java application connected to PostgreSQL',
-          'Data operations implemented through the Java application',
-          'Object-oriented design applied throughout',
+          'Multi-branch stock and inventory management',
+          'Sales reports and analytics',
+          'Role-based access for café staff',
         ],
       },
     ],
     takeaways: [
-      'Java and object-oriented programming fundamentals',
+      'Keeping stock consistent when orders are placed or canceled',
       'Relational database design and integration',
       'Building software around operational needs',
     ],
@@ -229,16 +228,16 @@ export const PROJECTS: Project[] = [
     ],
     media: [
       {
-        src: posCafeTransaction,
-        alt: 'POS Cafe checkout with a menu table, a two-line sample cart, and an order total',
-        caption: 'Sales and checkout with sample order data',
+        src: nomCherryCatalog,
+        alt: 'NomCherry Café product catalog in the web app',
+        caption: 'Product catalog',
       },
       {
-        src: posCafeMenu,
-        alt: 'POS Cafe main menu with access to transactions, inventory, catalog and sales reports',
-        caption: 'Main menu for cafe operations',
+        src: nomCherryReports,
+        alt: 'NomCherry Café sales reports in the web app',
+        caption: 'Sales reporting',
       },
-      { src: posCafePreview, alt: 'POS Cafe desktop sign-in form', caption: 'POS Cafe sign-in' },
+      { src: nomCherryLogin, alt: 'NomCherry Café web sign-in page', caption: 'Staff sign-in' },
     ],
   },
   {

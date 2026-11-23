@@ -17,7 +17,7 @@ export const PROFILE = {
   githubUsername: 'Daff77',
   githubUrl: 'https://github.com/Daff77',
   email: '' as string,
-  linkedinUrl: '' as string,
+  linkedinUrl: 'https://www.linkedin.com/in/daffadf/',
   photoUrl: profilePhoto,
 };
 

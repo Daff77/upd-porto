@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { PROJECTS, getProject } from '../constants';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { AppLink } from './navigation';
@@ -12,6 +12,8 @@ import { ArrowLeftIcon, ArrowRightIcon, GithubIcon, FiLayers, FiGitBranch } from
 
 export const ProjectDetailsPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const { state } = useLocation();
+  const returnPath = state?.projectOrigin?.path === '/' ? '/' : '/projects';
 
   const activeIndex = PROJECTS.findIndex((p) => p.id === projectId);
   const project = getProject(projectId);
@@ -51,14 +53,14 @@ export const ProjectDetailsPage: React.FC = () => {
       {/* Top Breadcrumb */}
       <div className="rise-in flex items-center justify-between gap-4" style={{ '--n': 0 } as React.CSSProperties}>
         <AppLink
-          to="/projects"
+          to={returnPath}
           className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-text-secondary dark:text-dark-text-secondary hover:text-text-primary dark:hover:text-dark-text-primary transition-colors group"
         >
           <ArrowLeftIcon
             aria-hidden="true"
             className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1"
           />
-          <span>All projects</span>
+          <span>{returnPath === '/' ? 'Back to home' : 'All projects'}</span>
         </AppLink>
 
         <span className="font-mono text-xs text-text-secondary/70 dark:text-dark-text-secondary/70">
@@ -88,7 +90,7 @@ export const ProjectDetailsPage: React.FC = () => {
               </a>
             </div>
           </div>
-          <PhonePreview slides={project.media ?? []} />
+          <PhonePreview slides={project.media ?? []} transitionName={`var(--project-media-${project.id}, none)`} />
         </header>
       ) : (
       <header className="rise-in space-y-6" style={{ '--n': 1 } as React.CSSProperties}>
@@ -153,7 +155,7 @@ export const ProjectDetailsPage: React.FC = () => {
       {betterLifeScreen ? null : project.media?.length ? (
         <ProjectPreview key={project.id} project={project} />
       ) : (
-        <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2 } as React.CSSProperties}>
+        <div className="rise-in w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card" style={{ '--n': 2, viewTransitionName: `var(--project-media-${project.id}, none)` } as React.CSSProperties}>
           <ProjectCover project={project} variant="hero" />
         </div>
       )}

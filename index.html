@@ -202,6 +202,19 @@
       }
 
       /* Page Load Animations (Faiz-inspired blur + vertical rise) */
+      [data-project-transition] .rise-in {
+        animation-delay: -1s !important;
+      }
+      [data-project-transition]::view-transition-group(project-media) {
+        z-index: 1;
+        animation-duration: 460ms;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      [data-project-transition]::view-transition-old(root),
+      [data-project-transition]::view-transition-new(root) {
+        z-index: auto;
+      }
+
       @keyframes rise-in {
         from {
           opacity: 0;
@@ -218,6 +231,46 @@
       .rise-in {
         animation: rise-in 520ms var(--ease-out) both;
         animation-delay: calc(var(--n, 0) * 90ms);
+      }
+
+      .profile-frame-reveal img {
+        pointer-events: none;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .profile-frame-reveal::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: inherit;
+          border-right: 1px solid currentColor;
+          animation: profile-frame-sweep 440ms var(--ease-out) 90ms both;
+        }
+        .home-hero-copy {
+          animation-delay: calc(340ms + var(--n, 0) * 90ms);
+        }
+        [data-project-transition] .profile-frame-reveal::after {
+          animation-delay: -1s;
+        }
+      }
+
+      @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+        .profile-frame-reveal {
+          translate: var(--frame-x, 0px) var(--frame-y, 0px);
+          transition: translate 180ms var(--ease-out);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .profile-frame-reveal:hover img {
+          transform: scale(2.2);
+          transition: none;
+        }
+      }
+
+      @keyframes profile-frame-sweep {
+        to { transform: translateX(-100%); }
       }
 
       @keyframes fadeInUp {
@@ -287,6 +340,27 @@
         opacity: 1;
         filter: blur(0);
         transform: none;
+      }
+      .skills-group::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 1.5rem;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.45;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .skills-group::before {
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 450ms var(--ease-out);
+          transition-delay: inherit;
+        }
+        .skills-group.is-visible::before {
+          transform: scaleX(1);
+        }
       }
       :focus-visible {
         outline: 2px solid #FF6308;

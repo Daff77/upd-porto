@@ -30,7 +30,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       } ${className}`}
     >
       {/* 16:10 Cover */}
-      <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
+      <div id={`project-card-${project.id}`} style={{ viewTransitionName: `var(--project-media-${project.id}, none)` }} className="w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
         <ProjectCover project={project} variant="card" />
       </div>
 

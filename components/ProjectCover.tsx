@@ -9,6 +9,12 @@ interface ProjectCoverProps {
 export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) => {
   const firstMedia = project.media?.[0];
   const recipeMedia = project.id === 'better-life' ? project.media?.[3] : undefined;
+  const imageFit =
+    project.id === 'pos-cafe' && variant === 'card'
+      ? 'object-cover object-top'
+      : project.id === 'camhub' && variant === 'card'
+        ? 'object-cover'
+        : 'object-contain';
 
   if (variant === 'card' && firstMedia && recipeMedia) {
     return (
@@ -36,7 +42,7 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) 
       <img
         src={firstMedia.src}
         alt={firstMedia.alt}
-        className={`w-full h-full ${project.id === 'camhub' && variant === 'card' ? 'object-cover' : 'object-contain'}`}
+        className={`w-full h-full ${imageFit}`}
       />
     );
   }

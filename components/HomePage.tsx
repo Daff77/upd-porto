@@ -27,7 +27,7 @@ export const HomePage: React.FC = () => {
           className="rise-in flex items-center gap-4"
           style={{ '--n': 0 } as React.CSSProperties}
         >
-          <ProfilePhoto variant="avatar" />
+          <ProfilePhoto variant="avatar" frameReveal />
           <div className="min-w-0 space-y-0.5">
             <p className="font-hand text-2xl sm:text-[1.75rem] leading-none text-accent dark:text-dark-accent -rotate-2 origin-left">
               Hi, I&apos;m Daffa.
@@ -44,7 +44,7 @@ export const HomePage: React.FC = () => {
 
         {/* Name + roles */}
         <div
-          className="rise-in space-y-3"
+          className="rise-in home-hero-copy space-y-3"
           style={{ '--n': 1 } as React.CSSProperties}
         >
           <h1
@@ -60,7 +60,7 @@ export const HomePage: React.FC = () => {
 
         {/* Lead + intro */}
         <div
-          className="rise-in space-y-4 max-w-[62ch]"
+          className="rise-in home-hero-copy space-y-4 max-w-[62ch]"
           style={{ '--n': 2 } as React.CSSProperties}
         >
           <p className="text-xl sm:text-2xl font-medium leading-snug tracking-[-0.01em] text-balance text-text-primary dark:text-dark-text-primary max-w-[34ch]">
@@ -179,9 +179,7 @@ export const HomePage: React.FC = () => {
           }
         />
 
-        <Reveal>
-          <SkillsMatrix compact />
-        </Reveal>
+        <SkillsMatrix compact />
       </section>
 
       {/* Activity */}

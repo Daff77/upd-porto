@@ -4,7 +4,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from './icons';
 
 const button = 'grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current hover:bg-black/5 disabled:opacity-35 dark:hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
 
-export function PhonePreview({ slides }: { slides: ProjectMedia[] }) {
+export function PhonePreview({ slides, transitionName }: { slides: ProjectMedia[]; transitionName?: string }) {
   const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const slide = slides[index];
@@ -21,7 +21,7 @@ export function PhonePreview({ slides }: { slides: ProjectMedia[] }) {
 
   return (
     <figure className="mx-auto w-full max-w-[15rem] text-center" aria-label="Better Life screenshots">
-      <div className="rounded-[1.75rem] bg-neutral-900 p-2 shadow-xl">
+      <div style={{ viewTransitionName: transitionName }} className="rounded-[1.75rem] bg-neutral-900 p-2 shadow-xl">
         <div
           ref={track}
           onScroll={(event) => {

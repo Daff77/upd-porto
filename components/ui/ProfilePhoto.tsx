@@ -4,11 +4,13 @@ import { PROFILE } from '../../constants';
 interface ProfilePhotoProps {
   variant?: 'avatar' | 'portrait';
   className?: string;
+  frameReveal?: boolean;
 }
 
 export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   variant = 'avatar',
   className = '',
+  frameReveal = false,
 }) => {
   const [imgError, setImgError] = useState(false);
   const showImage = Boolean(PROFILE.photoUrl) && !imgError;
@@ -21,7 +23,19 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
   if (showImage) {
     return (
       <div
-        className={`group relative overflow-hidden rounded-2xl border border-border-subtle dark:border-dark-border-subtle bg-card-hover dark:bg-dark-card ${sizeClass} ${className}`}
+        className={`group relative overflow-hidden rounded-2xl border border-border-subtle dark:border-dark-border-subtle bg-card-hover dark:bg-dark-card ${sizeClass} ${className} ${frameReveal ? 'profile-frame-reveal' : ''}`}
+        onPointerMove={frameReveal ? (event) => {
+          if (event.pointerType !== 'mouse') return;
+          const frame = event.currentTarget;
+          const x = (event.nativeEvent.offsetX / frame.clientWidth - 0.5) * 4;
+          const y = (event.nativeEvent.offsetY / frame.clientHeight - 0.5) * 4;
+          frame.style.setProperty('--frame-x', `${x}px`);
+          frame.style.setProperty('--frame-y', `${y}px`);
+        } : undefined}
+        onPointerLeave={frameReveal ? (event) => {
+          event.currentTarget.style.removeProperty('--frame-x');
+          event.currentTarget.style.removeProperty('--frame-y');
+        } : undefined}
       >
         <img
           src={PROFILE.photoUrl}

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import { useLenis } from 'lenis/react';
@@ -48,6 +49,7 @@ const AppContent: React.FC = () => {
   });
 
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const projectTransition = useRef(false);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -142,6 +144,38 @@ const AppContent: React.FC = () => {
   const go = useCallback(
     (path: string) => {
       if (path === location.pathname) return;
+      const fromList = location.pathname === '/' || location.pathname === '/projects';
+      const projectId = path.match(/^\/project\/([\w-]+)$/)?.[1];
+      const opening = fromList && projectId && document.getElementById(`project-card-${projectId}`);
+      const origin = location.state?.projectOrigin;
+      const returning = location.pathname.startsWith('/project/') && origin?.path === path;
+
+      if (opening || returning) {
+        if (projectTransition.current) return;
+        const options = opening
+          ? { state: { projectOrigin: { path: location.pathname, scrollY: window.scrollY } } }
+          : { replace: true, state: { restoreScrollY: origin.scrollY } };
+
+        if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          navigate(path, options);
+          return;
+        }
+
+        projectTransition.current = true;
+        const root = document.documentElement;
+        const mediaProperty = `--project-media-${projectId ?? location.pathname.split('/').pop()}`;
+        root.style.setProperty(mediaProperty, 'project-media');
+        root.setAttribute('data-project-transition', '');
+        const transition = document.startViewTransition(() => {
+          flushSync(() => navigate(path, options));
+        });
+        void transition.finished.finally(() => {
+          root.removeAttribute('data-project-transition');
+          root.style.removeProperty(mediaProperty);
+          projectTransition.current = false;
+        }).catch(() => {});
+        return;
+      }
       setIsTransitioning(true);
       setTimeout(() => {
         navigate(path);
@@ -153,7 +187,7 @@ const AppContent: React.FC = () => {
         }
       }, 150);
     },
-    [location.pathname, navigate, lenis]
+    [location.pathname, location.state, navigate, lenis]
   );
 
   // Swipe navigation tabs
@@ -207,7 +241,7 @@ const AppContent: React.FC = () => {
         className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-200"
         {...swipeHandlers}
       >
-        <SmoothScrollToTop pathname={location.pathname} />
+        <SmoothScrollToTop pathname={location.pathname} scrollY={location.state?.restoreScrollY} />
 
         <div className="w-full max-w-4xl flex flex-1 flex-col mx-auto px-5 sm:px-8 pt-4 sm:pt-6">
           <Header

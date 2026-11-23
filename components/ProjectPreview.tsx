@@ -8,6 +8,7 @@ export const ProjectPreview: React.FC<{ project: Project }> = ({ project }) => {
   const [index, setIndex] = useState(0);
   const slides = project.media ?? [];
   const slide = slides[index];
+  const useViewportCrop = project.id === 'pos-cafe';
   if (!slide) return null;
 
   const changeSlide = (direction: number) =>
@@ -23,12 +24,13 @@ export const ProjectPreview: React.FC<{ project: Project }> = ({ project }) => {
         </div>
         <a
           href={slide.src}
+          style={{ viewTransitionName: `var(--project-media-${project.id}, none)` }}
           target="_blank"
           rel="noreferrer"
           aria-label={`Open full-size screenshot. ${slide.alt}`}
-          className="flex min-w-0 items-center justify-center rounded-xl border border-border-subtle bg-white p-2 dark:border-dark-border-subtle dark:bg-black/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className={`flex min-w-0 items-center justify-center overflow-hidden rounded-xl border border-border-subtle bg-white dark:border-dark-border-subtle dark:bg-black/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${useViewportCrop ? 'aspect-[16/10]' : 'p-2'}`}
         >
-          <img src={slide.src} alt={slide.alt} className="block h-[220px] w-full object-contain md:h-[285px]" />
+          <img src={slide.src} alt={slide.alt} className={`block w-full ${useViewportCrop ? 'h-full object-cover object-top' : 'h-[220px] object-contain md:h-[285px]'}`} />
         </a>
       </div>
       {slides.length > 1 && (
