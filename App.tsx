@@ -124,7 +124,7 @@ const AppContent: React.FC = () => {
               ],
             },
             {
-              duration: 520,
+              duration: 780,
               easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
               pseudoElement: '::view-transition-new(root)',
             }
@@ -238,7 +238,7 @@ const AppContent: React.FC = () => {
   return (
     <NavigationContext.Provider value={go}>
       <div
-        className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-200"
+        className="min-h-screen flex flex-col bg-background dark:bg-dark-background text-text-primary dark:text-dark-text-primary transition-colors duration-[300ms]"
         {...swipeHandlers}
       >
         <SmoothScrollToTop pathname={location.pathname} scrollY={location.state?.restoreScrollY} />

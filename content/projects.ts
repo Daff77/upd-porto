@@ -26,7 +26,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     category: 'Full-stack mobile app',
     filter: 'mobile',
-    context: 'Full-stack project',
+    context: 'Independent project · Not deployed',
+    stage: 'In Development',
     accent: '#1E3A2F',
     summary: 'A health and nutrition app that estimates daily calorie needs — React Native on the front, an Express + TypeScript API and PostgreSQL behind it.',
     overview: [
@@ -47,10 +48,10 @@ export const PROJECTS: Project[] = [
         items: [
           'Mobile client built with React Native and Expo',
           'Backend API written in Express with TypeScript',
-          'Data stored in PostgreSQL and accessed through Drizzle ORM',
+          'PostgreSQL schema and Drizzle ORM migrations defined; API persistence integration pending',
           'Metabolism and calorie-needs estimation using the Mifflin–St Jeor equation',
           'Interface and user-experience development for the mobile app',
-          'Integration between the mobile app, the API, and the database',
+          'Mobile client connected to the REST API',
         ],
       },
     ],
@@ -79,11 +80,11 @@ export const PROJECTS: Project[] = [
     category: 'Web app · Social impact',
     filter: 'web',
     context: 'Competition project · WYIIA/IYSA',
-    stage: 'Concept',
+    stage: 'Working Prototype',
     accent: '#1E2A3A',
-    summary: 'A web-based concept for emergency psychological triage support — helping disaster volunteers record and organize initial assessments.',
+    summary: 'A working web prototype that helps disaster volunteers record and organize initial psychological assessments.',
     overview: [
-      "RapidMind is a web-based system concept designed to support initial psychological triage in emergencies and disaster-affected areas. It's built around the needs of volunteers who have to record and assess people's conditions in a more structured way.",
+      'RapidMind is a working web prototype for initial psychological triage in emergencies and disaster-affected areas. It gives volunteers a structured way to record assessments.',
       'In a disaster, volunteers may meet many people with very different conditions and needs. RapidMind explores a digital approach to collecting initial information, managing that data, and supporting the triage process.',
     ],
     problem: 'Field volunteers need to capture initial information quickly and consistently, often on mobile devices and in difficult conditions — and ad-hoc notes are hard to organize afterwards.',
@@ -96,8 +97,7 @@ export const PROJECTS: Project[] = [
     stack: ['Laravel', 'Vue', 'TypeScript', 'Inertia.js', 'Tailwind CSS', 'PostgreSQL + PostGIS', 'Dexie.js', 'Whisper (Transformers.js)'],
     features: [
       {
-        title: 'Planned system components',
-        note: 'Component scope from the project concept; implementation status is still being documented.',
+        title: 'Prototype features',
         items: [
           'Volunteer interface — a responsive, mobile-first recording flow, with voice input as an alternative way to fill in data',
           'Admin dashboard — managing and monitoring incoming information',
@@ -107,20 +107,16 @@ export const PROJECTS: Project[] = [
       },
     ],
     workAreas: {
-      title: 'Interface work explored',
+      title: 'My contribution',
       items: [
-        'Evaluating the design and refining interface layouts',
-        'Auditing English-language consistency across application pages',
-        "Finding UI sections that didn't follow the layout system",
-        'Polishing the interface to be more consistent and easier to use',
-        'Considering GPS/location data needs for use in the field',
+        'I helped turn the triage workflow into a working prototype by integrating it into the application.',
       ],
     },
     takeaways: [
       'Designing for a specific user and context — volunteers in the field',
       'Combining interface design, operational needs, data management, and AI/ML exploration in one system',
     ],
-    scopeNote: 'RapidMind is a triage-support concept, not a diagnostic tool, and it is not a substitute for mental health professionals.',
+    scopeNote: 'RapidMind is a decision-support prototype. Its triage recommendations have not been clinically validated and do not replace professional assessment.',
     links: [],
     media: [
       {
@@ -191,15 +187,16 @@ export const PROJECTS: Project[] = [
     featured: true,
     category: 'Web application',
     filter: 'web',
-    context: 'Point of sale and inventory',
+    context: 'Four-person team · Point of sale and inventory',
+    stage: 'Academic Project',
     accent: '#3A2F24',
     summary: 'A web-based point of sale for café checkout, multi-branch inventory, and sales reporting.',
     overview: [
       'NomCherry Café POS brings checkout, product management, stock tracking, and sales reports into one browser-based application.',
-      'A point-of-sale system has to keep products, transactions, and stock consistent with each other — which made this project a practical way to understand how a desktop interface, business logic, and data storage fit together.',
+      'I contributed to both the Java Swing desktop version and the Express web version as part of a four-person academic team.',
     ],
     problem: 'Café operations need sales, product data, and stock levels recorded consistently and easy to access.',
-    goal: 'Combine transaction recording and inventory management in one desktop application with a relational database behind it.',
+    goal: 'Combine transaction recording and inventory management with a relational database behind each version.',
     architecture: [
       { label: 'Browser interface', detail: 'HTML, CSS, JavaScript' },
       { label: 'Application server', detail: 'Node.js and Express' },

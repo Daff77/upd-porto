@@ -37,7 +37,7 @@ export const ExperimentRow: React.FC<ExperimentRowProps> = ({ project }) => {
 
       <span
         aria-hidden="true"
-        className="shrink-0 self-start sm:self-center text-sm text-accent-green dark:text-dark-accent-green transition-transform duration-200 group-hover:translate-x-1"
+        className="shrink-0 self-start sm:self-center text-sm text-accent-green dark:text-dark-accent-green transition-transform duration-[300ms] group-hover:translate-x-1"
       >
         &rarr;
       </span>

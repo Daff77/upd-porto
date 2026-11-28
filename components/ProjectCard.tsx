@@ -64,7 +64,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <span>Read case study</span>
           <span
             aria-hidden="true"
-            className="inline-block text-accent-green dark:text-dark-accent-green transition-transform duration-200 group-hover:translate-x-1"
+            className="inline-block text-accent-green dark:text-dark-accent-green transition-transform duration-[300ms] group-hover:translate-x-1"
           >
             &rarr;
           </span>

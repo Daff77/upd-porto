@@ -17,7 +17,7 @@ export interface SocialLink {
   icon: React.ComponentType<IconProps>;
 }
 
-export type ProjectStage = 'Concept' | 'Exploration' | 'Prototype' | 'Learning project';
+export type ProjectStage = 'Concept' | 'Exploration' | 'Prototype' | 'Learning project' | 'In Development' | 'Working Prototype' | 'Academic Project';
 export type ProjectFilter = 'web' | 'mobile' | 'systems' | 'desktop' | 'ml';
 
 export interface ProjectLink {

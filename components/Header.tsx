@@ -58,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, theme, toggleTheme 
               {item.name}
               <span
                 aria-hidden="true"
-                className={`absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent dark:bg-dark-accent transition-transform duration-200 origin-left ${
+                className={`absolute inset-x-0 -bottom-0.5 h-[2px] rounded-full bg-accent dark:bg-dark-accent transition-transform duration-[300ms] origin-left ${
                   active ? 'scale-x-100' : 'scale-x-0'
                 }`}
               />

@@ -5,14 +5,23 @@ import { ArrowLeftIcon, ArrowRightIcon } from './icons';
 const control = 'inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-subtle dark:border-dark-border-subtle hover:bg-black/5 dark:hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
 
 export const ProjectPreview: React.FC<{ project: Project }> = ({ project }) => {
-  const [index, setIndex] = useState(0);
+  const [{ index, direction }, setSelection] = useState({ index: 0, direction: 0 });
   const slides = project.media ?? [];
   const slide = slides[index];
   const useViewportCrop = project.id === 'pos-cafe';
   if (!slide) return null;
 
-  const changeSlide = (direction: number) =>
-    setIndex((current) => (current + direction + slides.length) % slides.length);
+  const changeSlide = (step: number) =>
+    setSelection((current) => ({
+      index: (current.index + step + slides.length) % slides.length,
+      direction: step,
+    }));
+
+  const selectSlide = (position: number) =>
+    setSelection((current) => position === current.index ? current : {
+      index: position,
+      direction: Math.sign(position - current.index),
+    });
 
   return (
     <section aria-label={`${project.name} preview`} className="rise-in overflow-hidden rounded-2xl border border-border-subtle bg-button-secondary-bg dark:border-dark-border-subtle dark:bg-dark-card">
@@ -30,14 +39,14 @@ export const ProjectPreview: React.FC<{ project: Project }> = ({ project }) => {
           aria-label={`Open full-size screenshot. ${slide.alt}`}
           className={`flex min-w-0 items-center justify-center overflow-hidden rounded-xl border border-border-subtle bg-white dark:border-dark-border-subtle dark:bg-black/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${useViewportCrop ? 'aspect-[16/10]' : 'p-2'}`}
         >
-          <img src={slide.src} alt={slide.alt} className={`block w-full ${useViewportCrop ? 'h-full object-cover object-top' : 'h-[220px] object-contain md:h-[285px]'}`} />
+          <img key={slide.src} src={slide.src} alt={slide.alt} className={`block w-full ${direction > 0 ? 'slide-reveal-next' : direction < 0 ? 'slide-reveal-prev' : ''} ${useViewportCrop ? 'h-full object-cover object-top' : 'h-[220px] object-contain md:h-[285px]'}`} />
         </a>
       </div>
       {slides.length > 1 && (
         <div className="flex items-center justify-between gap-3 border-t border-border-subtle px-4 py-2 dark:border-dark-border-subtle sm:px-7">
           <div className="flex items-center">
             {slides.map((item, position) => (
-              <button key={item.src} type="button" onClick={() => setIndex(position)} aria-label={`Slide ${position + 1}. ${item.caption || item.alt}`} aria-pressed={position === index} className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2">
+              <button key={item.src} type="button" onClick={() => selectSlide(position)} aria-label={`Slide ${position + 1}. ${item.caption || item.alt}`} aria-pressed={position === index} className="flex h-11 w-11 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2">
                 <span className={`h-2 rounded-full bg-current ${position === index ? 'w-5' : 'w-2 opacity-40'}`} aria-hidden="true" />
               </button>
             ))}

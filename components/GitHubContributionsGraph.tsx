@@ -212,7 +212,7 @@ export const GitHubContributionsGraph: React.FC = () => {
               {Array.from({ length: 53 * 7 }, (_, index) => (
                 <span
                   key={`skeleton-${index}`}
-                  className="aspect-square rounded-[3px] sm:rounded-[4px] bg-card-hover dark:bg-dark-card animate-pulse"
+                  className="aspect-square rounded-[3px] sm:rounded-[4px] bg-card-hover dark:bg-dark-card animate-[pulse_3s_cubic-bezier(0.4,0,0.6,1)_infinite]"
                 />
               ))}
             </div>
@@ -238,7 +238,7 @@ export const GitHubContributionsGraph: React.FC = () => {
                     onMouseEnter={(e) => showTooltipForCell(e.currentTarget, day)}
                     onFocus={(e) => showTooltipForCell(e.currentTarget, day)}
                     onBlur={() => setTooltip(null)}
-                    className={`aspect-square rounded-[3px] sm:rounded-[4px] transition-transform duration-100 hover:scale-110 focus-visible:outline-none ${
+                    className={`aspect-square rounded-[3px] sm:rounded-[4px] transition-transform duration-[150ms] hover:scale-110 focus-visible:outline-none ${
                       colorByLevel[day.level]
                     } ${
                       isActive

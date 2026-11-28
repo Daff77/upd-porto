@@ -45,7 +45,7 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
           src={src}
           alt={PROFILE.name}
           onError={() => setImgError(true)}
-          className={`h-full w-full object-cover ${imagePosition} motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-[var(--ease-out)] motion-safe:group-hover:scale-[1.02]`}
+          className={`h-full w-full object-cover ${imagePosition} motion-safe:transition-transform motion-safe:duration-[450ms] motion-safe:ease-[var(--ease-out)] motion-safe:group-hover:scale-[1.02]`}
         />
       </div>
     );
@@ -55,13 +55,13 @@ export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({
     <div
       role="img"
       aria-label={`${PROFILE.name} portrait space`}
-      className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-border-subtle dark:border-dark-border-subtle bg-card-hover dark:bg-dark-card text-text-secondary dark:text-dark-text-secondary select-none transition-colors duration-200 ${sizeClass} ${className}`}
+      className={`group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-border-subtle dark:border-dark-border-subtle bg-card-hover dark:bg-dark-card text-text-secondary dark:text-dark-text-secondary select-none transition-colors duration-[300ms] ${sizeClass} ${className}`}
     >
       <span
         className={
           variant === 'portrait'
-            ? 'font-display text-3xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.04]'
-            : 'font-display text-base sm:text-lg font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-300 ease-[var(--ease-out)] group-hover:scale-[1.04]'
+            ? 'font-display text-3xl font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-[450ms] ease-[var(--ease-out)] group-hover:scale-[1.04]'
+            : 'font-display text-base sm:text-lg font-medium tracking-tight text-text-primary dark:text-dark-text-primary transition-transform duration-[450ms] ease-[var(--ease-out)] group-hover:scale-[1.04]'
         }
       >
         {PROFILE.initials}

@@ -43,7 +43,7 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({
       {arrow && (
         <span
           aria-hidden="true"
-          className="inline-block opacity-65 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
+          className="inline-block opacity-65 transition-all duration-[300ms] group-hover:opacity-100 group-hover:translate-x-0.5"
         >
           &rarr;
         </span>

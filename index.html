@@ -114,7 +114,7 @@
               DEFAULT: theme("colors.accent"),
             }),
             animation: {
-              "spin-slow": "spin-slow 20s linear infinite",
+              "spin-slow": "spin-slow 30s linear infinite",
             },
             keyframes: {
               "spin-slow": {
@@ -144,7 +144,7 @@
       }
 
       .page-transition {
-        transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.45s ease-in-out;
       }
       .page-fade-enter {
         opacity: 0;
@@ -175,7 +175,7 @@
       *::after {
         transition-property:
           background-color, border-color, color, fill, stroke;
-        transition-duration: 0.3s;
+        transition-duration: 0.45s;
         transition-timing-function: ease-in-out;
       }
 
@@ -207,7 +207,7 @@
       }
       [data-project-transition]::view-transition-group(project-media) {
         z-index: 1;
-        animation-duration: 460ms;
+        animation-duration: 690ms;
         animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
       }
       [data-project-transition]::view-transition-old(root),
@@ -229,7 +229,7 @@
       }
 
       .rise-in {
-        animation: rise-in 520ms var(--ease-out) both;
+        animation: rise-in 780ms var(--ease-out) both;
         animation-delay: calc(var(--n, 0) * 90ms);
       }
 
@@ -245,7 +245,7 @@
           pointer-events: none;
           background: inherit;
           border-right: 1px solid currentColor;
-          animation: profile-frame-sweep 440ms var(--ease-out) 90ms both;
+          animation: profile-frame-sweep 660ms var(--ease-out) 90ms both;
         }
         .home-hero-copy {
           animation-delay: calc(340ms + var(--n, 0) * 90ms);
@@ -258,7 +258,7 @@
       @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
         .profile-frame-reveal {
           translate: var(--frame-x, 0px) var(--frame-y, 0px);
-          transition: translate 180ms var(--ease-out);
+          transition: translate 270ms var(--ease-out);
         }
       }
 
@@ -291,11 +291,26 @@
       }
 
       .anim-fadeInUp {
-        animation: fadeInUp 0.5s ease-out forwards;
+        animation: fadeInUp 0.75s ease-out forwards;
       }
 
       .anim-fadeIn {
-        animation: fadeIn 0.4s ease-out forwards;
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      @keyframes slide-reveal {
+        from { translate: var(--slide-reveal-offset) 0; opacity: 0.5; }
+        to { translate: 0 0; opacity: 1; }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .slide-reveal-next,
+        .slide-reveal-prev {
+          animation: slide-reveal 650ms var(--ease-out) both;
+        }
+
+        .slide-reveal-next { --slide-reveal-offset: 14%; }
+        .slide-reveal-prev { --slide-reveal-offset: -14%; }
       }
 
       .anim-delay-100 {
@@ -305,7 +320,7 @@
         animation-delay: 0.2s;
       }
       .anim-delay-300 {
-        animation-delay: 0.3s;
+        animation-delay: 0.45s;
       }
       .anim-delay-400 {
         animation-delay: 0.4s;
@@ -325,9 +340,9 @@
         filter: blur(2px);
         transform: translateY(10px);
         transition:
-          opacity 480ms var(--ease-out),
-          transform 520ms var(--ease-out),
-          filter 480ms var(--ease-out);
+          opacity 720ms var(--ease-out),
+          transform 780ms var(--ease-out),
+          filter 720ms var(--ease-out);
       }
       .reveal.is-visible {
         opacity: 1;
@@ -348,7 +363,7 @@
         .skills-group::before {
           transform: scaleX(0);
           transform-origin: left;
-          transition: transform 450ms var(--ease-out);
+          transition: transform 675ms var(--ease-out);
           transition-delay: inherit;
         }
         .skills-group.is-visible::before {

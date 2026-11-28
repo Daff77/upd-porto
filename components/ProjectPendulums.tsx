@@ -4,9 +4,9 @@ import reactLogo from '../assets/pendulum-react.webp';
 import githubLogo from '../assets/pendulum-github.webp';
 
 const logos = [
-  { name: 'Python', length: 94, period: 3100, image: pythonLogo },
-  { name: 'React', length: 131, period: 3600, image: reactLogo },
-  { name: 'GitHub', length: 106, period: 3300, image: githubLogo },
+  { name: 'Python', length: 94, period: 4650, image: pythonLogo },
+  { name: 'React', length: 131, period: 5400, image: reactLogo },
+  { name: 'GitHub', length: 106, period: 4950, image: githubLogo },
 ];
 
 type Point = { x: number; y: number };
@@ -59,7 +59,7 @@ function Pendulum({ name, length, period, image }: (typeof logos)[number]) {
       const remaining = 1 - index / 20;
       return { x: position.x * remaining, y: length + (position.y - length) * remaining };
     });
-    const [returning] = play(points, { duration: 460, easing: 'ease-out' });
+    const [returning] = play(points, { duration: 690, easing: 'ease-out' });
     void returning?.finished.then(idle, () => {});
   }
 

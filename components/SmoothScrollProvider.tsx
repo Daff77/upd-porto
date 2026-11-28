@@ -4,7 +4,7 @@ import type { LenisOptions } from 'lenis';
 import 'lenis/dist/lenis.css';
 
 const lenisOptions: LenisOptions = {
-  duration: 1.2,
+  duration: 1.8,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   touchMultiplier: 2,
   smoothWheel: true,

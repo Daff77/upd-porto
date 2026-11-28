@@ -98,7 +98,7 @@ export const HireMePage: React.FC = () => {
   };
 
   const inputBaseClasses =
-    'w-full px-4 py-3 rounded-xl border text-sm text-text-primary dark:text-dark-text-primary placeholder-text-placeholder dark:placeholder-dark-text-placeholder transition-colors duration-200';
+    'w-full px-4 py-3 rounded-xl border text-sm text-text-primary dark:text-dark-text-primary placeholder-text-placeholder dark:placeholder-dark-text-placeholder transition-colors duration-[300ms]';
   const inputNormalStateClasses =
     'bg-input-bg dark:bg-dark-input-bg border-input-border dark:border-dark-input-border';
   const inputFocusStateClasses =

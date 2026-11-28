@@ -106,7 +106,7 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) 
         {project.architecture.map((node, index) => (
           <React.Fragment key={node.label}>
             <div
-              className={`rounded-lg border border-white/15 bg-white/[0.04] transition-transform duration-300 group-hover:-translate-y-0.5 text-center ${
+              className={`rounded-lg border border-white/15 bg-white/[0.04] transition-transform duration-[450ms] group-hover:-translate-y-0.5 text-center ${
                 isHero
                   ? 'px-3 py-2 sm:px-4 sm:py-2.5 min-w-0'
                   : 'px-2 py-1.5 sm:px-2.5 sm:py-2 min-w-0'
