@@ -23,15 +23,20 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     <AppLink
       to={`/project/${project.id}`}
       aria-label={`Read case study for ${project.name}`}
-      className={`group block text-left ${
+      className={`project-spotlight group block text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${
         isWide
           ? 'md:grid md:grid-cols-[1.2fr_1fr] md:gap-8 md:items-center space-y-4 md:space-y-0'
           : 'flex flex-col gap-4'
       } ${className}`}
     >
       {/* 16:10 Cover */}
-      <div id={`project-card-${project.id}`} style={{ viewTransitionName: `var(--project-media-${project.id}, none)` }} className="w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
-        <ProjectCover project={project} variant="card" />
+      <div id={`project-card-${project.id}`} style={{ viewTransitionName: `var(--project-media-${project.id}, none)` }} className="relative isolate w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border-subtle dark:border-dark-border-subtle bg-button-secondary-bg dark:bg-dark-card">
+        <div className="project-spotlight-preview h-full w-full">
+          <ProjectCover project={project} variant="card" />
+        </div>
+        <span aria-hidden="true" className="project-spotlight-label pointer-events-none absolute bottom-3 left-3 z-20 max-w-[calc(100%-1.5rem)] truncate rounded-md bg-neutral-900 px-2.5 py-1.5 text-xs font-medium text-white">
+          {project.name}
+        </span>
       </div>
 
       {/* Details */}

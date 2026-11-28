@@ -167,7 +167,7 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ project, variant }) 
       <div className="relative z-10 flex items-end justify-between">
         <span
           className={`font-medium tracking-tight text-white ${
-            isHero ? 'text-base sm:text-xl' : 'text-sm sm:text-base'
+            isHero ? 'text-base sm:text-xl' : 'invisible text-sm sm:text-base'
           }`}
         >
           {project.name}

@@ -303,6 +303,40 @@
         to { translate: 0 0; opacity: 1; }
       }
 
+      .project-spotlight-label {
+        opacity: 0;
+      }
+
+      .project-spotlight:focus-visible .project-spotlight-label {
+        opacity: 1;
+      }
+
+      @media (hover: hover) {
+        .project-spotlight:hover .project-spotlight-label {
+          opacity: 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .project-spotlight-preview {
+          transition: transform 450ms var(--ease-out);
+        }
+
+        .project-spotlight-label {
+          transition: opacity 300ms var(--ease-out);
+        }
+
+        .project-spotlight:focus-visible .project-spotlight-preview {
+          transform: scale(1.04);
+        }
+
+        @media (hover: hover) {
+          .project-spotlight:hover .project-spotlight-preview {
+            transform: scale(1.04);
+          }
+        }
+      }
+
       @media (prefers-reduced-motion: no-preference) {
         .slide-reveal-next,
         .slide-reveal-prev {
